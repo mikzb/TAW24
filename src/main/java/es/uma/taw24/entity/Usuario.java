@@ -27,8 +27,8 @@ public class Usuario {
     @Column(name = "edad", nullable = false)
     private Short edad;
 
-    @Column(name = "permisos_adc", nullable = false)
-    private Boolean permisosAdc = false;
+    @Column(name = "permisos_adec", nullable = false)
+    private String permisosAdec;
 
     @Column(name = "sexo", nullable = false, length = 1)
     private String sexo;
@@ -81,12 +81,12 @@ public class Usuario {
         this.edad = edad;
     }
 
-    public Boolean getPermisosAdc() {
-        return permisosAdc;
+    public String getPermisosAdec() {
+        return permisosAdec;
     }
 
-    public void setPermisosAdc(Boolean permisosAdc) {
-        this.permisosAdc = permisosAdc;
+    public void setPermisosAdec(String permisosAdec) {
+        this.permisosAdec = permisosAdec;
     }
 
     public String getSexo() {
