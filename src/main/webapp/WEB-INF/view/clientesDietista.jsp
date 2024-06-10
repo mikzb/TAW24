@@ -1,11 +1,12 @@
-<%--
+<%@ page import="es.uma.taw24.entity.Usuario" %>
+<%@ page import="java.util.List" %><%--
  Pablo Rubia Arias: 100%
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    String[][] cliente = (String[][]) request.getAttribute("cliente");
+    List<Usuario> clientes = (List<Usuario>) request.getAttribute("clientes");
 %>
 
 <html>
@@ -16,17 +17,18 @@
     <h1>Tus Clientes</h1>
 
     <table border="1">
-        <%
-            for (String[] fila : cliente) {
-        %>
         <tr>
-            <% for (String palabra : fila) { %>
-            <td><%= palabra %></td>
-            <% } %>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Dieta</th>
         </tr>
-        <%
-            }
-        %>
+        <% for (Usuario cliente : clientes) { %>
+        <tr>
+            <td><%= cliente.getNombre() %></td>
+            <td><%= cliente.getApellidos() %></td>
+            <td><a>Ver Dieta</a></td>
+        </tr>
+        <% } %>
     </table>
 
     <button onclick="window.location.href='/'">Volver</button>

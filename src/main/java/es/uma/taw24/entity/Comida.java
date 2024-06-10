@@ -12,7 +12,7 @@ public class Comida {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "Descripcion", nullable = false, length = 150)
+    @Column(name = "descripcion", nullable = false, length = 150)
     private String descripcion;
 
     public Integer getId() {

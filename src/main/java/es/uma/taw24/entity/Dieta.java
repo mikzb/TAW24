@@ -3,6 +3,7 @@ package es.uma.taw24.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "dieta")
@@ -16,7 +17,10 @@ public class Dieta {
     private Usuario idDietista;
 
     @Column(name = "fechaCreacion", nullable = false)
-    private Instant fechaCreacion;
+    private Date fechaCreacion;
+
+    @Column(name = "descripcion", nullable = false, length = 255)
+    private String descripcion;
 
     public Integer getId() {
         return id;
@@ -34,12 +38,16 @@ public class Dieta {
         this.idDietista = idDietista;
     }
 
-    public Instant getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Instant fechaCreacion) {
+    public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+
+    public String getDescripcion() {return descripcion;}
+
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
 }

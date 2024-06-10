@@ -8,12 +8,8 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hola Gimnasio</h1>
-<form method="post" action="/dietaDietista">
-    <input type="submit" value="DietaDietista">
-</form>
-<form method="post" action="/clientesDietista">
-    <input type="submit" value="clientesDietista">
-</form>
+<h1>Hola Dietista</h1>
+<button onclick="window.location.href='/dietas'">Ver Dietas</button>
+<button onclick="window.location.href='/clientesDietista'">Ver Clientes</button>
 </body>
 </html>
