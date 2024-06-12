@@ -1,7 +1,9 @@
-<%@ page import="es.uma.taw24.entity.Usuario" %>
-<%@ page import="java.util.List" %><%--
+<%--
  Pablo Rubia Arias: 100%
 --%>
+
+<%@ page import="es.uma.taw24.entity.Usuario" %>
+<%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -26,7 +28,7 @@
         <tr>
             <td><%= cliente.getNombre() %></td>
             <td><%= cliente.getApellidos() %></td>
-            <td><a>Ver Dieta</a></td>
+            <td><a href="/verDietaAsignada?id=<%= cliente.getId() %>">Ver Dieta</a></td>
         </tr>
         <% } %>
     </table>

@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name = "menu")
 public class Menu {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
     public Integer getId() {

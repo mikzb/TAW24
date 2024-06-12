@@ -6,15 +6,15 @@ import jakarta.persistence.*;
 @Table(name = "entrenador")
 public class Entrenador {
     @Id
-    @Column(name = "idUsuario", nullable = false)
+    @Column(name = "IDUSUARIO", nullable = false)
     private Integer id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idUsuario", nullable = false)
+    @JoinColumn(name = "IDUSUARIO", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "Crosstraining", nullable = false)
+    @Column(name = "CROSSTRAINING", nullable = false)
     private Boolean crosstraining = false;
 
     public Integer getId() {

@@ -8,15 +8,15 @@ public class RutinaUsuario {
     @EmbeddedId
     private RutinaUsuarioId id;
 
-    @MapsId("idRutina")
+    @MapsId("idrutina")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idRutina", nullable = false)
-    private Rutina idRutina;
+    @JoinColumn(name = "IDRUTINA", nullable = false)
+    private Rutina idrutina;
 
-    @MapsId("idUsuario")
+    @MapsId("idusuario")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idUsuario", nullable = false)
-    private Usuario idUsuario;
+    @JoinColumn(name = "IDUSUARIO", nullable = false)
+    private Usuario idusuario;
 
     public RutinaUsuarioId getId() {
         return id;
@@ -26,20 +26,20 @@ public class RutinaUsuario {
         this.id = id;
     }
 
-    public Rutina getIdRutina() {
-        return idRutina;
+    public Rutina getIdrutina() {
+        return idrutina;
     }
 
-    public void setIdRutina(Rutina idRutina) {
-        this.idRutina = idRutina;
+    public void setIdrutina(Rutina idrutina) {
+        this.idrutina = idrutina;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getIdusuario() {
+        return idusuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdusuario(Usuario idusuario) {
+        this.idusuario = idusuario;
     }
 
 }

@@ -11,10 +11,10 @@ import java.time.Instant;
 @Table(name = "dia")
 public class Dia {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @Column(name = "fecha", nullable = false)
+    @Column(name = "FECHA", nullable = false)
     private Instant fecha;
 
     public Integer getId() {

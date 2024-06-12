@@ -9,10 +9,10 @@ import jakarta.persistence.Table;
 @Table(name = "sesion")
 public class Sesion {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @Column(name = "Crosstraining", nullable = false)
+    @Column(name = "CROSSTRAINING", nullable = false)
     private Boolean crosstraining = false;
 
     public Integer getId() {

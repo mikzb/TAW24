@@ -6,17 +6,17 @@ import jakarta.persistence.*;
 @Table(name = "ejercicio")
 public class Ejercicio {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idTipo", nullable = false)
-    private Tipo idTipo;
+    @JoinColumn(name = "IDTIPO", nullable = false)
+    private Tipo idtipo;
 
-    @Column(name = "nombre", nullable = false, length = 90)
+    @Column(name = "NOMBRE", nullable = false, length = 90)
     private String nombre;
 
-    @Column(name = "url", length = 256)
+    @Column(name = "URL", length = 256)
     private String url;
 
     public Integer getId() {
@@ -27,12 +27,12 @@ public class Ejercicio {
         this.id = id;
     }
 
-    public Tipo getIdTipo() {
-        return idTipo;
+    public Tipo getIdtipo() {
+        return idtipo;
     }
 
-    public void setIdTipo(Tipo idTipo) {
-        this.idTipo = idTipo;
+    public void setIdtipo(Tipo idtipo) {
+        this.idtipo = idtipo;
     }
 
     public String getNombre() {

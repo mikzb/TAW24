@@ -8,15 +8,15 @@ public class EntrenadorUsuario {
     @EmbeddedId
     private EntrenadorUsuarioId id;
 
-    @MapsId("idUsuario")
+    @MapsId("idusuario")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idUsuario", nullable = false)
-    private Usuario idUsuario;
+    @JoinColumn(name = "IDUSUARIO", nullable = false)
+    private Usuario idusuario;
 
-    @MapsId("idEntrenador")
+    @MapsId("identrenador")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idEntrenador", nullable = false)
-    private Entrenador idEntrenador;
+    @JoinColumn(name = "IDENTRENADOR", nullable = false)
+    private Entrenador identrenador;
 
     public EntrenadorUsuarioId getId() {
         return id;
@@ -26,20 +26,20 @@ public class EntrenadorUsuario {
         this.id = id;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getIdusuario() {
+        return idusuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdusuario(Usuario idusuario) {
+        this.idusuario = idusuario;
     }
 
-    public Entrenador getIdEntrenador() {
-        return idEntrenador;
+    public Entrenador getIdentrenador() {
+        return identrenador;
     }
 
-    public void setIdEntrenador(Entrenador idEntrenador) {
-        this.idEntrenador = idEntrenador;
+    public void setIdentrenador(Entrenador identrenador) {
+        this.identrenador = identrenador;
     }
 
 }

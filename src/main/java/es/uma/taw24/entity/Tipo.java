@@ -9,10 +9,10 @@ import jakarta.persistence.Table;
 @Table(name = "tipo")
 public class Tipo {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @Column(name = "nombre", nullable = false, length = 45)
+    @Column(name = "NOMBRE", nullable = false, length = 45)
     private String nombre;
 
     public Integer getId() {

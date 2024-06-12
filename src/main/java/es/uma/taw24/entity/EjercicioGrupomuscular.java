@@ -8,15 +8,15 @@ public class EjercicioGrupomuscular {
     @EmbeddedId
     private EjercicioGrupomuscularId id;
 
-    @MapsId("idEjercicio")
+    @MapsId("idejercicio")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idEjercicio", nullable = false)
-    private Ejercicio idEjercicio;
+    @JoinColumn(name = "IDEJERCICIO", nullable = false)
+    private Ejercicio idejercicio;
 
-    @MapsId("idGrupoMuscular")
+    @MapsId("idgrupomuscular")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idGrupoMuscular", nullable = false)
-    private Grupomuscular idGrupoMuscular;
+    @JoinColumn(name = "IDGRUPOMUSCULAR", nullable = false)
+    private Grupomuscular idgrupomuscular;
 
     public EjercicioGrupomuscularId getId() {
         return id;
@@ -26,20 +26,20 @@ public class EjercicioGrupomuscular {
         this.id = id;
     }
 
-    public Ejercicio getIdEjercicio() {
-        return idEjercicio;
+    public Ejercicio getIdejercicio() {
+        return idejercicio;
     }
 
-    public void setIdEjercicio(Ejercicio idEjercicio) {
-        this.idEjercicio = idEjercicio;
+    public void setIdejercicio(Ejercicio idejercicio) {
+        this.idejercicio = idejercicio;
     }
 
-    public Grupomuscular getIdGrupoMuscular() {
-        return idGrupoMuscular;
+    public Grupomuscular getIdgrupomuscular() {
+        return idgrupomuscular;
     }
 
-    public void setIdGrupoMuscular(Grupomuscular idGrupoMuscular) {
-        this.idGrupoMuscular = idGrupoMuscular;
+    public void setIdgrupomuscular(Grupomuscular idgrupomuscular) {
+        this.idgrupomuscular = idgrupomuscular;
     }
 
 }

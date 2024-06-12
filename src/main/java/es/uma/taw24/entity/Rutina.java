@@ -8,15 +8,15 @@ import java.time.Instant;
 @Table(name = "rutina")
 public class Rutina {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idEntrenador", nullable = false)
-    private Entrenador idEntrenador;
+    @JoinColumn(name = "IDENTRENADOR", nullable = false)
+    private Entrenador identrenador;
 
-    @Column(name = "fechaCreacion", nullable = false)
-    private Instant fechaCreacion;
+    @Column(name = "FECHACREACION", nullable = false)
+    private Instant fechacreacion;
 
     public Integer getId() {
         return id;
@@ -26,20 +26,20 @@ public class Rutina {
         this.id = id;
     }
 
-    public Entrenador getIdEntrenador() {
-        return idEntrenador;
+    public Entrenador getIdentrenador() {
+        return identrenador;
     }
 
-    public void setIdEntrenador(Entrenador idEntrenador) {
-        this.idEntrenador = idEntrenador;
+    public void setIdentrenador(Entrenador identrenador) {
+        this.identrenador = identrenador;
     }
 
-    public Instant getFechaCreacion() {
-        return fechaCreacion;
+    public Instant getFechacreacion() {
+        return fechacreacion;
     }
 
-    public void setFechaCreacion(Instant fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFechacreacion(Instant fechacreacion) {
+        this.fechacreacion = fechacreacion;
     }
 
 }

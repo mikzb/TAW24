@@ -8,27 +8,27 @@ import java.util.Objects;
 
 @Embeddable
 public class EjercicioGrupomuscularId implements java.io.Serializable {
-    private static final long serialVersionUID = 3465168116365907589L;
-    @Column(name = "idEjercicio", nullable = false)
-    private Integer idEjercicio;
+    private static final long serialVersionUID = 3419765032145241515L;
+    @Column(name = "IDEJERCICIO", nullable = false)
+    private Integer idejercicio;
 
-    @Column(name = "idGrupoMuscular", nullable = false)
-    private Integer idGrupoMuscular;
+    @Column(name = "IDGRUPOMUSCULAR", nullable = false)
+    private Integer idgrupomuscular;
 
-    public Integer getIdEjercicio() {
-        return idEjercicio;
+    public Integer getIdejercicio() {
+        return idejercicio;
     }
 
-    public void setIdEjercicio(Integer idEjercicio) {
-        this.idEjercicio = idEjercicio;
+    public void setIdejercicio(Integer idejercicio) {
+        this.idejercicio = idejercicio;
     }
 
-    public Integer getIdGrupoMuscular() {
-        return idGrupoMuscular;
+    public Integer getIdgrupomuscular() {
+        return idgrupomuscular;
     }
 
-    public void setIdGrupoMuscular(Integer idGrupoMuscular) {
-        this.idGrupoMuscular = idGrupoMuscular;
+    public void setIdgrupomuscular(Integer idgrupomuscular) {
+        this.idgrupomuscular = idgrupomuscular;
     }
 
     @Override
@@ -36,13 +36,13 @@ public class EjercicioGrupomuscularId implements java.io.Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         EjercicioGrupomuscularId entity = (EjercicioGrupomuscularId) o;
-        return Objects.equals(this.idEjercicio, entity.idEjercicio) &&
-                Objects.equals(this.idGrupoMuscular, entity.idGrupoMuscular);
+        return Objects.equals(this.idgrupomuscular, entity.idgrupomuscular) &&
+                Objects.equals(this.idejercicio, entity.idejercicio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEjercicio, idGrupoMuscular);
+        return Objects.hash(idgrupomuscular, idejercicio);
     }
 
 }

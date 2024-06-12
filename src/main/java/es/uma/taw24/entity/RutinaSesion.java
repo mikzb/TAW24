@@ -8,18 +8,18 @@ public class RutinaSesion {
     @EmbeddedId
     private RutinaSesionId id;
 
-    @MapsId("idRutina")
+    @MapsId("idrutina")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idRutina", nullable = false)
-    private Rutina idRutina;
+    @JoinColumn(name = "IDRUTINA", nullable = false)
+    private Rutina idrutina;
 
-    @MapsId("idSesion")
+    @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idSesion", nullable = false)
-    private Sesion idSesion;
+    @JoinColumn(name = "IDSESION", nullable = false)
+    private Sesion idsesion;
 
-    @Column(name = "diaDeSemana", nullable = false, length = 10)
-    private String diaDeSemana;
+    @Column(name = "DIADESEMANA", nullable = false, length = 10)
+    private String diadesemana;
 
     public RutinaSesionId getId() {
         return id;
@@ -29,28 +29,28 @@ public class RutinaSesion {
         this.id = id;
     }
 
-    public Rutina getIdRutina() {
-        return idRutina;
+    public Rutina getIdrutina() {
+        return idrutina;
     }
 
-    public void setIdRutina(Rutina idRutina) {
-        this.idRutina = idRutina;
+    public void setIdrutina(Rutina idrutina) {
+        this.idrutina = idrutina;
     }
 
-    public Sesion getIdSesion() {
-        return idSesion;
+    public Sesion getIdsesion() {
+        return idsesion;
     }
 
-    public void setIdSesion(Sesion idSesion) {
-        this.idSesion = idSesion;
+    public void setIdsesion(Sesion idsesion) {
+        this.idsesion = idsesion;
     }
 
-    public String getDiaDeSemana() {
-        return diaDeSemana;
+    public String getDiadesemana() {
+        return diadesemana;
     }
 
-    public void setDiaDeSemana(String diaDeSemana) {
-        this.diaDeSemana = diaDeSemana;
+    public void setDiadesemana(String diadesemana) {
+        this.diadesemana = diadesemana;
     }
 
 }

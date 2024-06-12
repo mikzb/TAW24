@@ -8,35 +8,35 @@ public class SesionEjercicio {
     @EmbeddedId
     private SesionEjercicioId id;
 
-    @MapsId("idSesion")
+    @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idSesion", nullable = false)
-    private Sesion idSesion;
+    @JoinColumn(name = "IDSESION", nullable = false)
+    private Sesion idsesion;
 
-    @MapsId("idEjercicio")
+    @MapsId("idejercicio")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idEjercicio", nullable = false)
-    private Ejercicio idEjercicio;
+    @JoinColumn(name = "IDEJERCICIO", nullable = false)
+    private Ejercicio idejercicio;
 
-    @Column(name = "repeticiones")
+    @Column(name = "REPETICIONES")
     private Integer repeticiones;
 
-    @Column(name = "duracion")
+    @Column(name = "DURACION")
     private Integer duracion;
 
-    @Column(name = "peso")
+    @Column(name = "PESO")
     private Short peso;
 
-    @Column(name = "completado", nullable = false)
+    @Column(name = "COMPLETADO", nullable = false)
     private Boolean completado = false;
 
-    @Column(name = "orden", nullable = false)
+    @Column(name = "ORDEN", nullable = false)
     private Integer orden;
 
-    @Column(name = "velocidad")
+    @Column(name = "VELOCIDAD")
     private Integer velocidad;
 
-    @Column(name = "distancia")
+    @Column(name = "DISTANCIA")
     private Integer distancia;
 
     public SesionEjercicioId getId() {
@@ -47,20 +47,20 @@ public class SesionEjercicio {
         this.id = id;
     }
 
-    public Sesion getIdSesion() {
-        return idSesion;
+    public Sesion getIdsesion() {
+        return idsesion;
     }
 
-    public void setIdSesion(Sesion idSesion) {
-        this.idSesion = idSesion;
+    public void setIdsesion(Sesion idsesion) {
+        this.idsesion = idsesion;
     }
 
-    public Ejercicio getIdEjercicio() {
-        return idEjercicio;
+    public Ejercicio getIdejercicio() {
+        return idejercicio;
     }
 
-    public void setIdEjercicio(Ejercicio idEjercicio) {
-        this.idEjercicio = idEjercicio;
+    public void setIdejercicio(Ejercicio idejercicio) {
+        this.idejercicio = idejercicio;
     }
 
     public Integer getRepeticiones() {

@@ -9,28 +9,28 @@ import jakarta.persistence.Table;
 @Table(name = "usuario")
 public class Usuario {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @Column(name = "email", nullable = false, length = 90)
+    @Column(name = "EMAIL", nullable = false, length = 90)
     private String email;
 
-    @Column(name = "passwordHash", nullable = false, length = 90)
-    private String passwordHash;
+    @Column(name = "PASSWORDHASH", nullable = false, length = 90)
+    private String passwordhash;
 
-    @Column(name = "nombre", nullable = false, length = 45)
+    @Column(name = "NOMBRE", nullable = false, length = 45)
     private String nombre;
 
-    @Column(name = "apellidos", nullable = false, length = 90)
+    @Column(name = "APELLIDOS", nullable = false, length = 90)
     private String apellidos;
 
-    @Column(name = "edad", nullable = false)
+    @Column(name = "EDAD", nullable = false)
     private Short edad;
 
-    @Column(name = "permisos_adec", nullable = false)
-    private String permisosAdec;
+    @Column(name = "PERMISOS_ADC", nullable = false)
+    private Boolean permisosAdc = false;
 
-    @Column(name = "sexo", nullable = false, length = 1)
+    @Column(name = "SEXO", nullable = false, length = 1)
     private String sexo;
 
     public Integer getId() {
@@ -49,12 +49,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPasswordhash() {
+        return passwordhash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPasswordhash(String passwordhash) {
+        this.passwordhash = passwordhash;
     }
 
     public String getNombre() {
@@ -81,12 +81,12 @@ public class Usuario {
         this.edad = edad;
     }
 
-    public String getPermisosAdec() {
-        return permisosAdec;
+    public Boolean getPermisosAdc() {
+        return permisosAdc;
     }
 
-    public void setPermisosAdec(String permisosAdec) {
-        this.permisosAdec = permisosAdec;
+    public void setPermisosAdc(Boolean permisosAdc) {
+        this.permisosAdc = permisosAdc;
     }
 
     public String getSexo() {

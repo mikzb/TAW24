@@ -8,17 +8,17 @@ public class MenuDia {
     @EmbeddedId
     private MenuDiaId id;
 
-    @MapsId("idMenu")
+    @MapsId("idmenu")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idMenu", nullable = false)
-    private Menu idMenu;
+    @JoinColumn(name = "IDMENU", nullable = false)
+    private Menu idmenu;
 
-    @MapsId("idDia")
+    @MapsId("iddia")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idDia", nullable = false)
-    private Dia idDia;
+    @JoinColumn(name = "IDDIA", nullable = false)
+    private Dia iddia;
 
-    @Column(name = "Completado", nullable = false)
+    @Column(name = "COMPLETADO", nullable = false)
     private Boolean completado = false;
 
     public MenuDiaId getId() {
@@ -29,20 +29,20 @@ public class MenuDia {
         this.id = id;
     }
 
-    public Menu getIdMenu() {
-        return idMenu;
+    public Menu getIdmenu() {
+        return idmenu;
     }
 
-    public void setIdMenu(Menu idMenu) {
-        this.idMenu = idMenu;
+    public void setIdmenu(Menu idmenu) {
+        this.idmenu = idmenu;
     }
 
-    public Dia getIdDia() {
-        return idDia;
+    public Dia getIddia() {
+        return iddia;
     }
 
-    public void setIdDia(Dia idDia) {
-        this.idDia = idDia;
+    public void setIddia(Dia iddia) {
+        this.iddia = iddia;
     }
 
     public Boolean getCompletado() {

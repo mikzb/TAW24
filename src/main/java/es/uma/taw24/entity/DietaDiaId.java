@@ -8,27 +8,27 @@ import java.util.Objects;
 
 @Embeddable
 public class DietaDiaId implements java.io.Serializable {
-    private static final long serialVersionUID = -8878480350431423480L;
-    @Column(name = "idDieta", nullable = false)
-    private Integer idDieta;
+    private static final long serialVersionUID = -2918428673748996717L;
+    @Column(name = "IDDIETA", nullable = false)
+    private Integer iddieta;
 
-    @Column(name = "idDia", nullable = false)
-    private Integer idDia;
+    @Column(name = "IDDIA", nullable = false)
+    private Integer iddia;
 
-    public Integer getIdDieta() {
-        return idDieta;
+    public Integer getIddieta() {
+        return iddieta;
     }
 
-    public void setIdDieta(Integer idDieta) {
-        this.idDieta = idDieta;
+    public void setIddieta(Integer iddieta) {
+        this.iddieta = iddieta;
     }
 
-    public Integer getIdDia() {
-        return idDia;
+    public Integer getIddia() {
+        return iddia;
     }
 
-    public void setIdDia(Integer idDia) {
-        this.idDia = idDia;
+    public void setIddia(Integer iddia) {
+        this.iddia = iddia;
     }
 
     @Override
@@ -36,13 +36,13 @@ public class DietaDiaId implements java.io.Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         DietaDiaId entity = (DietaDiaId) o;
-        return Objects.equals(this.idDieta, entity.idDieta) &&
-                Objects.equals(this.idDia, entity.idDia);
+        return Objects.equals(this.iddieta, entity.iddieta) &&
+                Objects.equals(this.iddia, entity.iddia);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idDieta, idDia);
+        return Objects.hash(iddieta, iddia);
     }
 
 }

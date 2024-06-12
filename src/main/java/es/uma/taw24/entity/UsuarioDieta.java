@@ -8,15 +8,15 @@ public class UsuarioDieta {
     @EmbeddedId
     private UsuarioDietaId id;
 
-    @MapsId("idUsuario")
+    @MapsId("idusuario")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idUsuario", nullable = false)
-    private Usuario idUsuario;
+    @JoinColumn(name = "IDUSUARIO", nullable = false)
+    private Usuario idusuario;
 
-    @MapsId("idDieta")
+    @MapsId("iddieta")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idDieta", nullable = false)
-    private Dieta idDieta;
+    @JoinColumn(name = "IDDIETA", nullable = false)
+    private Dieta iddieta;
 
     public UsuarioDietaId getId() {
         return id;
@@ -26,20 +26,20 @@ public class UsuarioDieta {
         this.id = id;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getIdusuario() {
+        return idusuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdusuario(Usuario idusuario) {
+        this.idusuario = idusuario;
     }
 
-    public Dieta getIdDieta() {
-        return idDieta;
+    public Dieta getIddieta() {
+        return iddieta;
     }
 
-    public void setIdDieta(Dieta idDieta) {
-        this.idDieta = idDieta;
+    public void setIddieta(Dieta iddieta) {
+        this.iddieta = iddieta;
     }
 
 }

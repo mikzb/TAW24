@@ -8,27 +8,27 @@ import java.util.Objects;
 
 @Embeddable
 public class SesionEjercicioId implements java.io.Serializable {
-    private static final long serialVersionUID = 4177059761140599944L;
-    @Column(name = "idSesion", nullable = false)
-    private Integer idSesion;
+    private static final long serialVersionUID = 874203322408008930L;
+    @Column(name = "IDSESION", nullable = false)
+    private Integer idsesion;
 
-    @Column(name = "idEjercicio", nullable = false)
-    private Integer idEjercicio;
+    @Column(name = "IDEJERCICIO", nullable = false)
+    private Integer idejercicio;
 
-    public Integer getIdSesion() {
-        return idSesion;
+    public Integer getIdsesion() {
+        return idsesion;
     }
 
-    public void setIdSesion(Integer idSesion) {
-        this.idSesion = idSesion;
+    public void setIdsesion(Integer idsesion) {
+        this.idsesion = idsesion;
     }
 
-    public Integer getIdEjercicio() {
-        return idEjercicio;
+    public Integer getIdejercicio() {
+        return idejercicio;
     }
 
-    public void setIdEjercicio(Integer idEjercicio) {
-        this.idEjercicio = idEjercicio;
+    public void setIdejercicio(Integer idejercicio) {
+        this.idejercicio = idejercicio;
     }
 
     @Override
@@ -36,13 +36,13 @@ public class SesionEjercicioId implements java.io.Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         SesionEjercicioId entity = (SesionEjercicioId) o;
-        return Objects.equals(this.idSesion, entity.idSesion) &&
-                Objects.equals(this.idEjercicio, entity.idEjercicio);
+        return Objects.equals(this.idejercicio, entity.idejercicio) &&
+                Objects.equals(this.idsesion, entity.idsesion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idSesion, idEjercicio);
+        return Objects.hash(idejercicio, idsesion);
     }
 
 }

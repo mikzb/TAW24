@@ -8,27 +8,27 @@ import java.util.Objects;
 
 @Embeddable
 public class EntrenadorUsuarioId implements java.io.Serializable {
-    private static final long serialVersionUID = -3028379870513485914L;
-    @Column(name = "idUsuario", nullable = false)
-    private Integer idUsuario;
+    private static final long serialVersionUID = -8329979793619828811L;
+    @Column(name = "IDUSUARIO", nullable = false)
+    private Integer idusuario;
 
-    @Column(name = "idEntrenador", nullable = false)
-    private Integer idEntrenador;
+    @Column(name = "IDENTRENADOR", nullable = false)
+    private Integer identrenador;
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getIdusuario() {
+        return idusuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdusuario(Integer idusuario) {
+        this.idusuario = idusuario;
     }
 
-    public Integer getIdEntrenador() {
-        return idEntrenador;
+    public Integer getIdentrenador() {
+        return identrenador;
     }
 
-    public void setIdEntrenador(Integer idEntrenador) {
-        this.idEntrenador = idEntrenador;
+    public void setIdentrenador(Integer identrenador) {
+        this.identrenador = identrenador;
     }
 
     @Override
@@ -36,13 +36,13 @@ public class EntrenadorUsuarioId implements java.io.Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         EntrenadorUsuarioId entity = (EntrenadorUsuarioId) o;
-        return Objects.equals(this.idUsuario, entity.idUsuario) &&
-                Objects.equals(this.idEntrenador, entity.idEntrenador);
+        return Objects.equals(this.identrenador, entity.identrenador) &&
+                Objects.equals(this.idusuario, entity.idusuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUsuario, idEntrenador);
+        return Objects.hash(identrenador, idusuario);
     }
 
 }

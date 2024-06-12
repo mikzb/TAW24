@@ -3,24 +3,20 @@ package es.uma.taw24.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Entity
 @Table(name = "dieta")
 public class Dieta {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idDietista", nullable = false)
-    private Usuario idDietista;
+    @JoinColumn(name = "IDDIETISTA", nullable = false)
+    private Usuario iddietista;
 
-    @Column(name = "fechaCreacion", nullable = false)
-    private Date fechaCreacion;
-
-    @Column(name = "descripcion", nullable = false, length = 255)
-    private String descripcion;
+    @Column(name = "FECHACREACION", nullable = false)
+    private Instant fechacreacion;
 
     public Integer getId() {
         return id;
@@ -30,24 +26,20 @@ public class Dieta {
         this.id = id;
     }
 
-    public Usuario getIdDietista() {
-        return idDietista;
+    public Usuario getIddietista() {
+        return iddietista;
     }
 
-    public void setIdDietista(Usuario idDietista) {
-        this.idDietista = idDietista;
+    public void setIddietista(Usuario iddietista) {
+        this.iddietista = iddietista;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public Instant getFechacreacion() {
+        return fechacreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFechacreacion(Instant fechacreacion) {
+        this.fechacreacion = fechacreacion;
     }
-
-    public String getDescripcion() {return descripcion;}
-
-    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
 }

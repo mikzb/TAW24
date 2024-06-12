@@ -8,27 +8,27 @@ import java.util.Objects;
 
 @Embeddable
 public class MenuDiaId implements java.io.Serializable {
-    private static final long serialVersionUID = 7263611997986438843L;
-    @Column(name = "idMenu", nullable = false)
-    private Integer idMenu;
+    private static final long serialVersionUID = 3005968475734015553L;
+    @Column(name = "IDMENU", nullable = false)
+    private Integer idmenu;
 
-    @Column(name = "idDia", nullable = false)
-    private Integer idDia;
+    @Column(name = "IDDIA", nullable = false)
+    private Integer iddia;
 
-    public Integer getIdMenu() {
-        return idMenu;
+    public Integer getIdmenu() {
+        return idmenu;
     }
 
-    public void setIdMenu(Integer idMenu) {
-        this.idMenu = idMenu;
+    public void setIdmenu(Integer idmenu) {
+        this.idmenu = idmenu;
     }
 
-    public Integer getIdDia() {
-        return idDia;
+    public Integer getIddia() {
+        return iddia;
     }
 
-    public void setIdDia(Integer idDia) {
-        this.idDia = idDia;
+    public void setIddia(Integer iddia) {
+        this.iddia = iddia;
     }
 
     @Override
@@ -36,13 +36,13 @@ public class MenuDiaId implements java.io.Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         MenuDiaId entity = (MenuDiaId) o;
-        return Objects.equals(this.idDia, entity.idDia) &&
-                Objects.equals(this.idMenu, entity.idMenu);
+        return Objects.equals(this.iddia, entity.iddia) &&
+                Objects.equals(this.idmenu, entity.idmenu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idDia, idMenu);
+        return Objects.hash(iddia, idmenu);
     }
 
 }
