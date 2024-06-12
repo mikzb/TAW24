@@ -19,12 +19,16 @@
 
 <table border="1">
     <tr>
-        <th>Descripción</th>
-        <th>Fecha</th>
-        <th>Detalles</th>
+        <th>Lunes</th>
+        <th>Martes</th>
+        <th>Miercoles</th>
+        <th>Jueves</th>
+        <th>Viernes</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
     </tr>
 </table>
 
-<button onclick="window.location.href='/'">Volver</button>
+<button onclick="window.location.href='/clientesDietista'">Volver</button>
 </body>
 </html>

@@ -18,6 +18,9 @@ public class Dieta {
     @Column(name = "FECHACREACION", nullable = false)
     private Instant fechacreacion;
 
+    @Column(name = "DESCRIPCION", nullable = false, length = 90)
+    private String descripcion;
+
     public Integer getId() {
         return id;
     }
@@ -41,5 +44,9 @@ public class Dieta {
     public void setFechacreacion(Instant fechacreacion) {
         this.fechacreacion = fechacreacion;
     }
+
+    public String getDescripcion() {return descripcion;}
+
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
 }
