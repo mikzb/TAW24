@@ -3,11 +3,11 @@
 --%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="es.uma.taw24.entity.Dieta" %>
+<%@ page import="es.uma.taw24.entity.DietaEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    Dieta dieta = (Dieta) request.getAttribute("dieta");
+    DietaEntity dieta = (DietaEntity) request.getAttribute("dieta");
 %>
 
 <html>
@@ -17,8 +17,7 @@
 <body>
 <h1>Dieta id: <%= dieta.getId() %></h1>
 
-<form:form method="post" action="/dietas/guardarDieta" modelAttribute="Dieta">
-    <form:select path=""
+<form:form method="post" action="/dietas/guardarDieta" modelAttribute="DietaEntity">
     <button>Guardar</button>
 </form:form>
 
