@@ -23,16 +23,18 @@
         <th>Descripción</th>
         <th>Fecha</th>
         <th>Detalles</th>
+        <th>Eliminar</th>
     </tr>
     <% for (DietaEntity dieta : dietas) { %>
     <tr>
         <td><%= dieta.getDescripcion() %></td>
-        <td><%= dieta.getFechaCreacion() %></td>
-        <td><a>Ver Dieta</a></td>
+        <td><%= dieta.getFechacreacion() %></td>
+        <td><a href="/verDietaCreada?id=<%= dieta.getId() %>">Ver Dieta</a></td>
+        <td><a href="/eliminarDieta?id=<%= dieta.getId() %>">Eliminar</a></td>
     </tr>
     <% } %>
 </table>
-
+<button>Crear</button>
 <button onclick="window.location.href='/'">Volver</button>
 </body>
 </html>
