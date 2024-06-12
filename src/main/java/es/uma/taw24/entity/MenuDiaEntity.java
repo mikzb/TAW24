@@ -4,44 +4,44 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "menu_dia")
-public class MenuDia {
+public class MenuDiaEntity {
     @EmbeddedId
-    private MenuDiaId id;
+    private MenuDiaIdEntity id;
 
     @MapsId("idmenu")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDMENU", nullable = false)
-    private Menu idmenu;
+    private MenuEntity idmenu;
 
     @MapsId("iddia")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDDIA", nullable = false)
-    private Dia iddia;
+    private DiaEntity iddia;
 
     @Column(name = "COMPLETADO", nullable = false)
     private Boolean completado = false;
 
-    public MenuDiaId getId() {
+    public MenuDiaIdEntity getId() {
         return id;
     }
 
-    public void setId(MenuDiaId id) {
+    public void setId(MenuDiaIdEntity id) {
         this.id = id;
     }
 
-    public Menu getIdmenu() {
+    public MenuEntity getIdmenu() {
         return idmenu;
     }
 
-    public void setIdmenu(Menu idmenu) {
+    public void setIdmenu(MenuEntity idmenu) {
         this.idmenu = idmenu;
     }
 
-    public Dia getIddia() {
+    public DiaEntity getIddia() {
         return iddia;
     }
 
-    public void setIddia(Dia iddia) {
+    public void setIddia(DiaEntity iddia) {
         this.iddia = iddia;
     }
 

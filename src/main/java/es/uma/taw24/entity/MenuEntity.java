@@ -6,14 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "comida")
-public class Comida {
+@Table(name = "menu")
+public class MenuEntity {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
-
-    @Column(name = "DESCRIPCION", nullable = false, length = 150)
-    private String descripcion;
 
     public Integer getId() {
         return id;
@@ -21,14 +18,6 @@ public class Comida {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
 }

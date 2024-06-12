@@ -6,11 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "menu")
-public class Menu {
+@Table(name = "grupomuscular")
+public class GrupomuscularEntity {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
+
+    @Column(name = "NOMBRE", nullable = false, length = 45)
+    private String nombre;
 
     public Integer getId() {
         return id;
@@ -18,6 +21,14 @@ public class Menu {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 }

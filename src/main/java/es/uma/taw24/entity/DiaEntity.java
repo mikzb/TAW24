@@ -9,7 +9,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "dia")
-public class Dia {
+public class DiaEntity {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;

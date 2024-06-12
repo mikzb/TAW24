@@ -7,13 +7,13 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Embeddable
-public class UsuarioDietaId implements java.io.Serializable {
-    private static final long serialVersionUID = 6340805097688364998L;
+public class EntrenadorUsuarioIdEntity implements java.io.Serializable {
+    private static final long serialVersionUID = -8329979793619828811L;
     @Column(name = "IDUSUARIO", nullable = false)
     private Integer idusuario;
 
-    @Column(name = "IDDIETA", nullable = false)
-    private Integer iddieta;
+    @Column(name = "IDENTRENADOR", nullable = false)
+    private Integer identrenador;
 
     public Integer getIdusuario() {
         return idusuario;
@@ -23,26 +23,26 @@ public class UsuarioDietaId implements java.io.Serializable {
         this.idusuario = idusuario;
     }
 
-    public Integer getIddieta() {
-        return iddieta;
+    public Integer getIdentrenador() {
+        return identrenador;
     }
 
-    public void setIddieta(Integer iddieta) {
-        this.iddieta = iddieta;
+    public void setIdentrenador(Integer identrenador) {
+        this.identrenador = identrenador;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UsuarioDietaId entity = (UsuarioDietaId) o;
-        return Objects.equals(this.iddieta, entity.iddieta) &&
+        EntrenadorUsuarioIdEntity entity = (EntrenadorUsuarioIdEntity) o;
+        return Objects.equals(this.identrenador, entity.identrenador) &&
                 Objects.equals(this.idusuario, entity.idusuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iddieta, idusuario);
+        return Objects.hash(identrenador, idusuario);
     }
 
 }

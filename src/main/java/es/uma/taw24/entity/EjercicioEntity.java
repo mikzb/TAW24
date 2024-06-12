@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ejercicio")
-public class Ejercicio {
+public class EjercicioEntity {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDTIPO", nullable = false)
-    private Tipo idtipo;
+    private TipoEntity idtipo;
 
     @Column(name = "NOMBRE", nullable = false, length = 90)
     private String nombre;
@@ -27,11 +27,11 @@ public class Ejercicio {
         this.id = id;
     }
 
-    public Tipo getIdtipo() {
+    public TipoEntity getIdtipo() {
         return idtipo;
     }
 
-    public void setIdtipo(Tipo idtipo) {
+    public void setIdtipo(TipoEntity idtipo) {
         this.idtipo = idtipo;
     }
 

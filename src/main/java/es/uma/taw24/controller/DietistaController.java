@@ -40,7 +40,7 @@ public class DietistaController {
 
     @GetMapping("/dietas")
     public String doDietas(Model model) {
-        List<Dieta> dietas = this.dietaRepository.findAll();
+        List<DietaEntity> dietas = this.dietaRepository.findAll();
 
         model.addAttribute("dietas", dietas);
 
@@ -118,8 +118,8 @@ public class DietistaController {
 
     @GetMapping("/verDietaAsignada")
     public String doVerDietaAsignada(Model model, @RequestParam("id") Integer id) {
-        UsuarioDieta usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
-        Dieta dieta = usuarioDieta.getIddieta();
+        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
+        DietaEntity dieta = usuarioDieta.getIddieta();
 
         model.addAttribute("dieta", dieta);
 

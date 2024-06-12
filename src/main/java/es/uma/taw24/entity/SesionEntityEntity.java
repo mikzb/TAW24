@@ -1,18 +1,16 @@
 package es.uma.taw24.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "entrenador")
-public class Entrenador {
+@Table(name = "sesion")
+public class SesionEntityEntity {
     @Id
-    @Column(name = "IDUSUARIO", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Integer id;
-
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDUSUARIO", nullable = false)
-    private Usuario usuario;
 
     @Column(name = "CROSSTRAINING", nullable = false)
     private Boolean crosstraining = false;
@@ -23,14 +21,6 @@ public class Entrenador {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public Boolean getCrosstraining() {

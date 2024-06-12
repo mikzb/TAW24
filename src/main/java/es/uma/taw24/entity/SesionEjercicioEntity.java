@@ -4,19 +4,19 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "sesion_ejercicio")
-public class SesionEjercicio {
+public class SesionEjercicioEntity {
     @EmbeddedId
-    private SesionEjercicioId id;
+    private SesionEjercicioIdEntity id;
 
     @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDSESION", nullable = false)
-    private Sesion idsesion;
+    private SesionEntityEntity idsesion;
 
     @MapsId("idejercicio")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDEJERCICIO", nullable = false)
-    private Ejercicio idejercicio;
+    private EjercicioEntity idejercicio;
 
     @Column(name = "REPETICIONES")
     private Integer repeticiones;
@@ -39,27 +39,27 @@ public class SesionEjercicio {
     @Column(name = "DISTANCIA")
     private Integer distancia;
 
-    public SesionEjercicioId getId() {
+    public SesionEjercicioIdEntity getId() {
         return id;
     }
 
-    public void setId(SesionEjercicioId id) {
+    public void setId(SesionEjercicioIdEntity id) {
         this.id = id;
     }
 
-    public Sesion getIdsesion() {
+    public SesionEntityEntity getIdsesion() {
         return idsesion;
     }
 
-    public void setIdsesion(Sesion idsesion) {
+    public void setIdsesion(SesionEntityEntity idsesion) {
         this.idsesion = idsesion;
     }
 
-    public Ejercicio getIdejercicio() {
+    public EjercicioEntity getIdejercicio() {
         return idejercicio;
     }
 
-    public void setIdejercicio(Ejercicio idejercicio) {
+    public void setIdejercicio(EjercicioEntity idejercicio) {
         this.idejercicio = idejercicio;
     }
 

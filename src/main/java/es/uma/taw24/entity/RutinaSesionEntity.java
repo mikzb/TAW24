@@ -4,44 +4,44 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "rutina_sesion")
-public class RutinaSesion {
+public class RutinaSesionEntity {
     @EmbeddedId
-    private RutinaSesionId id;
+    private RutinaSesionIdEntity id;
 
     @MapsId("idrutina")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDRUTINA", nullable = false)
-    private Rutina idrutina;
+    private RutinaEntity idrutina;
 
     @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDSESION", nullable = false)
-    private Sesion idsesion;
+    private SesionEntityEntity idsesion;
 
     @Column(name = "DIADESEMANA", nullable = false, length = 10)
     private String diadesemana;
 
-    public RutinaSesionId getId() {
+    public RutinaSesionIdEntity getId() {
         return id;
     }
 
-    public void setId(RutinaSesionId id) {
+    public void setId(RutinaSesionIdEntity id) {
         this.id = id;
     }
 
-    public Rutina getIdrutina() {
+    public RutinaEntity getIdrutina() {
         return idrutina;
     }
 
-    public void setIdrutina(Rutina idrutina) {
+    public void setIdrutina(RutinaEntity idrutina) {
         this.idrutina = idrutina;
     }
 
-    public Sesion getIdsesion() {
+    public SesionEntityEntity getIdsesion() {
         return idsesion;
     }
 
-    public void setIdsesion(Sesion idsesion) {
+    public void setIdsesion(SesionEntityEntity idsesion) {
         this.idsesion = idsesion;
     }
 

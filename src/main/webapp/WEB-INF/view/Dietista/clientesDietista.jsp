@@ -2,13 +2,13 @@
  Pablo Rubia Arias: 100%
 --%>
 
-<%@ page import="es.uma.taw24.entity.Usuario" %>
+<%@ page import="es.uma.taw24.entity.UsuarioEntity" %>
 <%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    List<Usuario> clientes = (List<Usuario>) request.getAttribute("clientes");
+    List<UsuarioEntity> clientes = (List<UsuarioEntity>) request.getAttribute("clientes");
 %>
 
 <html>
@@ -24,7 +24,7 @@
             <th>Apellidos</th>
             <th>Dieta</th>
         </tr>
-        <% for (Usuario cliente : clientes) { %>
+        <% for (UsuarioEntity cliente : clientes) { %>
         <tr>
             <td><%= cliente.getNombre() %></td>
             <td><%= cliente.getApellidos() %></td>

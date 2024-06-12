@@ -4,41 +4,41 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ejercicio_grupomuscular")
-public class EjercicioGrupomuscular {
+public class EjercicioGrupomuscularEntity {
     @EmbeddedId
-    private EjercicioGrupomuscularId id;
+    private EjercicioGrupomuscularIdEntity id;
 
     @MapsId("idejercicio")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDEJERCICIO", nullable = false)
-    private Ejercicio idejercicio;
+    private EjercicioEntity idejercicio;
 
     @MapsId("idgrupomuscular")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDGRUPOMUSCULAR", nullable = false)
-    private Grupomuscular idgrupomuscular;
+    private GrupomuscularEntity idgrupomuscular;
 
-    public EjercicioGrupomuscularId getId() {
+    public EjercicioGrupomuscularIdEntity getId() {
         return id;
     }
 
-    public void setId(EjercicioGrupomuscularId id) {
+    public void setId(EjercicioGrupomuscularIdEntity id) {
         this.id = id;
     }
 
-    public Ejercicio getIdejercicio() {
+    public EjercicioEntity getIdejercicio() {
         return idejercicio;
     }
 
-    public void setIdejercicio(Ejercicio idejercicio) {
+    public void setIdejercicio(EjercicioEntity idejercicio) {
         this.idejercicio = idejercicio;
     }
 
-    public Grupomuscular getIdgrupomuscular() {
+    public GrupomuscularEntity getIdgrupomuscular() {
         return idgrupomuscular;
     }
 
-    public void setIdgrupomuscular(Grupomuscular idgrupomuscular) {
+    public void setIdgrupomuscular(GrupomuscularEntity idgrupomuscular) {
         this.idgrupomuscular = idgrupomuscular;
     }
 
