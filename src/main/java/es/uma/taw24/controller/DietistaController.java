@@ -61,10 +61,10 @@ public class DietistaController {
     @GetMapping("/editarDieta")
     public String doEditarDieta(Model model) {
 
-        Dieta dieta = new Dieta();
+        DietaEntity dieta = new DietaEntity();
         model.addAttribute("dieta", dieta);
 
-        List<Comida> comidas = this.comidaRepository.findAll();
+        List<ComidaEntity> comidas = this.comidaRepository.findAll();
         model.addAttribute("comidas", comidas);
 
         return "redirect:/";
@@ -87,7 +87,7 @@ public class DietistaController {
 
     @GetMapping("/clientesDietista")
     public String doClientes(Model model) {
-        List<Usuario> clientes = this.usuarioRepository.findAll();
+        List<UsuarioEntity> clientes = this.usuarioRepository.findAll();
         model.addAttribute("clientes", clientes);
 
         return "./Dietista/clientesDietista";
@@ -95,7 +95,7 @@ public class DietistaController {
 
     @GetMapping("/verDietaCreada")
     public String doVerDietaCreada(Model model, @RequestParam("id") Integer id) {
-        List<DietaDia> dietaDia = this.dietaDiaRepository.findByDietaId(id);
+        List<DietaDiaEntity> dietaDia = this.dietaDiaRepository.findByDietaId(id);
 
         if (dietaDia.isEmpty()) {
             System.err.println("Dieta sin dias");
