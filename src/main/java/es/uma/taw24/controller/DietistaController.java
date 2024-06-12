@@ -7,9 +7,9 @@ package es.uma.taw24.controller;
 import es.uma.taw24.dao.DietaRepository;
 import es.uma.taw24.dao.UsuarioDietaRepository;
 import es.uma.taw24.dao.UsuarioRepository;
-import es.uma.taw24.entity.Dieta;
-import es.uma.taw24.entity.Usuario;
-import es.uma.taw24.entity.UsuarioDieta;
+import es.uma.taw24.entity.DietaEntity;
+import es.uma.taw24.entity.UsuarioEntity;
+import es.uma.taw24.entity.UsuarioDietaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +37,7 @@ public class DietistaController {
 
     @GetMapping("/dietas")
     public String doDietas(Model model) {
-        List<Dieta> dietas = this.dietaRepository.findAll();
+        List<DietaEntity> dietas = this.dietaRepository.findAll();
 
         model.addAttribute("dietas", dietas);
 
@@ -72,7 +72,7 @@ public class DietistaController {
 
     @GetMapping("/clientesDietista")
     public String doClientes(Model model) {
-        List<Usuario> clientes = this.usuarioRepository.findAll();
+        List<UsuarioEntity> clientes = this.usuarioRepository.findAll();
 
         model.addAttribute("clientes", clientes);
 
@@ -81,8 +81,8 @@ public class DietistaController {
 
     @GetMapping("/verDietaAsignada")
     public String doVerDietaAsignada(Model model, @RequestParam("id") Integer id) {
-        UsuarioDieta usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
-        Dieta dieta = usuarioDieta.getIddieta();
+        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
+        DietaEntity dieta = usuarioDieta.getIddieta();
 
         model.addAttribute("dieta", dieta);
 

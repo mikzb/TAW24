@@ -4,41 +4,41 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "comida_menu")
-public class ComidaMenu {
+public class ComidaMenuEntity {
     @EmbeddedId
-    private ComidaMenuId id;
+    private ComidaMenuIdEntity id;
 
     @MapsId("idcomida")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDCOMIDA", nullable = false)
-    private Comida idcomida;
+    private ComidaEntity idcomida;
 
     @MapsId("idmenu")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDMENU", nullable = false)
-    private Menu idmenu;
+    private MenuEntity idmenu;
 
-    public ComidaMenuId getId() {
+    public ComidaMenuIdEntity getId() {
         return id;
     }
 
-    public void setId(ComidaMenuId id) {
+    public void setId(ComidaMenuIdEntity id) {
         this.id = id;
     }
 
-    public Comida getIdcomida() {
+    public ComidaEntity getIdcomida() {
         return idcomida;
     }
 
-    public void setIdcomida(Comida idcomida) {
+    public void setIdcomida(ComidaEntity idcomida) {
         this.idcomida = idcomida;
     }
 
-    public Menu getIdmenu() {
+    public MenuEntity getIdmenu() {
         return idmenu;
     }
 
-    public void setIdmenu(Menu idmenu) {
+    public void setIdmenu(MenuEntity idmenu) {
         this.idmenu = idmenu;
     }
 

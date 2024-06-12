@@ -3,12 +3,12 @@
 --%>
 
 <%@ page import="java.util.List" %>
-<%@ page import="es.uma.taw24.entity.Dieta" %>
+<%@ page import="es.uma.taw24.entity.DietaEntity" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    List<Dieta> dietas = (List<Dieta>) request.getAttribute("dietas");
+    List<DietaEntity> dietas = (List<DietaEntity>) request.getAttribute("dietas");
 %>
 
 <html>
@@ -24,7 +24,7 @@
         <th>Fecha</th>
         <th>Detalles</th>
     </tr>
-    <% for (Dieta dieta : dietas) { %>
+    <% for (DietaEntity dieta : dietas) { %>
     <tr>
         <td><%= dieta.getDescripcion() %></td>
         <td><%= dieta.getFechaCreacion() %></td>

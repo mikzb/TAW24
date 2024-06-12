@@ -4,7 +4,6 @@
 
 package es.uma.taw24.controller;
 
-import es.uma.taw24.entity.Dieta;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

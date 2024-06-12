@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "rutina")
-public class Rutina {
+@Table(name = "dieta")
+public class DietaEntity {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDENTRENADOR", nullable = false)
-    private Entrenador identrenador;
+    @JoinColumn(name = "IDDIETISTA", nullable = false)
+    private UsuarioEntity iddietista;
 
     @Column(name = "FECHACREACION", nullable = false)
     private Instant fechacreacion;
@@ -26,12 +26,12 @@ public class Rutina {
         this.id = id;
     }
 
-    public Entrenador getIdentrenador() {
-        return identrenador;
+    public UsuarioEntity getIddietista() {
+        return iddietista;
     }
 
-    public void setIdentrenador(Entrenador identrenador) {
-        this.identrenador = identrenador;
+    public void setIddietista(UsuarioEntity iddietista) {
+        this.iddietista = iddietista;
     }
 
     public Instant getFechacreacion() {

@@ -4,41 +4,41 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "entrenador_usuario")
-public class EntrenadorUsuario {
+public class EntrenadorUsuarioEntity {
     @EmbeddedId
-    private EntrenadorUsuarioId id;
+    private EntrenadorUsuarioIdEntity id;
 
     @MapsId("idusuario")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDUSUARIO", nullable = false)
-    private Usuario idusuario;
+    private UsuarioEntity idusuario;
 
     @MapsId("identrenador")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDENTRENADOR", nullable = false)
-    private Entrenador identrenador;
+    private EntrenadorEntity identrenador;
 
-    public EntrenadorUsuarioId getId() {
+    public EntrenadorUsuarioIdEntity getId() {
         return id;
     }
 
-    public void setId(EntrenadorUsuarioId id) {
+    public void setId(EntrenadorUsuarioIdEntity id) {
         this.id = id;
     }
 
-    public Usuario getIdusuario() {
+    public UsuarioEntity getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Usuario idusuario) {
+    public void setIdusuario(UsuarioEntity idusuario) {
         this.idusuario = idusuario;
     }
 
-    public Entrenador getIdentrenador() {
+    public EntrenadorEntity getIdentrenador() {
         return identrenador;
     }
 
-    public void setIdentrenador(Entrenador identrenador) {
+    public void setIdentrenador(EntrenadorEntity identrenador) {
         this.identrenador = identrenador;
     }
 

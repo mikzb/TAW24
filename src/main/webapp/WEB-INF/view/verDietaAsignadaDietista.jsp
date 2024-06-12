@@ -2,12 +2,12 @@
  Pablo Rubia Arias: 100%
 --%>
 
-<%@ page import="es.uma.taw24.entity.Dieta" %>
+<%@ page import="es.uma.taw24.entity.DietaEntity" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    Dieta dieta = (Dieta) request.getAttribute("dieta");
+    DietaEntity dieta = (DietaEntity) request.getAttribute("dieta");
 %>
 
 <html>
