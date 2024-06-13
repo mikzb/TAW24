@@ -216,22 +216,13 @@ public class DietistaController {
         return "./Dietista/cambiarDietaDietista";
     }
 
-    //TODO: FALTA EL ID DEL DIETISTA Y FALLO AL PASAR EL ID DE LA DIETA QUE COGE EL ID DEL USUARIO NS PQ
+    //TODO: FALTA EL ID DEL DIETISTA
     @PostMapping("/guardarCambioDieta")
-    public String doGuardarCambioDieta(@RequestParam("id") Integer usuarioId, @ModelAttribute("dieta") DietaEntity dietaId) {
+    public String doGuardarCambioDieta(@RequestParam("usuarioId") Integer usuarioId, @ModelAttribute("dieta") DietaEntity dietaId) {
 
-        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(usuarioId);
-        this.usuarioDietaRepository.delete(usuarioDieta);
+        DietaEntity dieta = this.dietaRepository.findById(dietaId.getId()).orElse(null);
 
-        UsuarioDietaEntity nuevoUsuarioDieta = new UsuarioDietaEntity();
-
-        UsuarioEntity usuario = usuarioDieta.getIdusuario();
-        nuevoUsuarioDieta.setIdusuario(usuario);
-
-        DietaEntity dieta = this.dietaRepository.findById(dietaId.getId()).get();
-        nuevoUsuarioDieta.setIddieta(dieta);
-
-        this.usuarioDietaRepository.save(nuevoUsuarioDieta);
+        this.usuarioDietaRepository.updateDieta(usuarioId, dieta);
 
         return "redirect:/clientesDietista";
     }

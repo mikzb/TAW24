@@ -98,6 +98,6 @@
     </tr>
 </table>
 <button>Editar</button>
-<button onclick="window.location.href='/dietas'">Volver</button>
+<button onclick="window.location.href='/clientesDietista'">Volver</button>
 </body>
 </html>
