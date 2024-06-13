@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class Entrenador {
+    private int id;
     private boolean crosstraining;
     private UsuarioEntity usuario;
 }
