@@ -27,11 +27,52 @@ public class UsuarioEntity {
     @Column(name = "EDAD", nullable = false)
     private Short edad;
 
-    @Column(name = "PERMISOS_ADC", nullable = false)
-    private Boolean permisosAdc = false;
-
     @Column(name = "SEXO", nullable = false, length = 1)
     private String sexo;
+
+    @Column(name = "PERMISO_ADMIN", nullable = false)
+    private Boolean permisoAdmin = false;
+
+    @Column(name = "PERMISO_ENTRENADOR", nullable = false)
+    private Boolean permisoEntrenador = false;
+
+    @Column(name = "PERMISO_DIETISTA", nullable = false)
+    private Boolean permisoDietista = false;
+
+    @Column(name = "PERMISO_CLIENTE", nullable = false)
+    private Boolean permisoCliente = false;
+
+    public Boolean getPermisoCliente() {
+        return permisoCliente;
+    }
+
+    public void setPermisoCliente(Boolean permisoCliente) {
+        this.permisoCliente = permisoCliente;
+    }
+
+    public Boolean getPermisoDietista() {
+        return permisoDietista;
+    }
+
+    public void setPermisoDietista(Boolean permisoDietista) {
+        this.permisoDietista = permisoDietista;
+    }
+
+    public Boolean getPermisoEntrenador() {
+        return permisoEntrenador;
+    }
+
+    public void setPermisoEntrenador(Boolean permisoEntrenador) {
+        this.permisoEntrenador = permisoEntrenador;
+    }
+
+    public Boolean getPermisoAdmin() {
+        return permisoAdmin;
+    }
+
+    public void setPermisoAdmin(Boolean permisoAdmin) {
+        this.permisoAdmin = permisoAdmin;
+    }
 
     public Integer getId() {
         return id;
@@ -79,14 +120,6 @@ public class UsuarioEntity {
 
     public void setEdad(Short edad) {
         this.edad = edad;
-    }
-
-    public Boolean getPermisosAdc() {
-        return permisosAdc;
-    }
-
-    public void setPermisosAdc(Boolean permisosAdc) {
-        this.permisosAdc = permisosAdc;
     }
 
     public String getSexo() {
