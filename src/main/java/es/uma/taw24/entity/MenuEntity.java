@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "menu")
+@Table(name = "MENU")
 public class MenuEntity {
     @Id
     @Column(name = "ID", nullable = false)

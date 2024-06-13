@@ -3,7 +3,7 @@ package es.uma.taw24.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "entrenador")
+@Table(name = "ENTRENADOR")
 public class EntrenadorEntity {
     @Id
     @Column(name = "IDUSUARIO", nullable = false)

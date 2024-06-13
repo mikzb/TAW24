@@ -6,12 +6,14 @@ package es.uma.taw24.controller;
 
 import es.uma.taw24.dao.*;
 import es.uma.taw24.entity.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.Instant;
@@ -21,7 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class DietistaController {
+@RequestMapping("/dietista")
+public class DietistaController extends BaseController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -51,7 +54,10 @@ public class DietistaController {
 
     //TODO: FALTA EL ID DEL DIETISTA
     @GetMapping("/dietas")
-    public String doDietas(Model model) {
+    public String doDietas(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         List<DietaEntity> dietas = this.dietaRepository.findAll();
 
         model.addAttribute("dietas", dietas);
@@ -61,7 +67,10 @@ public class DietistaController {
 
     //TODO
     @GetMapping("/crearDieta")
-    public String doCrearDieta(Model model) {
+    public String doCrearDieta(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
 
         List<ComidaEntity> comidasDieta = new ArrayList<>(35);
         for (int i = 0; i < 35; i++) {
@@ -77,8 +86,10 @@ public class DietistaController {
 
     //TODO
     @GetMapping("/editarDieta")
-    public String doEditarDieta(Model model) {
-
+    public String doEditarDieta(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         DietaEntity dieta = new DietaEntity();
         model.addAttribute("dieta", dieta);
 
@@ -90,15 +101,20 @@ public class DietistaController {
 
     //TODO
     @PostMapping("/guardarDieta")
-    public String doGuardarDieta(@RequestParam("comidas") List<ComidaEntity> comidas) {
-
+    public String doGuardarDieta(@RequestParam("comidas") List<ComidaEntity> comidas, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
 
         return "redirect:/dietas";
     }
 
     //TODO: FALTA EL ID DEL DIETISTA
     @GetMapping("/eliminarDieta")
-    public String doEliminarDieta(@RequestParam("id") Integer id) {
+    public String doEliminarDieta(@RequestParam("id") Integer id, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         List<DietaDiaEntity> dietaDias = this.dietaDiaRepository.findByDietaId(id);
         this.dietaDiaRepository.deleteAll(dietaDias);
 
@@ -112,7 +128,10 @@ public class DietistaController {
 
     //TODO: FALTA EL ID DEL DIETISTA
     @GetMapping("/clientesDietista")
-    public String doClientes(Model model) {
+    public String doClientes(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         List<UsuarioEntity> clientes = this.usuarioRepository.findAll();
         model.addAttribute("clientes", clientes);
 
@@ -120,7 +139,10 @@ public class DietistaController {
     }
 
     @GetMapping("/verDietaDietista")
-    public String doVerDietaCreada(Model model, @RequestParam("id") Integer id) {
+    public String doVerDietaCreada(Model model, @RequestParam("id") Integer id, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
 
         // Obtener los días de la dieta
         List<DietaDiaEntity> dietaDia = this.dietaDiaRepository.findByDietaId(id);
@@ -159,7 +181,10 @@ public class DietistaController {
     }
 
     @GetMapping("/verProgresoDieta")
-    public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model) {
+    public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
 
         UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
         DietaEntity dieta = usuarioDieta.getIddieta();
@@ -204,7 +229,10 @@ public class DietistaController {
     }
 
     @GetMapping("/cambiarDietaDietista")
-    public String doCambiarDieta(@RequestParam("id") Integer id, Model model) {
+    public String doCambiarDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         model.addAttribute("usuarioId", id);
 
         List<DietaEntity> dietas = this.dietaRepository.findAll();
@@ -218,7 +246,10 @@ public class DietistaController {
 
     //TODO: FALTA EL ID DEL DIETISTA Y FALLO AL PASAR EL ID DE LA DIETA QUE COGE EL ID DEL USUARIO NS PQ
     @PostMapping("/guardarCambioDieta")
-    public String doGuardarCambioDieta(@RequestParam("id") Integer usuarioId, @ModelAttribute("dieta") DietaEntity dietaId) {
+    public String doGuardarCambioDieta(@RequestParam("id") Integer usuarioId, @ModelAttribute("dieta") DietaEntity dietaId, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
 
         UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(usuarioId);
         this.usuarioDietaRepository.delete(usuarioDieta);

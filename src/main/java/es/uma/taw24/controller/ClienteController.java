@@ -4,29 +4,41 @@
 
 package es.uma.taw24.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-public class ClienteController {
+@RequestMapping("/cliente")
+public class ClienteController extends BaseController{
 
     private static int clienteID = 1;
 
-    @GetMapping("/inicioCliente")
-    public String doInicio() {
+    @GetMapping("/")
+    public String doInicio(HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         return "inicioCliente";
     }
 
-    @PostMapping("/entrenamientoCliente")
-    public String doEntrenamientoCliente(Model model) {
+    @GetMapping("/entrenamientoCliente")
+    public String doEntrenamientoCliente(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         return "entrenamientoCliente";
     }
 
-    @PostMapping("/dietaCliente")
-    public String doDietaCliente(Model model) {
+    @GetMapping("/dietaCliente")
+    public String doDietaCliente(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
         return "dietaCliente";
     }
 

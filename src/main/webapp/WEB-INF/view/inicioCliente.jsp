@@ -7,11 +7,17 @@
 </head>
 <body>
 <h1>Hola USUARIO</h1>
-<form method="post" action="/entrenamientoCliente">
+<form method="get" action="/cliente/entrenamientoCliente">
     <input type="submit" value="entrenamientoCliente">
 </form>
-<form method="post" action="/dietaCliente">
+<form method="get" action="/cliente/dietaCliente">
     <input type="submit" value="dietaCliente">
+</form>
+<form method="get" action="/salir">
+    <input type="submit" value="salir">
+</form>
+<form method="get" action="/usuario/listado">
+    <input type="submit" value="listado">
 </form>
 </body>
 </html>

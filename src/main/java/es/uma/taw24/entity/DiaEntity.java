@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 
 @Entity
-@Table(name = "dia")
+@Table(name = "DIA")
 public class DiaEntity {
     @Id
     @Column(name = "ID", nullable = false)
