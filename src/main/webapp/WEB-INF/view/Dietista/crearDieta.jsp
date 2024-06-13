@@ -3,13 +3,7 @@
 --%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="es.uma.taw24.entity.ComidaEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<%
-    ComidaEntity[] comidasDieta = (ComidaEntity[]) request.getAttribute("comidasDieta");
-%>
 
 <html>
 <head>
@@ -31,7 +25,7 @@
             </tr>
             <tr>
                 <th>Desayuno</th>
-                <form:select path="comidasDieta[${index}].id" itemValue="id" itemLabel="descripcion" items="${comidas}" />
+                <form:select path="comidasDietas[0].id" items="${comidas}" itemValue="id" itemLabel="descripcion"/>
             <tr>
                 <th>Almuerzo</th>
             </tr>

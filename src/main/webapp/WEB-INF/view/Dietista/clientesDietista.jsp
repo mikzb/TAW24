@@ -23,12 +23,14 @@
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Dieta</th>
+            <th>Cambiar Dieta</th>
         </tr>
         <% for (UsuarioEntity cliente : clientes) { %>
         <tr>
             <td><%= cliente.getNombre() %></td>
             <td><%= cliente.getApellidos() %></td>
-            <td><a href="/cargarDietaDietista?id=<%= cliente.getId() %>">Ver Dieta</a></td>
+            <td><a href="/verProgresoDieta?id=<%= cliente.getId() %>">Ver Dieta</a></td>
+            <td><a href="/cambiarDietaDietista?id=<%= cliente.getId() %>">Cambiar Dieta</a></td>
         </tr>
         <% } %>
     </table>

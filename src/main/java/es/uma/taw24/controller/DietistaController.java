@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -62,9 +63,9 @@ public class DietistaController {
     @GetMapping("/crearDieta")
     public String doCrearDieta(Model model) {
 
-        ComidaEntity[] comidasDieta = new ComidaEntity[35];
+        List<ComidaEntity> comidasDieta = new ArrayList<>(35);
         for (int i = 0; i < 35; i++) {
-            comidasDieta[i] = new ComidaEntity();
+            comidasDieta.add(new ComidaEntity());
         }
         model.addAttribute("comidasDieta", comidasDieta);
 
@@ -92,7 +93,6 @@ public class DietistaController {
     public String doGuardarDieta(@RequestParam("comidas") List<ComidaEntity> comidas) {
 
 
-
         return "redirect:/dietas";
     }
 
@@ -117,14 +117,6 @@ public class DietistaController {
         model.addAttribute("clientes", clientes);
 
         return "./Dietista/clientesDietista";
-    }
-
-    @GetMapping("/cargarDietaDietista")
-    public String doCargarDieta(@RequestParam("id") Integer id) {
-        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
-        Integer dietaId = usuarioDieta.getIddieta().getId();
-
-        return "redirect:/verDietaDietista?id=" + dietaId;
     }
 
     @GetMapping("/verDietaDietista")
@@ -157,10 +149,90 @@ public class DietistaController {
             menusPorDia.put(dia.getFecha(), comidas);
         }
 
-        model.addAttribute("dietaId", id);
+        DietaEntity dieta = this.dietaRepository.findById(id).get();
+        model.addAttribute("dieta", dieta);
+
         // Agregar los menús por día al modelo para ser usado en la vista
         model.addAttribute("menus", menusPorDia);
 
         return "./Dietista/verDietaDietista";
+    }
+
+    @GetMapping("/verProgresoDieta")
+    public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model) {
+
+        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
+        DietaEntity dieta = usuarioDieta.getIddieta();
+        model.addAttribute("dieta", dieta);
+
+        // Obtener los días de la dieta
+        List<DietaDiaEntity> dietaDia = this.dietaDiaRepository.findByDietaId(dieta.getId());
+
+        // Preparar una lista para almacenar los menús de cada día
+        Map<Instant, List<String>> menusPorDia = new HashMap<>();
+
+        // Preparar lista para completado
+        List<Boolean> completados = new ArrayList<>();
+
+        // Iterar sobre los días de la dieta
+        for (DietaDiaEntity dietaDiaEntity : dietaDia) {
+            DiaEntity dia = dietaDiaEntity.getIddia();
+            int diaId = dia.getId();
+
+            // Obtener los menús del día
+            MenuDiaEntity menuDiaEntity = this.menuDiaRepository.findByDiaId(diaId);
+            completados.add(menuDiaEntity.getCompletado());
+            List<String> comidas = new ArrayList<>();
+
+            int menuId = menuDiaEntity.getIdmenu().getId();
+
+            // Obtener las comidas del menú
+            List<ComidaMenuEntity> comidaMenuEntities = this.comidaMenuRepository.findByMenuId(menuId);
+            for (ComidaMenuEntity comidaMenuEntity : comidaMenuEntities) {
+                comidas.add(comidaMenuEntity.getIdcomida().getDescripcion());
+            }
+
+            // Almacenar las comidas en el mapa con el nombre del día
+            menusPorDia.put(dia.getFecha(), comidas);
+        }
+
+        // Agregar al modelo
+        model.addAttribute("menus", menusPorDia);
+        model.addAttribute("completados", completados);
+
+        return "./Dietista/verProgresoDieta";
+    }
+
+    @GetMapping("/cambiarDietaDietista")
+    public String doCambiarDieta(@RequestParam("id") Integer id, Model model) {
+        model.addAttribute("usuarioId", id);
+
+        List<DietaEntity> dietas = this.dietaRepository.findAll();
+        model.addAttribute("dietas", dietas);
+
+        DietaEntity dieta = new DietaEntity();
+        model.addAttribute("dieta", dieta);
+
+        return "./Dietista/cambiarDietaDietista";
+    }
+
+    //TODO: FALTA EL ID DEL DIETISTA Y FALLO AL PASAR EL ID DE LA DIETA QUE COGE EL ID DEL USUARIO NS PQ
+    @PostMapping("/guardarCambioDieta")
+    public String doGuardarCambioDieta(@RequestParam("id") Integer usuarioId, @ModelAttribute("dieta") DietaEntity dietaId) {
+
+        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(usuarioId);
+        this.usuarioDietaRepository.delete(usuarioDieta);
+
+        UsuarioDietaEntity nuevoUsuarioDieta = new UsuarioDietaEntity();
+
+        UsuarioEntity usuario = usuarioDieta.getIdusuario();
+        nuevoUsuarioDieta.setIdusuario(usuario);
+
+        DietaEntity dieta = this.dietaRepository.findById(dietaId.getId()).get();
+        nuevoUsuarioDieta.setIddieta(dieta);
+
+        this.usuarioDietaRepository.save(nuevoUsuarioDieta);
+
+        return "redirect:/clientesDietista";
     }
 }

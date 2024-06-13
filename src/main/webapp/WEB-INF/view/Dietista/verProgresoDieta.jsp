@@ -15,6 +15,7 @@
     DietaEntity dieta = (DietaEntity) request.getAttribute("dieta");
     Map<Instant, List<String>> menus = (Map<Instant, List<String>>) request.getAttribute("menus");
     List<Instant> fechas = menus.keySet().stream().sorted().collect(Collectors.toList());
+    List<Boolean> completados = (List<Boolean>) request.getAttribute("completados");
 %>
 
 <html>
@@ -22,7 +23,7 @@
     <title>Dieta<%= dieta.getId() %> </title>
 </head>
 <body>
-<h1>Dieta número: <%= dieta.getId() %>, Descripción: <%= dieta.getDescripcion() %></h1>
+<h1>Descripción: <%= dieta.getDescripcion() %></h1>
 
 <table border="1">
     <tr>
@@ -84,6 +85,16 @@
         <td><%= menus.get(fechas.get(4)).get(4) %></td>
         <td><%= menus.get(fechas.get(5)).get(4) %></td>
         <td><%= menus.get(fechas.get(6)).get(4) %></td>
+    </tr>
+    <tr>
+        <th>Completado</th>
+        <td> <%= completados.get(0) ? "Si" : "No" %> </td>
+        <td> <%= completados.get(1) ? "Si" : "No" %> </td>
+        <td> <%= completados.get(2) ? "Si" : "No" %> </td>
+        <td> <%= completados.get(3) ? "Si" : "No" %> </td>
+        <td> <%= completados.get(4) ? "Si" : "No" %> </td>
+        <td> <%= completados.get(5) ? "Si" : "No" %> </td>
+        <td> <%= completados.get(6) ? "Si" : "No" %> </td>
     </tr>
 </table>
 <button>Editar</button>
