@@ -96,10 +96,18 @@ public class DietistaController {
         return "redirect:/dietas";
     }
 
-    //TODO
+    //TODO: FALTA EL ID DEL DIETISTA
     @GetMapping("/eliminarDieta")
-    public String doEliminarDieta(Model model) {
-        return "redirect:/";
+    public String doEliminarDieta(@RequestParam("id") Integer id) {
+        List<DietaDiaEntity> dietaDias = this.dietaDiaRepository.findByDietaId(id);
+        this.dietaDiaRepository.deleteAll(dietaDias);
+
+        List<UsuarioDietaEntity> usuarioDietas = this.usuarioDietaRepository.findByDietaId(id);
+        this.usuarioDietaRepository.deleteAll(usuarioDietas);
+
+        this.dietaRepository.deleteById(id);
+
+        return "redirect:/dietas";
     }
 
     //TODO: FALTA EL ID DEL DIETISTA
@@ -124,11 +132,6 @@ public class DietistaController {
 
         // Obtener los días de la dieta
         List<DietaDiaEntity> dietaDia = this.dietaDiaRepository.findByDietaId(id);
-
-        if (dietaDia.isEmpty()) {
-            System.err.println("Dieta sin días");
-            return "errorPage"; // O la vista que corresponda en caso de error
-        }
 
         // Preparar una lista para almacenar los menús de cada día
         Map<Instant, List<String>> menusPorDia = new HashMap<>();
