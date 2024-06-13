@@ -3,7 +3,7 @@ package es.uma.taw24.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "sesion_ejercicio")
+@Table(name = "SESION_EJERCICIO")
 public class SesionEjercicioEntity {
     @EmbeddedId
     private SesionEjercicioIdEntity id;

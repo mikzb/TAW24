@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class EntrenadorFuerzaController {
+@RequestMapping("/entrenadorFuerza")
+public class EntrenadorFuerzaController extends BaseController{
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -27,9 +30,16 @@ public class EntrenadorFuerzaController {
     @GetMapping("/inicioEntrenadorFuerza")
     public String doInicio(Model model) {
         int id = 3;
-        UsuarioEntity usuario = usuarioRepository.findById(id).orElse(null);
-        model.addAttribute("usuario_entrenador", usuario);
+        EntrenadorEntity entrenador = entrenadorRepository.findById(id).orElse(null);
+        model.addAttribute("entrenador", entrenador);
         return "inicioEntrenadorFuerza";
+    }
+
+    @GetMapping("/clientesFuerza")
+    public String listarClientes(Model model, @RequestParam Integer idEntrenador) {
+        EntrenadorEntity entrenador = entrenadorRepository.findById(idEntrenador).orElse(null);
+        model.addAttribute("entrenador", entrenador);
+        return "clientesFuerza";
     }
 
 

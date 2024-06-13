@@ -10,9 +10,9 @@
 </head>
 <body>
 <%
-    UsuarioEntity entrenador = (UsuarioEntity) request.getAttribute("usuario_entrenador");
+    EntrenadorEntity entrenador = (EntrenadorEntity) request.getAttribute("usuario_entrenador");
 %>
-<h1>Hola, <%=entrenador.getNombre() + " " + entrenador.getApellidos()%>></h1>
+<h1>Hola, <%=entrenador.getUsuario().getNombre() + " " + entrenador.getUsuario().getApellidos()%></h1>
 <button onclick="window.location.href='/clientesFuerza'">Ver Clientes</button>
 <button onclick="window.location.href='/sesiones'">Ver Sesiones</button>
 </body>

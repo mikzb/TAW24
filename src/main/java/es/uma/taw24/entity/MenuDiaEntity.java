@@ -3,7 +3,7 @@ package es.uma.taw24.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "menu_dia")
+@Table(name = "MENU_DIA")
 public class MenuDiaEntity {
     @EmbeddedId
     private MenuDiaIdEntity id;

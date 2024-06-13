@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "grupomuscular")
+@Table(name = "GRUPOMUSCULAR")
 public class GrupomuscularEntity {
     @Id
     @Column(name = "ID", nullable = false)
