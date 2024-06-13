@@ -33,10 +33,13 @@ public class EntrenadorFuerzaController extends BaseController{
 
     @GetMapping("/")
     public String doInicio(Model model, HttpSession session) {
-        int id = 3;
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
+        if (!esEntrenador(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
+
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         EntrenadorEntity entrenador = entrenadorRepository.findById(usuario.getId()).orElse(null);
         model.addAttribute("entrenador", entrenador);
@@ -44,7 +47,10 @@ public class EntrenadorFuerzaController extends BaseController{
     }
 
     @GetMapping("/clientes")
-    public String listarClientes(Model model, @RequestParam Integer idEntrenador) {
+    public String listarClientes(Model model, @RequestParam Integer idEntrenador, HttpSession session) {
+        if (!esEntrenador(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         EntrenadorEntity entrenador = entrenadorRepository.findById(idEntrenador).orElse(null);
         model.addAttribute("entrenador", entrenador);
         return "clientesFuerza";

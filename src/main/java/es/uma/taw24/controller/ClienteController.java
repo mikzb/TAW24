@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cliente")
 public class ClienteController extends BaseController{
 
-    private static int clienteID = 1;
 
     @GetMapping("/")
     public String doInicio(HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
+        }
+        if (!esCliente(session) && !esAdmin(session)) {
+            return accessDenied();
         }
         return "inicioCliente";
     }
@@ -31,6 +33,9 @@ public class ClienteController extends BaseController{
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
+        if (!esCliente(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         return "entrenamientoCliente";
     }
 
@@ -38,6 +43,9 @@ public class ClienteController extends BaseController{
     public String doDietaCliente(Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
+        }
+        if (!esCliente(session) && !esAdmin(session)) {
+            return accessDenied();
         }
         return "dietaCliente";
     }

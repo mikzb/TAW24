@@ -150,6 +150,7 @@ public class UsuarioEntity implements Serializable, DTO<Usuario> {
 
     public Usuario toDTO () {
         Usuario usuario = new Usuario();
+        usuario.setId(this.id);
         usuario.setEmail(this.email);
         usuario.setPassword(this.passwordhash);
         usuario.setNombre(this.nombre);

@@ -39,6 +39,10 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         return this.entidadesADTO(this.usuarioRepository.findAll());
     }
 
+    public Usuario buscarUsuarioPorId(int id) {
+        return this.usuarioRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario con id: " + id + " no encontrado.")).toDTO();
+    }
+
     public void guardarUsuario(Usuario usuario) {
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             throw new DuplicateEmailException("The email " + usuario.getEmail() + " is already in use.");
