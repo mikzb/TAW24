@@ -1,14 +1,18 @@
 package es.uma.taw24.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.Usuario;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "usuario")
-public class UsuarioEntity {
+@Table(name = "USUARIO")
+public class UsuarioEntity implements Serializable, DTO<Usuario> {
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
@@ -129,5 +133,35 @@ public class UsuarioEntity {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UsuarioEntity)) return false;
+        UsuarioEntity that = (UsuarioEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(passwordhash, that.passwordhash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
+    }
+
+
+    public Usuario toDTO () {
+        Usuario usuario = new Usuario();
+        usuario.setEmail(this.email);
+        usuario.setPassword(this.passwordhash);
+        usuario.setNombre(this.nombre);
+        usuario.setApellidos(this.apellidos);
+        usuario.setEdad(this.edad);
+        usuario.setSexo(this.sexo);
+        usuario.setPermisoAdmin(this.permisoAdmin);
+        usuario.setPermisoEntrenador(this.permisoEntrenador);
+        usuario.setPermisoDietista(this.permisoDietista);
+        usuario.setPermisoCliente(this.permisoCliente);
+        return usuario;
+    }
+
 
 }

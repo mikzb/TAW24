@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "dieta")
+@Table(name = "DIETA")
 public class DietaEntity {
     @Id
     @Column(name = "ID", nullable = false)
