@@ -29,12 +29,12 @@
     <tr>
         <td><%= dieta.getDescripcion() %></td>
         <td><%= dieta.getFechacreacion() %></td>
-        <td><a href="/verDietaCreada?id=<%= dieta.getId() %>">Ver Dieta</a></td>
+        <td><a href="/verDietaDietista?id=<%= dieta.getId() %>">Ver Dieta</a></td>
         <td><a href="/eliminarDieta?id=<%= dieta.getId() %>">Eliminar</a></td>
     </tr>
     <% } %>
 </table>
-<button>Crear</button>
+<button onclick="window.location.href='/crearDieta'">Crear</button>
 <button onclick="window.location.href='/'">Volver</button>
 </body>
 </html>

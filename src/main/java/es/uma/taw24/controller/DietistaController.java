@@ -13,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DietistaController {
@@ -33,11 +37,18 @@ public class DietistaController {
     @Autowired
     private DietaDiaRepository dietaDiaRepository;
 
+    @Autowired
+    private MenuDiaRepository menuDiaRepository;
+
+    @Autowired
+    private ComidaMenuRepository comidaMenuRepository;
+
     @GetMapping("/")
     public String doInicio() {
         return "./Dietista/inicioDietista";
     }
 
+    //TODO: FALTA EL ID DEL DIETISTA
     @GetMapping("/dietas")
     public String doDietas(Model model) {
         List<DietaEntity> dietas = this.dietaRepository.findAll();
@@ -47,17 +58,23 @@ public class DietistaController {
         return "./Dietista/dietas";
     }
 
-
-    @GetMapping("/dietaDietista")
-    public String doDieta(Model model) {
-        return "./Dietista/dietaDietista";
-    }
-
+    //TODO
     @GetMapping("/crearDieta")
     public String doCrearDieta(Model model) {
-        return "redirect:/";
+
+        ComidaEntity[] comidasDieta = new ComidaEntity[35];
+        for (int i = 0; i < 35; i++) {
+            comidasDieta[i] = new ComidaEntity();
+        }
+        model.addAttribute("comidasDieta", comidasDieta);
+
+        List<ComidaEntity> comidas = this.comidaRepository.findAll();
+        model.addAttribute("comidas", comidas);
+
+        return "./Dietista/crearDieta";
     }
 
+    //TODO
     @GetMapping("/editarDieta")
     public String doEditarDieta(Model model) {
 
@@ -70,21 +87,22 @@ public class DietistaController {
         return "redirect:/";
     }
 
+    //TODO
     @PostMapping("/guardarDieta")
-    public String doGuardarDieta(Model model) {
-        return "redirect:/";
+    public String doGuardarDieta(@RequestParam("comidas") List<ComidaEntity> comidas) {
+
+
+
+        return "redirect:/dietas";
     }
 
-    @GetMapping("/importarDieta")
-    public String doImportarDieta(Model model) {
-        return "redirect:/";
-    }
-
+    //TODO
     @GetMapping("/eliminarDieta")
     public String doEliminarDieta(Model model) {
         return "redirect:/";
     }
 
+    //TODO: FALTA EL ID DEL DIETISTA
     @GetMapping("/clientesDietista")
     public String doClientes(Model model) {
         List<UsuarioEntity> clientes = this.usuarioRepository.findAll();
@@ -93,36 +111,53 @@ public class DietistaController {
         return "./Dietista/clientesDietista";
     }
 
-    @GetMapping("/verDietaCreada")
+    @GetMapping("/cargarDietaDietista")
+    public String doCargarDieta(@RequestParam("id") Integer id) {
+        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
+        Integer dietaId = usuarioDieta.getIddieta().getId();
+
+        return "redirect:/verDietaDietista?id=" + dietaId;
+    }
+
+    @GetMapping("/verDietaDietista")
     public String doVerDietaCreada(Model model, @RequestParam("id") Integer id) {
+
+        // Obtener los días de la dieta
         List<DietaDiaEntity> dietaDia = this.dietaDiaRepository.findByDietaId(id);
 
         if (dietaDia.isEmpty()) {
-            System.err.println("Dieta sin dias");
-        } else if (dietaDia.size() > 7) {
-            System.err.println("Dieta con mas dias de los necesarios");
-        } else {
-            int lunesId = dietaDia.get(0).getIddia().getId();
-            int martesId = dietaDia.get(1).getIddia().getId();
-            int miercolesId = dietaDia.get(2).getIddia().getId();
-            int juevesId = dietaDia.get(3).getIddia().getId();
-            int viernesId = dietaDia.get(4).getIddia().getId();
-            int sabadoId = dietaDia.get(5).getIddia().getId();
-            int domingoId = dietaDia.get(6).getIddia().getId();
+            System.err.println("Dieta sin días");
+            return "errorPage"; // O la vista que corresponda en caso de error
         }
 
+        // Preparar una lista para almacenar los menús de cada día
+        Map<Instant, List<String>> menusPorDia = new HashMap<>();
 
+        // Iterar sobre los días de la dieta
+        for (DietaDiaEntity dietaDiaEntity : dietaDia) {
+            DiaEntity dia = dietaDiaEntity.getIddia();
+            int diaId = dia.getId();
 
-        return "./Dietista/verDietaCreadaDietista";
-    }
+            // Obtener los menús del día
+            MenuDiaEntity menuDiaEntity = this.menuDiaRepository.findByDiaId(diaId);
+            List<String> comidas = new ArrayList<>();
 
-    @GetMapping("/verDietaAsignada")
-    public String doVerDietaAsignada(Model model, @RequestParam("id") Integer id) {
-        UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
-        DietaEntity dieta = usuarioDieta.getIddieta();
+            int menuId = menuDiaEntity.getIdmenu().getId();
 
-        model.addAttribute("dieta", dieta);
+            // Obtener las comidas del menú
+            List<ComidaMenuEntity> comidaMenuEntities = this.comidaMenuRepository.findByMenuId(menuId);
+            for (ComidaMenuEntity comidaMenuEntity : comidaMenuEntities) {
+                comidas.add(comidaMenuEntity.getIdcomida().getDescripcion());
+            }
 
-        return "./Dietista/verDietaAsignadaDietista";
+            // Almacenar las comidas en el mapa con el nombre del día
+            menusPorDia.put(dia.getFecha(), comidas);
+        }
+
+        model.addAttribute("dietaId", id);
+        // Agregar los menús por día al modelo para ser usado en la vista
+        model.addAttribute("menus", menusPorDia);
+
+        return "./Dietista/verDietaDietista";
     }
 }

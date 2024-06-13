@@ -29,7 +29,6 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -65,7 +64,6 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
     </dependencies>
 
     <build>

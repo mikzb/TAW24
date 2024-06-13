@@ -28,7 +28,7 @@
         <tr>
             <td><%= cliente.getNombre() %></td>
             <td><%= cliente.getApellidos() %></td>
-            <td><a href="/verDietaAsignada?id=<%= cliente.getId() %>">Ver Dieta</a></td>
+            <td><a href="/cargarDietaDietista?id=<%= cliente.getId() %>">Ver Dieta</a></td>
         </tr>
         <% } %>
     </table>
