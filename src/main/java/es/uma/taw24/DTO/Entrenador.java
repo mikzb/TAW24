@@ -1,3 +1,7 @@
+/**
+ * @author Cristian Ruiz Martín: 100%
+ */
+
 package es.uma.taw24.DTO;
 
 

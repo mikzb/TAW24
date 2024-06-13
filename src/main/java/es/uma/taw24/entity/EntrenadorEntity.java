@@ -1,5 +1,6 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.Entrenador;
 import jakarta.persistence.*;
 
 @Entity
@@ -41,4 +42,11 @@ public class EntrenadorEntity {
         this.crosstraining = crosstraining;
     }
 
+    public Entrenador toDTO() {
+        Entrenador entrenador = new Entrenador();
+        entrenador.setId(this.id);
+        entrenador.setCrosstraining(this.crosstraining);
+        entrenador.setUsuario(this.usuario);
+        return entrenador;
+    }
 }

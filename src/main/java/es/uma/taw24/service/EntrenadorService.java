@@ -1,3 +1,5 @@
+
+
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.Entrenador;
@@ -19,5 +21,14 @@ public class EntrenadorService extends DTOService<Entrenador, EntrenadorEntity>{
             entrenadorEntity.setCrosstraining(entrenador.isCrosstraining());
             entrenadorEntity.setUsuario(entrenador.getUsuario());
             this.entrenadorRespository.save(entrenadorEntity);
+    }
+
+    public Entrenador buscarPorId(int id) {
+        EntrenadorEntity entrenador = this.entrenadorRespository.findById(id).orElse(null);
+        if (entrenador != null) {
+            return entrenador.toDTO();
+        } else {
+            return null;
+        }
     }
 }
