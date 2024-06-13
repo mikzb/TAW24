@@ -27,6 +27,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/entrenadorFuerza")
 public class EntrenadorFuerzaController extends BaseController{
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -39,6 +43,9 @@ public class EntrenadorFuerzaController extends BaseController{
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         Entrenador entrenador = entrenadorService.buscarPorId(usuarioEntrenador.getId());
         model.addAttribute("entrenador", entrenador);
@@ -50,6 +57,9 @@ public class EntrenadorFuerzaController extends BaseController{
         String strTo = "entrenador/clientes";
         if(!estaAutenticado(session)){
             return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
         }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Usuario> clientes = usuarioService.listarClientes(usuarioEntrenador.getId());

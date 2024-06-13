@@ -9,14 +9,11 @@ package es.uma.taw24.service;
 import es.uma.taw24.BCryptHashing;
 import es.uma.taw24.DTO.Entrenador;
 import es.uma.taw24.DTO.Usuario;
-import es.uma.taw24.dao.EntrenadorRepository;
 import es.uma.taw24.dao.EntrenadorUsuarioRepository;
 import es.uma.taw24.dao.UsuarioRepository;
-import es.uma.taw24.entity.EntrenadorEntity;
 import es.uma.taw24.entity.UsuarioEntity;
 import es.uma.taw24.exception.DuplicateEmailException;
 import es.uma.taw24.exception.UserNotFoundException;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +44,10 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
 
     public List<Usuario> listarUsuarios() {
         return this.entidadesADTO(this.usuarioRepository.findAll());
+    }
+
+    public Usuario buscarUsuarioPorId(int id) {
+        return this.usuarioRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario con id: " + id + " no encontrado.")).toDTO();
     }
 
     public List<Usuario> listarClientes(Integer idEntrenador){ return this.entidadesADTO(this.entrenadorUsuarioRepository.findByEntrenadorId(idEntrenador)); }

@@ -13,7 +13,7 @@
 <h2>
     Lista de usuarios
 </h2>
-<table>
+<table border="1">
     <tr>
         <th>Email</th>
         <th>Nombre</th>
@@ -21,6 +21,7 @@
         <th>Edad</th>
         <th>Sexo</th>
         <th>Permisos</th>
+        <th></th>
     </tr>
 <%
     List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
@@ -33,6 +34,7 @@
             <td><%= usuario.getEdad() %></td>
             <td><%= usuario.getSexo() %></td>
             <td>A: <%= usuario.isPermisoAdmin()%>, C: <%= usuario.isPermisoCliente()%>, D: <%= usuario.isPermisoDietista()%>, E: <%= usuario.isPermisoEntrenador()%></td>
+            <td><a href="/usuario/editar?id=<%= usuario.getId() %>">Editar</a></td>
         </tr>
 <%
     }

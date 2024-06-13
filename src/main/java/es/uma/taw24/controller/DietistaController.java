@@ -58,6 +58,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         List<DietaEntity> dietas = this.dietaRepository.findAll();
 
         model.addAttribute("dietas", dietas);
@@ -71,7 +74,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
-
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         List<ComidaEntity> comidasDieta = new ArrayList<>(35);
         for (int i = 0; i < 35; i++) {
             comidasDieta.add(new ComidaEntity());
@@ -90,6 +95,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         DietaEntity dieta = new DietaEntity();
         model.addAttribute("dieta", dieta);
 
@@ -105,6 +113,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
 
         return "redirect:/dietas";
     }
@@ -114,6 +125,9 @@ public class DietistaController extends BaseController {
     public String doEliminarDieta(@RequestParam("id") Integer id, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
         }
         List<DietaDiaEntity> dietaDias = this.dietaDiaRepository.findByDietaId(id);
         this.dietaDiaRepository.deleteAll(dietaDias);
@@ -132,6 +146,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         List<UsuarioEntity> clientes = this.usuarioRepository.findAll();
         model.addAttribute("clientes", clientes);
 
@@ -142,6 +159,9 @@ public class DietistaController extends BaseController {
     public String doVerDietaCreada(Model model, @RequestParam("id") Integer id, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
         }
 
         // Obtener los días de la dieta
@@ -184,6 +204,9 @@ public class DietistaController extends BaseController {
     public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
         }
 
         UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
@@ -233,6 +256,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         model.addAttribute("usuarioId", id);
 
         List<DietaEntity> dietas = this.dietaRepository.findAll();
@@ -250,7 +276,9 @@ public class DietistaController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
-
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
         DietaEntity dieta = this.dietaRepository.findById(dietaId.getId()).orElse(null);
 
         this.usuarioDietaRepository.updateDieta(usuarioId, dieta);
