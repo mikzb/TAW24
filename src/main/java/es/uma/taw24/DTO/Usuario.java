@@ -16,5 +16,6 @@ public class Usuario {
     private boolean permisoEntrenador;
     private boolean permisoDietista;
     private boolean permisoCliente;
+    private boolean crosstraining;
 }
 

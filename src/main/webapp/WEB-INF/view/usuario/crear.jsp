@@ -90,6 +90,10 @@
             <td>
                 <form:checkbox path="permisoEntrenador"/>
                 <form:label path="permisoEntrenador">Entrenador </form:label>
+                <form:select path="crosstraining">
+                    <form:option value="0">Fuerza</form:option>
+                    <form:option value="1">Crosstraining</form:option>
+                </form:select>
             </td>
         </tr>
     </table>

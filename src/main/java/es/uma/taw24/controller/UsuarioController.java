@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class UsuarioController extends BaseController{
 
     @Autowired
-    private UsuarioService usuarioServico;
+    private UsuarioService usuarioService;
 
     @GetMapping("/listado")
     public String listadoUsuarios(Model model, HttpSession session){
@@ -24,7 +24,7 @@ public class UsuarioController extends BaseController{
             return redirectToLogin();
         }
         String strTo = "usuario/listado";
-        ArrayList<Usuario> usuarios = (ArrayList<Usuario>) this.usuarioServico.listarUsuarios();
+        ArrayList<Usuario> usuarios = (ArrayList<Usuario>) this.usuarioService.listarUsuarios();
         model.addAttribute("usuarios", usuarios);
         return strTo;
     }
@@ -40,7 +40,7 @@ public class UsuarioController extends BaseController{
     public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
         String strTo = "redirect:/usuario/listado";
         try {
-            this.usuarioServico.guardarUsuario(usuario);
+            this.usuarioService.guardarUsuario(usuario);
         } catch (DuplicateEmailException e) {
             model.addAttribute("error", e.getMessage());
             strTo = "usuario/crear";

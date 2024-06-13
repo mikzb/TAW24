@@ -1,6 +1,8 @@
 <%@ page import="es.uma.taw24.entity.EntrenadorEntity" %>
 <%@ page import="es.uma.taw24.entity.UsuarioEntity" %><%--
- Cristian Ruiz Martín : 100%
+/**
+ * @author Cristian Ruiz Martín: 100%
+ */
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
