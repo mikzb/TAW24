@@ -1,11 +1,9 @@
 package es.uma.taw24.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "DIA")
@@ -16,6 +14,9 @@ public class DiaEntity {
 
     @Column(name = "FECHA", nullable = false)
     private Instant fecha;
+
+    @OneToMany(mappedBy = "dia")
+    private List<MenuDiaEntity> menuDias;
 
     public Integer getId() {
         return id;

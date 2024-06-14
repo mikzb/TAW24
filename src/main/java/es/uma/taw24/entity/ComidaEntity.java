@@ -1,9 +1,8 @@
 package es.uma.taw24.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "COMIDA")
@@ -14,6 +13,9 @@ public class ComidaEntity {
 
     @Column(name = "DESCRIPCION", nullable = false, length = 150)
     private String descripcion;
+
+    @OneToMany(mappedBy = "comida")
+    private List<ComidaMenuEntity> comidaMenus;
 
     public Integer getId() {
         return id;

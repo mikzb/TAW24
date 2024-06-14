@@ -172,19 +172,19 @@ public class DietistaController extends BaseController {
 
         // Iterar sobre los días de la dieta
         for (DietaDiaEntity dietaDiaEntity : dietaDia) {
-            DiaEntity dia = dietaDiaEntity.getIddia();
+            DiaEntity dia = dietaDiaEntity.getDia();
             int diaId = dia.getId();
 
             // Obtener los menús del día
             MenuDiaEntity menuDiaEntity = this.menuDiaRepository.findByDiaId(diaId);
             List<String> comidas = new ArrayList<>();
 
-            int menuId = menuDiaEntity.getIdmenu().getId();
+            int menuId = menuDiaEntity.getMenu().getId();
 
             // Obtener las comidas del menú
             List<ComidaMenuEntity> comidaMenuEntities = this.comidaMenuRepository.findByMenuId(menuId);
             for (ComidaMenuEntity comidaMenuEntity : comidaMenuEntities) {
-                comidas.add(comidaMenuEntity.getIdcomida().getDescripcion());
+                comidas.add(comidaMenuEntity.getComida().getDescripcion());
             }
 
             // Almacenar las comidas en el mapa con el nombre del día
@@ -224,7 +224,7 @@ public class DietistaController extends BaseController {
 
         // Iterar sobre los días de la dieta
         for (DietaDiaEntity dietaDiaEntity : dietaDia) {
-            DiaEntity dia = dietaDiaEntity.getIddia();
+            DiaEntity dia = dietaDiaEntity.getDia();
             int diaId = dia.getId();
 
             // Obtener los menús del día
@@ -232,12 +232,12 @@ public class DietistaController extends BaseController {
             completados.add(menuDiaEntity.getCompletado());
             List<String> comidas = new ArrayList<>();
 
-            int menuId = menuDiaEntity.getIdmenu().getId();
+            int menuId = menuDiaEntity.getMenu().getId();
 
             // Obtener las comidas del menú
             List<ComidaMenuEntity> comidaMenuEntities = this.comidaMenuRepository.findByMenuId(menuId);
             for (ComidaMenuEntity comidaMenuEntity : comidaMenuEntities) {
-                comidas.add(comidaMenuEntity.getIdcomida().getDescripcion());
+                comidas.add(comidaMenuEntity.getComida().getDescripcion());
             }
 
             // Almacenar las comidas en el mapa con el nombre del día
