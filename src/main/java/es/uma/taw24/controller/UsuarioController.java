@@ -19,6 +19,8 @@ public class UsuarioController extends BaseController{
     @Autowired
     private UsuarioService usuarioService;
 
+
+
     @GetMapping("/listado")
     public String listadoUsuarios(Model model, HttpSession session){
         if (!estaAutenticado(session)) {

@@ -11,12 +11,12 @@ public class UsuarioDietaEntity {
     @MapsId("idusuario")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDUSUARIO", nullable = false)
-    private UsuarioEntity idusuario;
+    private UsuarioEntity usuario;
 
     @MapsId("iddieta")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDDIETA", nullable = false)
-    private DietaEntity iddieta;
+    private DietaEntity dieta;
 
     public UsuarioDietaIdEntity getId() {
         return id;
@@ -26,20 +26,20 @@ public class UsuarioDietaEntity {
         this.id = id;
     }
 
-    public UsuarioEntity getIdusuario() {
-        return idusuario;
+    public UsuarioEntity getUsuario() {
+        return usuario;
     }
 
-    public void setIdusuario(UsuarioEntity idusuario) {
-        this.idusuario = idusuario;
+    public void setUsuario(UsuarioEntity idusuario) {
+        this.usuario = idusuario;
     }
 
-    public DietaEntity getIddieta() {
-        return iddieta;
+    public DietaEntity getDieta() {
+        return dieta;
     }
 
-    public void setIddieta(DietaEntity iddieta) {
-        this.iddieta = iddieta;
+    public void setDieta(DietaEntity iddieta) {
+        this.dieta = iddieta;
     }
 
 }

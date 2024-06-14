@@ -3,6 +3,7 @@ package es.uma.taw24.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "DIETA")
@@ -20,6 +21,12 @@ public class DietaEntity {
 
     @Column(name = "DESCRIPCION", nullable = false, length = 90)
     private String descripcion;
+
+    @OneToMany(mappedBy = "dieta")
+    private List<DietaDiaEntity> diaDietas;
+
+    @OneToMany(mappedBy = "dieta")
+    private List<UsuarioDietaEntity> dietaUsuarios;
 
     public Integer getId() {
         return id;

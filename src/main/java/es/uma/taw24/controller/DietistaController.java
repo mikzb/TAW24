@@ -210,7 +210,7 @@ public class DietistaController extends BaseController {
         }
 
         UsuarioDietaEntity usuarioDieta = this.usuarioDietaRepository.findByUsuarioId(id);
-        DietaEntity dieta = usuarioDieta.getIddieta();
+        DietaEntity dieta = usuarioDieta.getDieta();
         model.addAttribute("dieta", dieta);
 
         // Obtener los días de la dieta

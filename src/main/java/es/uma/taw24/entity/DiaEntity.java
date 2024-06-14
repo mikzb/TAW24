@@ -18,6 +18,9 @@ public class DiaEntity {
     @OneToMany(mappedBy = "dia")
     private List<MenuDiaEntity> menuDias;
 
+    @OneToMany(mappedBy = "dia")
+    private List<DietaDiaEntity> diaDietas;
+
     public Integer getId() {
         return id;
     }

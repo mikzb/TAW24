@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public interface ComidaRepository extends JpaRepository<ComidaEntity, Integer> {
 
-    @Query("SELECT c FROM ComidaEntity c " +
+    @Query("SELECT DISTINCT c FROM ComidaEntity c " +
             "JOIN c.comidaMenus cm " +
             "JOIN cm.menu m " +
             "JOIN m.menuDias md " +
@@ -19,7 +20,7 @@ public interface ComidaRepository extends JpaRepository<ComidaEntity, Integer> {
             "JOIN dd.dieta dt " +
             "JOIN dt.dietaUsuarios du " +
             "JOIN du.usuario u " +
-            "WHERE u.id = :clienteId")
+            "WHERE u.id = 1")
     List<ComidaEntity> findComidasByClienteId(@Param("clienteId") Long clienteId);
 
 }

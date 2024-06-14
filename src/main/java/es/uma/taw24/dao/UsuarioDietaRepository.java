@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface UsuarioDietaRepository extends JpaRepository<UsuarioDietaEntity, UsuarioDietaIdEntity> {
-    @Query("SELECT ud FROM UsuarioDietaEntity ud WHERE ud.idusuario.id = :usuarioId")
+    @Query("SELECT ud FROM UsuarioDietaEntity ud WHERE ud.usuario.id = :usuarioId")
     UsuarioDietaEntity findByUsuarioId(@Param("usuarioId") Integer usuarioId);
 
-    @Query("SELECT ud FROM UsuarioDietaEntity ud WHERE ud.iddieta.id = :dietaId")
+    @Query("SELECT ud FROM UsuarioDietaEntity ud WHERE ud.dieta.id = :dietaId")
     List<UsuarioDietaEntity> findByDietaId(@Param("dietaId") Integer dietaId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE UsuarioDietaEntity ud SET ud.iddieta = :dieta WHERE ud.idusuario.id = :usuarioId")
+    @Query("UPDATE UsuarioDietaEntity ud SET ud.dieta = :dieta WHERE ud.usuario.id = :usuarioId")
     void updateDieta(@Param("usuarioId") Integer usuarioId, @Param("dieta") DietaEntity dieta);
 }
