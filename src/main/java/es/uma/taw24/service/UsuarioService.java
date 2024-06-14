@@ -76,4 +76,8 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
             entrenadorService.guardarEntrenador(entrenador);
         }
     }
+
+    public void eliminarUsuario(int id) {
+        this.usuarioRepository.deleteById(id);
+    }
 }
