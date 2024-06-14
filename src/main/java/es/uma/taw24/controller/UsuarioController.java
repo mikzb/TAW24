@@ -35,6 +35,7 @@ public class UsuarioController extends BaseController{
         }
         String strTo = "usuario/listado";
         ArrayList<Usuario> usuarios = (ArrayList<Usuario>) this.usuarioService.listarUsuarios();
+        model.addAttribute("usuario", session.getAttribute("usuario"));
         model.addAttribute("usuarios", usuarios);
         return strTo;
     }

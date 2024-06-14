@@ -10,26 +10,36 @@
 <% Usuario usuario = (Usuario) request.getAttribute("usuario"); %>
 
 <jsp:include page="cabecera.jsp"/>
+<table>
+    <% if (usuario.isPermisoAdmin()) { %>
+    <tr>
+        <td>
+            <a href="/usuario/">Inicio de administrador</a>
+        </td>
+    </tr>
+    <% } %>
+    <% if (usuario.isPermisoCliente()) { %>
+    <tr>
+        <td>
+            <a href="/cliente/">Inicio de cliente</a>
+        </td>
+    </tr>
+    <% } %>
+    <% if (usuario.isPermisoEntrenador()) { %>
+    <tr>
+        <td>
+            <a href="/entrenador/">Inicio de entrenador</a>
+        </td>
+    </tr>
+    <% } %>
+    <% if (usuario.isPermisoDietista()) { %>
+    <tr>
+        <td>
+            <a href="/dietista/">Inicio de dietista</a>
+        </td>
+    </tr>
+    <% } %>
+</table>
 
-<% if (usuario.isPermisoAdmin()) { %>
-    <form method="get" action="/usuario/">
-        <input type="submit" value="Inicio de usuario">
-    </form>
-<% } %>
-<% if (usuario.isPermisoCliente()) { %>
-    <form method="get" action="/cliente/">
-        <input type="submit" value="Inicio de cliente">
-    </form>
-<% } %>
-<% if (usuario.isPermisoEntrenador()) { %>
-    <form method="get" action="/entrenador/">
-        <input type="submit" value="Inicio de entrenador">
-    </form>
-<% } %>
-<% if (usuario.isPermisoDietista()) { %>
-    <form method="get" action="/dietista/">
-        <input type="submit" value="Inicio de dietista">
-    </form>
-<% } %>
 </body>
 </html>
