@@ -1,14 +1,19 @@
 package es.uma.taw24.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.Sesion;
+import jakarta.persistence.*;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "SESION")
-public class SesionEntity {
+public class SesionEntity implements Serializable, DTO<Sesion> {
+    @Serial
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
@@ -31,4 +36,11 @@ public class SesionEntity {
         this.crosstraining = crosstraining;
     }
 
+    @Override
+    public Sesion toDTO() {
+        Sesion sesion = new Sesion();
+        sesion.setId(this.id);
+        sesion.setCrosstraining(this.crosstraining);
+        return sesion;
+    }
 }

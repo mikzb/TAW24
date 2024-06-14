@@ -9,7 +9,6 @@ import es.uma.taw24.DTO.Entrenador;
 import es.uma.taw24.dao.EntrenadorRepository;
 import es.uma.taw24.dao.UsuarioRepository;
 import es.uma.taw24.entity.EntrenadorEntity;
-import es.uma.taw24.entity.UsuarioEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class EntrenadorService extends DTOService<Entrenador, EntrenadorEntity>{
         return this.entrenadorRespository.findById(id).isPresent();
     }
 
-    public Entrenador buscarPorId(int id) {
+    public Entrenador buscarEntrenador(int id) {
         EntrenadorEntity entrenador = this.entrenadorRespository.findById(id).orElse(null);
         if (entrenador != null) {
             return entrenador.toDTO();
