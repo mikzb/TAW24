@@ -1,5 +1,9 @@
 package es.uma.taw24.service;
 
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
+
 import es.uma.taw24.DTO.DTO;
 
 import java.util.ArrayList;

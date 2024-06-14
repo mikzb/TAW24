@@ -1,4 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<%-- @author Ignacy Borzestowski: 100%--%>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -15,7 +18,7 @@
     <div style="color: red;">
             ${error}
     </div>
-<form:form modelAttribute="usuario" action="/usuario/guardar" method="post">
+<form:form modelAttribute="usuario" action="/usuario/crear" method="post">
     <table>
         <tr>
             <td>
@@ -30,7 +33,7 @@
                 <form:label path="password">Contrasena: </form:label>
             </td>
             <td>
-                <form:input path="password" />
+                <form:password path="password" />
             </td>
         </tr>
         <tr>
@@ -97,7 +100,7 @@
             </td>
         </tr>
     </table>
-    <input type="submit" value="Anadir"/>
+    <input type="submit" value="Crear"/>
 </form:form>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package es.uma.taw24.controller;
 
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
+
 import es.uma.taw24.DTO.Usuario;
-import es.uma.taw24.exception.DuplicateEmailException;
 import es.uma.taw24.exception.UserNotFoundException;
 import es.uma.taw24.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -41,6 +44,18 @@ public class UsuarioController extends BaseController{
         return strTo;
     }
 
+    @PostMapping("/crear")
+    public String crearUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
+        String strTo = "redirect:/usuario/listado";
+        if (this.usuarioService.emailOcupado(usuario.getEmail())) {
+            model.addAttribute("error", "El email " + usuario.getEmail() + " esta ocupado.");
+            strTo = "usuario/crear";
+        } else {
+            this.usuarioService.guardarUsuario(usuario);
+        }
+        return strTo;
+    }
+
     @GetMapping("/editar")
     public String editarUsuario(@RequestParam("id") int id, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -50,7 +65,7 @@ public class UsuarioController extends BaseController{
         if (!esAdmin(session)) {
             return accessDenied();
         }
-        String strTo = "redirect:/usuario/editar";
+        String strTo = "usuario/editar";
         try {
             Usuario usuario = usuarioService.buscarUsuarioPorId(id);
             model.addAttribute("usuario", usuario);
@@ -60,23 +75,25 @@ public class UsuarioController extends BaseController{
         }
         return strTo;
     }
+    @PostMapping("/editar")
+    public String editarUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
 
-    @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
         String strTo = "redirect:/usuario/listado";
         try {
             this.usuarioService.guardarUsuario(usuario);
-        } catch (DuplicateEmailException e) {
+        } catch (UserNotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            strTo = "usuario/crear";
+            strTo = "usuario/editar";
         }
         return strTo;
     }
 
 
-    @ExceptionHandler(DuplicateEmailException.class)
-    public String handleDuplicateEmailException(DuplicateEmailException e, Model model) {
-        model.addAttribute("error", e.getMessage());
-        return "usuario/crear";
-    }
+
 }

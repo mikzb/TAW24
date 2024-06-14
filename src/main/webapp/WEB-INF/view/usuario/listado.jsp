@@ -1,5 +1,8 @@
 <%@ page import="es.uma.taw24.DTO.Usuario" %>
 <%@ page import="java.util.List" %>
+
+<%-- @author Ignacy Borzestowski: 100%--%>
+
 <!doctype html>
 <html lang="es">
 <head>

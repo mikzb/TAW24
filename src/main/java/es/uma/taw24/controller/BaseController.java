@@ -1,5 +1,9 @@
 package es.uma.taw24.controller;
 
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
+
 import es.uma.taw24.DTO.Usuario;
 import jakarta.servlet.http.HttpSession;
 

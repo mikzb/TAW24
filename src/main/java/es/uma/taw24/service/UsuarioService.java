@@ -12,7 +12,6 @@ import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.dao.EntrenadorUsuarioRepository;
 import es.uma.taw24.dao.UsuarioRepository;
 import es.uma.taw24.entity.UsuarioEntity;
-import es.uma.taw24.exception.DuplicateEmailException;
 import es.uma.taw24.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,10 +51,11 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
 
     public List<Usuario> listarClientes(Integer idEntrenador){ return this.entidadesADTO(this.entrenadorUsuarioRepository.findByEntrenadorId(idEntrenador)); }
 
+    public boolean emailOcupado(String email) {
+        return this.usuarioRepository.findByEmail(email).isPresent();
+    }
+
     public void guardarUsuario(Usuario usuario) {
-        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-            throw new DuplicateEmailException("The email " + usuario.getEmail() + " is already in use.");
-        }
         UsuarioEntity usuarioEntity = this.usuarioRepository.findById(usuario.getId()).orElse(new UsuarioEntity());
         usuarioEntity.setEmail(usuario.getEmail());
         usuarioEntity.setPasswordhash(BCryptHashing.hashPassword(usuario.getPassword()));

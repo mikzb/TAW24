@@ -1,5 +1,10 @@
 package es.uma.taw24.exception;
 
+
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
+
 import org.springframework.dao.PermissionDeniedDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,10 +23,11 @@ public class GlobalExceptionHandler {
         model.addAttribute("error", "The page you are looking for does not exist.");
         return "error/404";
     }
-//    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public String handleException(Exception ex, Model model) {
-//        model.addAttribute("error", "An error occurred. Please try again later.");
-//        return "error/500";
-//    }
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleException(Exception ex, Model model) {
+        model.addAttribute("exception", ex);
+        model.addAttribute("error", "An error occurred. Please try again later.");
+        return "error/500";
+    }
 }
