@@ -3,86 +3,44 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@ page import="es.uma.taw24.entity.ComidaEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="es.uma.taw24.DTO.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<% Usuario usuario = (Usuario) request.getAttribute("usuario"); %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<h1>Hola USUARIO, estoy en dieta</h1>
+<h1>Hola <%= usuario.getNombre()%> , esta es tu dieta a seguir hoy:</h1>
 
 
-<h1>Dieta {nombre cliente} {fecha}</h1>
+<h1> Recuerda repartirte las comidas a lo largo del día.
+Buen provecho!</h1>
 
-<%
-    String driverName = "com.mysql.cj.jdbc.Driver";
-    String connectionUrl = "jdbc:mysql://localhost:3306/";
-    String dbName = "mydb";
-    String userId = "root";
-    String password = "root";
-
-    try {
-        Class.forName(driverName);
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    }
-
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
-%>
-<table align="center" cellpadding="4" cellspacing="4">
+<table>
     <tr>
-
-    </tr>
-    <tr bgcolor="#008000">
-        <td><b>Id</b></td>
-        <td><b>ID dietista</b></td>
-        <td><b>fechaCreacion</b></td>
-    </tr>
-    <%
-        try {
-            connection = DriverManager.getConnection(
-                    connectionUrl + dbName, userId, password);
-            statement = connection.createStatement();
-            String sql = "SELECT * FROM dieta";
-
-            resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-    %>
-    <tr bgcolor="#8FBC8F">
-
-        <td><%=resultSet.getString("id")%></td>
-        <td><%=resultSet.getString("idDietista")%></td>
-        <td><%=resultSet.getString("fechaCreacion")%></td>
-
-
+        <th>Comida ID</th>
+        <th>Comida Name</th>
+        <!-- Add more columns as needed -->
     </tr>
 
     <%
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<ComidaEntity> comidas = (List<ComidaEntity>) request.getAttribute("comidas");
+        for (ComidaEntity comida: comidas) {
     %>
-</table>
 
-<%--
-<table border="1">
-    <%
-        String[][] dieta = (String[][]) request.getAttribute("dieta");
-        for (String[] comida : dieta) {
-    %>
     <tr>
-        <% for (String descripcion : comida) { %>
-        <td><%= descripcion %></td>
-        <% } %>
+        <td><%= comida.getId() %></td>
+        <td><%= comida.getDescripcion() %></td>
     </tr>
     <%
         }
     %>
+
 </table>
---%>
+
 </body>
 </html>

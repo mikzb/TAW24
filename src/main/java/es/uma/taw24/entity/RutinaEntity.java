@@ -1,12 +1,14 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.Rutina;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 
 @Entity
 @Table(name = "RUTINA")
-public class RutinaEntity {
+public class RutinaEntity implements DTO<Rutina> {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
@@ -40,6 +42,14 @@ public class RutinaEntity {
 
     public void setFechacreacion(Instant fechacreacion) {
         this.fechacreacion = fechacreacion;
+    }
+
+    public Rutina toDTO() {
+        Rutina rutina = new Rutina();
+        rutina.setId(this.id);
+        rutina.setFechacreacion(this.fechacreacion);
+        rutina.setIdentrenador(this.identrenador.toDTO());
+        return rutina;
     }
 
 }

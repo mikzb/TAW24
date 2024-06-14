@@ -11,12 +11,12 @@ public class DietaDiaEntity {
     @MapsId("iddieta")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDDIETA", nullable = false)
-    private DietaEntity iddieta;
+    private DietaEntity dieta;
 
     @MapsId("iddia")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDDIA", nullable = false)
-    private DiaEntity iddia;
+    private DiaEntity dia;
 
     public DietaDiaIdEntity getId() {
         return id;
@@ -26,20 +26,20 @@ public class DietaDiaEntity {
         this.id = id;
     }
 
-    public DietaEntity getIddieta() {
-        return iddieta;
+    public DietaEntity getDieta() {
+        return dieta;
     }
 
-    public void setIddieta(DietaEntity iddieta) {
-        this.iddieta = iddieta;
+    public void setDieta(DietaEntity iddieta) {
+        this.dieta = iddieta;
     }
 
-    public DiaEntity getIddia() {
-        return iddia;
+    public DiaEntity getDia() {
+        return dia;
     }
 
-    public void setIddia(DiaEntity iddia) {
-        this.iddia = iddia;
+    public void setDia(DiaEntity iddia) {
+        this.dia = iddia;
     }
 
 }

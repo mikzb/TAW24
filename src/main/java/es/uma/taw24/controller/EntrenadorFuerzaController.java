@@ -5,6 +5,7 @@ package es.uma.taw24.controller;
  */
 
 import es.uma.taw24.DTO.Entrenador;
+import es.uma.taw24.DTO.Rutina;
 import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.dao.EntrenadorRepository;
 import es.uma.taw24.dao.EntrenadorUsuarioRepository;
@@ -12,6 +13,7 @@ import es.uma.taw24.dao.UsuarioRepository;
 import es.uma.taw24.entity.EntrenadorEntity;
 import es.uma.taw24.entity.UsuarioEntity;
 import es.uma.taw24.service.EntrenadorService;
+import es.uma.taw24.service.RutinaService;
 import es.uma.taw24.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +32,13 @@ import java.util.List;
 public class EntrenadorFuerzaController extends BaseController{
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private UsuarioService usuarioService;
 
     @Autowired
     private EntrenadorService entrenadorService;
+
+    @Autowired
+    private RutinaService rutinaService;
 
     @GetMapping("/")
     public String doInicio(Model model, HttpSession session) {
@@ -82,6 +84,21 @@ public class EntrenadorFuerzaController extends BaseController{
         model.addAttribute("entrenador", entrenador);
         Usuario cliente = usuarioService.buscarUsuarioPorId(id);
         model.addAttribute("cliente", cliente);
+        return strTo;
+    }
+
+    @GetMapping("/rutinas")
+    public String listarRutinas(Model model, HttpSession session) {
+        String strTo = "entrenador/rutinas";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
+        List<Rutina> rutinas = rutinaService.listarRutinas(usuarioEntrenador.getId());
+        model.addAttribute("rutinas", rutinas);
         return strTo;
     }
 

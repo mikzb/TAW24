@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface MenuDiaRepository extends JpaRepository<MenuDiaEntity, Integer> {
-    @Query("SELECT m FROM MenuDiaEntity m WHERE m.iddia.id = :diaId")
+    @Query("SELECT m FROM MenuDiaEntity m WHERE m.dia.id = :diaId")
     MenuDiaEntity findByDiaId(@Param("diaId") Integer diaId);
 }

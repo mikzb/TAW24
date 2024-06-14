@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "USUARIO")
@@ -45,6 +46,9 @@ public class UsuarioEntity implements Serializable, DTO<Usuario> {
 
     @Column(name = "PERMISO_CLIENTE", nullable = false)
     private Boolean permisoCliente = false;
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<UsuarioDietaEntity> dietausuarios;
 
     public Boolean getPermisoCliente() {
         return permisoCliente;

@@ -11,12 +11,12 @@ public class ComidaMenuEntity {
     @MapsId("idcomida")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDCOMIDA", nullable = false)
-    private ComidaEntity idcomida;
+    private ComidaEntity comida;
 
     @MapsId("idmenu")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDMENU", nullable = false)
-    private MenuEntity idmenu;
+    private MenuEntity menu;
 
     public ComidaMenuIdEntity getId() {
         return id;
@@ -26,20 +26,20 @@ public class ComidaMenuEntity {
         this.id = id;
     }
 
-    public ComidaEntity getIdcomida() {
-        return idcomida;
+    public ComidaEntity getComida() {
+        return comida;
     }
 
-    public void setIdcomida(ComidaEntity idcomida) {
-        this.idcomida = idcomida;
+    public void setComida(ComidaEntity idcomida) {
+        this.comida = idcomida;
     }
 
-    public MenuEntity getIdmenu() {
-        return idmenu;
+    public MenuEntity getMenu() {
+        return menu;
     }
 
-    public void setIdmenu(MenuEntity idmenu) {
-        this.idmenu = idmenu;
+    public void setMenu(MenuEntity idmenu) {
+        this.menu = idmenu;
     }
 
 }

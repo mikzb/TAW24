@@ -12,5 +12,5 @@ import lombok.Data;
 public class Entrenador {
     private int id;
     private boolean crosstraining;
-    private UsuarioEntity usuario;
+    private Usuario usuario;
 }

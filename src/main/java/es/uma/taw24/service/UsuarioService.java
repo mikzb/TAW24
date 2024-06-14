@@ -71,7 +71,8 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         if(usuario.isPermisoEntrenador()){
             Entrenador entrenador = new Entrenador();
             entrenador.setCrosstraining(usuario.isCrosstraining());
-            entrenador.setUsuario(usuarioEntity);
+            entrenador.setUsuario(usuario);
+            entrenador.setId(usuarioEntity.getId());
             entrenadorService.guardarEntrenador(entrenador);
         }
     }
