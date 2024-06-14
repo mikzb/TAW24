@@ -7,6 +7,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.Usuario" %>
 <%@ page import="es.uma.taw24.DTO.Rutina" %>
+<%@ page import="java.util.Date" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -16,10 +17,17 @@
 
 <html>
 <head>
-    <title>clientes</title>
+    <title>Rutinas</title>
 </head>
 <body>
-<h1>Tus Clientes</h1>
+<h1>Tus Rutinas</h1>
+
+<form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">
+    Contiene: <form:input path="titulo" />
+    y fue publicado después de: <form:input path="anyo"  />
+    <form:button>Filtrar</form:button>
+
+</form:form>
 
 <table border="1">
     <tr>
@@ -30,12 +38,12 @@
     <% for (Rutina rutina : rutinas) { %>
     <tr>
         <td><%= rutina.getId() %></td>
-        <td><%= rutina.getFechacreacion() %></td>
-        <td><a href="/entrenador/clientes/<%= rutina.getId() %>/rutina">Editar Rutina</a></td>
+        <td><%= Date.from(rutina.getFechacreacion()) %></td>
+        <td><a href="/entrenador/editar?id=<%= rutina.getId() %>">Editar Rutina</a></td>
     </tr>
     <% } %>
 </table>
 
-<button onclick="window.location.href='/entrenador'">Volver</button>
+<button onclick="window.location.href='/entrenador/'">Volver</button>
 </body>
 </html>

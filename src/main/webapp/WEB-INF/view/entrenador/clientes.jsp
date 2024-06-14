@@ -30,11 +30,11 @@
     <tr>
         <td><%= cliente.getNombre() %></td>
         <td><%= cliente.getApellidos() %></td>
-        <td><a href="/entrenador/clientes/<%= cliente.getId() %>/rutina">Ver Rutina</a></td>
+        <td><a href="/entrenador/clientes/<%= cliente.getId() %>/rutinas">Ver Rutinas</a></td>
     </tr>
     <% } %>
 </table>
 
-<button onclick="window.location.href='/entrenador'">Volver</button>
+<button onclick="window.location.href='/entrenador/'">Volver</button>
 </body>
 </html>
