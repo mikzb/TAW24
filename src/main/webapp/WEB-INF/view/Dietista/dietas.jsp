@@ -3,17 +3,17 @@
 --%>
 
 <%@ page import="java.util.List" %>
-<%@ page import="es.uma.taw24.entity.DietaEntity" %>
+<%@ page import="es.uma.taw24.DTO.Dieta" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    List<DietaEntity> dietas = (List<DietaEntity>) request.getAttribute("dietas");
+    List<Dieta> dietas = (List<Dieta>) request.getAttribute("dietas");
 %>
 
 <html>
 <head>
-    <title>dietas</title>
+    <title>Dietas</title>
 </head>
 <body>
 <h1>Tus Dietas</h1>
@@ -25,16 +25,16 @@
         <th>Detalles</th>
         <th>Eliminar</th>
     </tr>
-    <% for (DietaEntity dieta : dietas) { %>
+    <% for (Dieta dieta : dietas) { %>
     <tr>
         <td><%= dieta.getDescripcion() %></td>
-        <td><%= dieta.getFechacreacion() %></td>
-        <td><a href="/verDietaDietista?id=<%= dieta.getId() %>">Ver Dieta</a></td>
-        <td><a href="/eliminarDieta?id=<%= dieta.getId() %>">Eliminar</a></td>
+        <td><%= dieta.getFechaCreacion() %></td>
+        <td><a href="/dietista/verDietaDietista?id=<%= dieta.getId() %>">Ver Dieta</a></td>
+        <td><a href="/dietista/eliminarDieta?id=<%= dieta.getId() %>">Eliminar</a></td>
     </tr>
     <% } %>
 </table>
-<button onclick="window.location.href='/crearDieta'">Crear</button>
-<button onclick="window.location.href='/'">Volver</button>
+<button onclick="window.location.href='/dietista/crearDieta'">Crear</button>
+<button onclick="window.location.href='/dietista/'">Volver</button>
 </body>
 </html>

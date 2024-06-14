@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "MENU")
 public class MenuEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 

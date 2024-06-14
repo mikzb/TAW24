@@ -12,7 +12,6 @@ import org.springframework.data.repository.query.Param;
 import java.time.Instant;
 import java.util.List;
 
-
 public interface ComidaRepository extends JpaRepository<ComidaEntity, Integer> {
 
     @Query("SELECT DISTINCT c FROM ComidaEntity c " +
