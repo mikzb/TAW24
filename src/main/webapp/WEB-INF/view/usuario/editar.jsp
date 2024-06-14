@@ -11,6 +11,8 @@
     <title>Editar usuario</title>
 </head>
 <body>
+<jsp:include page="../cabecera.jsp"/>
+
 <h2> Editar usuario </h2>
 <div style="color: red;">
     ${error}

@@ -12,6 +12,7 @@
     <title>Anadir nuevo usuario</title>
 </head>
 <body>
+<jsp:include page="../cabecera.jsp"/>
 <h2>
     Anadir nuevo usuario
 </h2>

@@ -22,4 +22,3 @@ public class Usuario {
     private boolean permisoCliente;
     private boolean crosstraining;
 }
-

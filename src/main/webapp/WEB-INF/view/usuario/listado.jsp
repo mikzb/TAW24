@@ -13,6 +13,7 @@
     <title>Lista de usuarios</title>
 </head>
 <body>
+<jsp:include page="../cabecera.jsp"/>
 <h2>
     Lista de usuarios
 </h2>

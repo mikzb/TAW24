@@ -27,17 +27,26 @@ public class LoginController extends BaseController {
     public String doLogin (Model model, HttpSession session) {
         String strTo = "login";
         if (estaAutenticado(session)) {
-            strTo = "redirect:/cliente/";
+            strTo = "redirect:/inicio";
         } else {
             model.addAttribute("usuario", new Usuario());
         }
         return strTo;
     }
 
+    @GetMapping("/inicio")
+    public String doInicio(HttpSession session, Model model) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+        model.addAttribute("usuario", session.getAttribute("usuario"));
+        return "inicio";
+    }
+
     @PostMapping("/autenticar")
     public String doAutentica (@ModelAttribute("usuario") Usuario usuario,
                                Model model, HttpSession session) {
-        String strTo = "redirect:/cliente/";
+        String strTo;
         try {
             Usuario authenticatedUser = this.usuarioService.autenticar(usuario.getEmail(), usuario.getPassword());
             if (authenticatedUser == null) {
@@ -45,6 +54,7 @@ public class LoginController extends BaseController {
                 strTo = this.doLogin(model, session);
             } else {
                 session.setAttribute("usuario", authenticatedUser);
+                strTo = "redirect:/inicio";
             }
         } catch (UserNotFoundException e) {
             model.addAttribute("error", "Usuario o contraseña incorrectos");

@@ -22,13 +22,14 @@ public class EntrenadorService extends DTOService<Entrenador, EntrenadorEntity>{
     private UsuarioRepository usuarioRepository;
 
     public void guardarEntrenador(Entrenador entrenador) {
-        if (entrenadorRespository.findById(entrenador.getId()).isPresent()) {
-            throw new IllegalArgumentException("El entrenador con id: " + entrenador.getId() + " ya existe.");
-        }
-            EntrenadorEntity entrenadorEntity = new EntrenadorEntity();
+            EntrenadorEntity entrenadorEntity = entrenadorRespository.findById(entrenador.getId()).orElse(new EntrenadorEntity());
             entrenadorEntity.setCrosstraining(entrenador.isCrosstraining());
             entrenadorEntity.setUsuario(this.usuarioRepository.findById(entrenador.getId()).orElse(null));
             this.entrenadorRespository.save(entrenadorEntity);
+    }
+
+    public boolean entrenadorExiste(int id) {
+        return this.entrenadorRespository.findById(id).isPresent();
     }
 
     public Entrenador buscarPorId(int id) {
