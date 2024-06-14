@@ -4,26 +4,13 @@ package es.uma.taw24.controller;
  * @author Cristian Ruiz Martín: 100%
  */
 
-import es.uma.taw24.DTO.Entrenador;
-import es.uma.taw24.DTO.Rutina;
-import es.uma.taw24.DTO.Usuario;
-import es.uma.taw24.dao.EntrenadorRepository;
-import es.uma.taw24.dao.EntrenadorUsuarioRepository;
-import es.uma.taw24.dao.UsuarioRepository;
-import es.uma.taw24.entity.EntrenadorEntity;
-import es.uma.taw24.entity.UsuarioEntity;
-import es.uma.taw24.service.EntrenadorService;
-import es.uma.taw24.service.RutinaService;
-import es.uma.taw24.service.UsuarioService;
+import es.uma.taw24.DTO.*;
+import es.uma.taw24.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +27,18 @@ public class EntrenadorFuerzaController extends BaseController{
     @Autowired
     private RutinaService rutinaService;
 
+    @Autowired
+    private RutinaSesionService rutinaSesionService;
+
+    @Autowired
+    private SesionEjercicioService sesionEjercicioService;
+
+    @Autowired
+    private SesionService sesionService;
+
+    @Autowired
+    private EjercicioService ejercicioService;
+
     @GetMapping("/")
     public String doInicio(Model model, HttpSession session) {
         String strTo = "entrenador/inicio";
@@ -50,7 +49,7 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
-        Entrenador entrenador = entrenadorService.buscarPorId(usuarioEntrenador.getId());
+        Entrenador entrenador = entrenadorService.buscarEntrenador(usuarioEntrenador.getId());
         model.addAttribute("entrenador", entrenador);
         return strTo;
     }
@@ -72,7 +71,7 @@ public class EntrenadorFuerzaController extends BaseController{
 
     @GetMapping("/cliente/{id}/rutinas")
     public String verRutina(Model model, HttpSession session, @PathVariable("id") Integer id) {
-        String strTo = "entrenador/rutinasCliente";
+        String strTo = "entrenador/rutinas";
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
@@ -80,10 +79,8 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
-        Entrenador entrenador = entrenadorService.buscarPorId(usuarioEntrenador.getId());
-        model.addAttribute("entrenador", entrenador);
-        Usuario cliente = usuarioService.buscarUsuarioPorId(id);
-        model.addAttribute("cliente", cliente);
+        List<Rutina> rutinas = rutinaService.listarRutinas(id, usuarioEntrenador.getId());
+        model.addAttribute("rutinas", rutinas);
         return strTo;
     }
 
@@ -99,6 +96,55 @@ public class EntrenadorFuerzaController extends BaseController{
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Rutina> rutinas = rutinaService.listarRutinas(usuarioEntrenador.getId());
         model.addAttribute("rutinas", rutinas);
+        return strTo;
+    }
+
+    @GetMapping("/rutina")
+    public String verRutina(@RequestParam("id") Integer id, Model model, HttpSession session) {
+        String strTo = "entrenador/rutina";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        List<RutinaSesion> rutinaSesiones = rutinaSesionService.buscarPorIdRutina(id);
+        model.addAttribute("rutinaSesiones", rutinaSesiones);
+
+        return strTo;
+    }
+
+    @GetMapping("/sesion")
+    public String verSesion(@RequestParam("id") Integer id, Model model, HttpSession session) {
+        String strTo = "entrenador/sesion";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        List<SesionEjercicio> sesionEjercicios = sesionEjercicioService.buscarSesionEjercicioPorIdSesion(id);
+        model.addAttribute("sesionEjercicios", sesionEjercicios);
+        return strTo;
+    }
+
+    @GetMapping("/sesion/{id}/anyadir")
+    public String anyadirEjercicioSesion(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        String strTo = "entrenador/nuevo_ejercicio";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        SesionEjercicio sesionEjercicio = new SesionEjercicio();
+        Sesion sesion = sesionService.buscarSesion(id);
+        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosPorTipo("Fuerza");
+        Ejercicio ejercicio = new Ejercicio();
+        sesionEjercicio.setSesion(sesion);
+        sesionEjercicio.setEjercicio(ejercicio);
+        model.addAttribute("ejercicios", ejercicios);
+        model.addAttribute("sesionEjercicio", sesionEjercicio);
         return strTo;
     }
 

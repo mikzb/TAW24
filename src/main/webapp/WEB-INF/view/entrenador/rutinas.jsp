@@ -39,7 +39,7 @@
     <tr>
         <td><%= rutina.getId() %></td>
         <td><%= Date.from(rutina.getFechacreacion()) %></td>
-        <td><a href="/entrenador/editar?id=<%= rutina.getId() %>">Editar Rutina</a></td>
+        <td><a href="/entrenador/rutina?id=<%= rutina.getId() %>">Editar Rutina</a></td>
     </tr>
     <% } %>
 </table>

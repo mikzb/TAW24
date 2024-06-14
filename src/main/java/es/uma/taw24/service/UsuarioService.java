@@ -100,4 +100,8 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
 
         return usuariosDTO;
     }
+
+    public void eliminarUsuario(int id) {
+        this.usuarioRepository.deleteById(id);
+    }
 }
