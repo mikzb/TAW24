@@ -124,25 +124,26 @@ public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
         this.distancia = distancia;
     }
 
-    @Override
-    public SesionEjercicio toDTO() {
-        SesionEjercicio sesionEjercicio = new SesionEjercicio();
-        sesionEjercicio.setSesion(this.idsesion.toDTO());
-        sesionEjercicio.setEjercicio(this.idejercicio.toDTO());
-        sesionEjercicio.setRepeticiones(this.repeticiones);
-        sesionEjercicio.setDuracion(this.duracion);
-        sesionEjercicio.setPeso(this.peso);
-        sesionEjercicio.setCompletado(this.completado);
-        sesionEjercicio.setVelocidad(this.velocidad);
-        sesionEjercicio.setDistancia(this.distancia);
-        return sesionEjercicio;
-    }
-
     public Integer getSeries() {
         return series;
     }
 
     public void setSeries(Integer series) {
         this.series = series;
+    }
+
+    @Override
+    public SesionEjercicio toDTO() {
+        SesionEjercicio sesionEjercicio = new SesionEjercicio();
+        sesionEjercicio.setSesion(this.idsesion.toDTO());
+        sesionEjercicio.setEjercicio(this.idejercicio.toDTO());
+        sesionEjercicio.setRepeticiones(this.repeticiones);
+        sesionEjercicio.setSeries(this.series);
+        sesionEjercicio.setDuracion(this.duracion);
+        sesionEjercicio.setPeso(this.peso);
+        sesionEjercicio.setCompletado(this.completado);
+        sesionEjercicio.setVelocidad(this.velocidad);
+        sesionEjercicio.setDistancia(this.distancia);
+        return sesionEjercicio;
     }
 }

@@ -6,8 +6,8 @@ import lombok.Data;
 public class SesionEjercicio{
     private Sesion sesion;
     private Ejercicio ejercicio;
-    private int repeticiones;
     private int series;
+    private int repeticiones;
     private short peso;
     private boolean completado;
     private int orden;

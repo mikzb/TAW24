@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface SesionEjercicioRepository extends JpaRepository<SesionEjercicioEntity, Integer> {
-    @Query("SELECT se FROM SesionEjercicioEntity se WHERE se.id.idsesion = :sesionId")
+    @Query("SELECT se FROM SesionEjercicioEntity se WHERE se.id.idsesion = :sesionId ORDER BY se.orden ASC")
     public List<SesionEjercicioEntity> findBySesionId(@RequestParam("sesionId") Integer sesionId);
 
     @Query("SELECT se FROM SesionEjercicioEntity se WHERE se.id.idsesion = :sesionId AND se.id.idejercicio = :ejercicioId")

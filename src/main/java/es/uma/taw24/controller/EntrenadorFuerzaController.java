@@ -165,6 +165,6 @@ public class EntrenadorFuerzaController extends BaseController{
         }
 
         sesionEjercicioService.guardarSesionEjercicio(sesionEjercicio);
-        return "redirect:/entrenador/sesion/" + sesionEjercicio.getSesion().getId();
+        return "redirect:/entrenador/sesion?id=" + sesionEjercicio.getSesion().getId();
     }
 }
