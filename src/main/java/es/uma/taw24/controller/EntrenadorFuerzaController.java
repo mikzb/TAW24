@@ -70,9 +70,9 @@ public class EntrenadorFuerzaController extends BaseController{
         return strTo;
     }
 
-    @GetMapping("/cliente/{id}/rutina")
+    @GetMapping("/cliente/{id}/rutinas")
     public String verRutina(Model model, HttpSession session, @PathVariable("id") Integer id) {
-        String strTo = "entrenador/rutina";
+        String strTo = "entrenador/rutinasCliente";
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }

@@ -16,7 +16,7 @@ public class RutinaSesionEntity {
     @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDSESION", nullable = false)
-    private SesionEntityEntity idsesion;
+    private SesionEntity idsesion;
 
     @Column(name = "DIADESEMANA", nullable = false, length = 10)
     private String diadesemana;
@@ -37,11 +37,11 @@ public class RutinaSesionEntity {
         this.idrutina = idrutina;
     }
 
-    public SesionEntityEntity getIdsesion() {
+    public SesionEntity getIdsesion() {
         return idsesion;
     }
 
-    public void setIdsesion(SesionEntityEntity idsesion) {
+    public void setIdsesion(SesionEntity idsesion) {
         this.idsesion = idsesion;
     }
 

@@ -11,7 +11,7 @@ public class SesionEjercicioEntity {
     @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDSESION", nullable = false)
-    private SesionEntityEntity idsesion;
+    private SesionEntity idsesion;
 
     @MapsId("idejercicio")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -47,11 +47,11 @@ public class SesionEjercicioEntity {
         this.id = id;
     }
 
-    public SesionEntityEntity getIdsesion() {
+    public SesionEntity getIdsesion() {
         return idsesion;
     }
 
-    public void setIdsesion(SesionEntityEntity idsesion) {
+    public void setIdsesion(SesionEntity idsesion) {
         this.idsesion = idsesion;
     }
 
