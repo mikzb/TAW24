@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "SESION_EJERCICIO")
 public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
     @EmbeddedId
-    private SesionEjercicioIdEntity id;
+    private SesionEjercicioIdEntity id = new SesionEjercicioIdEntity();
 
     @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -34,7 +34,7 @@ public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
 
     @Column(name = "COMPLETADO", nullable = false)
     private Boolean completado = false;
-
+    
     @Column(name = "ORDEN", nullable = false)
     private Integer orden;
 
@@ -133,7 +133,6 @@ public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
         sesionEjercicio.setDuracion(this.duracion);
         sesionEjercicio.setPeso(this.peso);
         sesionEjercicio.setCompletado(this.completado);
-        sesionEjercicio.setOrden(this.orden);
         sesionEjercicio.setVelocidad(this.velocidad);
         sesionEjercicio.setDistancia(this.distancia);
         return sesionEjercicio;
