@@ -31,6 +31,10 @@ public class EntrenadorService extends DTOService<Entrenador, EntrenadorEntity>{
         return this.entrenadorRespository.findById(id).isPresent();
     }
 
+    public void borrarEntrenador(int id) {
+        this.entrenadorRespository.deleteById(id);
+    }
+
     public Entrenador buscarEntrenador(int id) {
         EntrenadorEntity entrenador = this.entrenadorRespository.findById(id).orElse(null);
         if (entrenador != null) {

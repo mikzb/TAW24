@@ -1,44 +1,45 @@
-/*
- * Pablo Rubia Arias: 100%
+package es.uma.taw24.service;
+
+/**
+ * @author Ignacy Borzestowski: 50%
+ * @author Pablo Rubia Arias: 50%
  */
 
-package es.uma.taw24.service;
+
 import es.uma.taw24.DTO.Comida;
+import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.dao.ComidaRepository;
 import es.uma.taw24.entity.ComidaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ComidaService {
-
+public class ComidaService extends DTOService<Comida, ComidaEntity>{
     @Autowired
     private ComidaRepository comidaRepository;
 
     public List<Comida> listarComidas() {
-        List<ComidaEntity> comidas =  this.comidaRepository.findAll();
-        List<Comida> comidasDTO = new ArrayList<>();
-
-        for (ComidaEntity comida : comidas) {
-            Comida comidaDTO = new Comida();
-            comidaDTO.setId(comida.getId());
-            comidaDTO.setDescripcion(comida.getDescripcion());
-            comidasDTO.add(comidaDTO);
-        }
-
-        return comidasDTO;
+        return this.entidadesADTO(this.comidaRepository.findAll());
     }
 
-    public Comida buscarPorId(Integer id) {
+    public void guardarComida(Comida comida) {
+        ComidaEntity comidaEntity = comidaRepository.findById(comida.getId()).orElse(new ComidaEntity());
+        comidaEntity.setDescripcion(comida.getDescripcion());
+        comidaRepository.save(comidaEntity);
+    }
+
+    public Comida buscarPorId(int id) {
         ComidaEntity comida = this.comidaRepository.findById(id).orElse(null);
-        Comida comidaDTO = new Comida();
+        if (comida != null) {
+            return comida.toDTO();
+        } else {
+            return null;
+        }
+    }
 
-        comidaDTO.setId(comida.getId());
-        comidaDTO.setDescripcion(comida.getDescripcion());
-
-        return comidaDTO;
+    public void borrarComida(int id) {
+        this.comidaRepository.deleteById(id);
     }
 }

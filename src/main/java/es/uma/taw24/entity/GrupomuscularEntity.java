@@ -1,14 +1,17 @@
 package es.uma.taw24.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.GrupoMuscular;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "GRUPOMUSCULAR")
-public class GrupomuscularEntity {
+public class GrupomuscularEntity implements Serializable, DTO<GrupoMuscular> {
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
@@ -31,4 +34,10 @@ public class GrupomuscularEntity {
         this.nombre = nombre;
     }
 
+    public GrupoMuscular toDTO() {
+        GrupoMuscular grupoMuscular = new GrupoMuscular();
+        grupoMuscular.setId(this.id);
+        grupoMuscular.setNombre(this.nombre);
+        return grupoMuscular;
+    }
 }

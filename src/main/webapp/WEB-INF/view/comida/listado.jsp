@@ -21,6 +21,8 @@
     <tr>
         <th>Id</th>
         <th>Descripcion</th>
+        <th></th>
+        <th></th>
     </tr>
     <%
         List<Comida> comidas = (List<Comida>) request.getAttribute("comidas");
@@ -30,6 +32,7 @@
         <td><%= comida.getId() %></td>
         <td><%= comida.getDescripcion() %></td>
         <td><a href="/comida/editar?id=<%= comida.getId() %>">Editar</a></td>
+        <td><a href="/comida/borrar?id=<%= comida.getId() %>">Borrar</a></td>
     </tr>
     <%
         }

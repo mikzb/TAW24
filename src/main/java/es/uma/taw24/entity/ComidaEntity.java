@@ -4,12 +4,15 @@ import es.uma.taw24.DTO.Comida;
 import es.uma.taw24.DTO.DTO;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "COMIDA")
-public class ComidaEntity implements DTO<Comida> {
+public class ComidaEntity implements Serializable, DTO<Comida> {
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 

@@ -25,7 +25,6 @@
         <th>Edad</th>
         <th>Sexo</th>
         <th>Permisos</th>
-        <th></th>
     </tr>
 <%
     List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
@@ -39,6 +38,11 @@
             <td><%= usuario.getSexo() %></td>
             <td>A: <%= usuario.isPermisoAdmin()%>, C: <%= usuario.isPermisoCliente()%>, D: <%= usuario.isPermisoDietista()%>, E: <%= usuario.isPermisoEntrenador()%></td>
             <td><a href="/usuario/editar?id=<%= usuario.getId() %>">Editar</a></td>
+            <td><a href="/usuario/borrar?id=<%= usuario.getId() %>">Borrar</a></td>
+            <% if (usuario.isPermisoCliente()) { %>
+            <td><a href="/usuario/asignarEntrenador?id=<%= usuario.getId() %>">Asignar entrenador</a></td>
+            <td><a href="/usuario/asignarDietista?id=<%= usuario.getId() %>">Asignar dietista</a></td>
+            <% } %>
         </tr>
 <%
     }

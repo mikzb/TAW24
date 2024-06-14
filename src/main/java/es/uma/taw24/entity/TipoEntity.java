@@ -2,15 +2,16 @@ package es.uma.taw24.entity;
 
 import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.DTO.Tipo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "TIPO")
-public class TipoEntity implements DTO<Tipo> {
+public class TipoEntity implements Serializable, DTO<Tipo> {
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 

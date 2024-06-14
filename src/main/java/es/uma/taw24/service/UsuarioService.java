@@ -101,7 +101,8 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         return usuariosDTO;
     }
 
-    public void eliminarUsuario(int id) {
+    public void borrarUsuario(int id) {
+        this.entrenadorService.borrarEntrenador(id);
         this.usuarioRepository.deleteById(id);
     }
 }
