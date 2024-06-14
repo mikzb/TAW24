@@ -5,16 +5,20 @@
 <%@page import="java.sql.Connection"%>
 <%@ page import="es.uma.taw24.entity.ComidaEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="es.uma.taw24.DTO.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<% Usuario usuario = (Usuario) request.getAttribute("usuario"); %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<h1>Hola USUARIO, estoy en dieta</h1>
+<h1>Hola <%= usuario.getNombre()%> , esta es tu dieta a seguir hoy:</h1>
 
 
-<h1>Dieta {nombre cliente} {fecha}</h1>
+<h1> Recuerda repartirte las comidas a lo largo del día.
+Buen provecho!</h1>
 
 <table>
     <tr>
