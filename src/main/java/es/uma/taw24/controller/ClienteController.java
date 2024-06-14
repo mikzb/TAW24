@@ -4,8 +4,10 @@
 
 package es.uma.taw24.controller;
 
+import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.dao.ComidaRepository;
 import es.uma.taw24.entity.ComidaEntity;
+import es.uma.taw24.entity.UsuarioEntity;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.Instant;
+import java.time.LocalDate;
+
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,9 +61,12 @@ public class ClienteController extends BaseController{
         if (!esCliente(session) && !esAdmin(session)) {
             return accessDenied();
         }
-
-        Long clienteId = (Long) session.getAttribute("usuarioId");
-        List<ComidaEntity> comidas = comidaRepository.findComidasByClienteId(clienteId);
+    // TODO : que la fecha sea la actual, ahora no esta pq no hay dietas para hoy xd
+        Usuario cliente = (Usuario) session.getAttribute("usuario");
+        Integer clienteId = cliente.getId();
+        model.addAttribute("usuario", cliente);
+        Instant fecha = LocalDate.of(2024, 1, 1).atStartOfDay().toInstant(ZoneOffset.UTC);
+        List<ComidaEntity> comidas = comidaRepository.findComidasByClienteId(Long.valueOf(clienteId),fecha);
         model.addAttribute("comidas", comidas);
 
         return "dietaCliente";

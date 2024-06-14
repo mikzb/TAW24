@@ -1,3 +1,7 @@
+/*
+@Author Mikolaj Zabski
+ */
+
 package es.uma.taw24.dao;
 
 import es.uma.taw24.entity.ComidaEntity;
@@ -5,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 
 
 public interface ComidaRepository extends JpaRepository<ComidaEntity, Integer> {
@@ -20,7 +24,9 @@ public interface ComidaRepository extends JpaRepository<ComidaEntity, Integer> {
             "JOIN dd.dieta dt " +
             "JOIN dt.dietaUsuarios du " +
             "JOIN du.usuario u " +
-            "WHERE u.id = 1")
-    List<ComidaEntity> findComidasByClienteId(@Param("clienteId") Long clienteId);
+            "WHERE u.id = :clienteId AND d.fecha =:fecha")
+    List<ComidaEntity> findComidasByClienteId(@Param("clienteId") Long clienteId, @Param("fecha") Instant fecha);
+
+
 
 }
