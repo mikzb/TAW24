@@ -10,4 +10,7 @@ import java.util.List;
 public interface SesionEjercicioRepository extends JpaRepository<SesionEjercicioEntity, Integer> {
     @Query("SELECT se FROM SesionEjercicioEntity se WHERE se.id.idsesion = :sesionId")
     public List<SesionEjercicioEntity> findBySesionId(@RequestParam("sesionId") Integer sesionId);
+
+    @Query("SELECT se FROM SesionEjercicioEntity se WHERE se.id.idsesion = :sesionId AND se.id.idejercicio = :ejercicioId")
+    public SesionEjercicioEntity findBySesionIdAndEjercicioId(@RequestParam("sesionId") Integer sesionId, @RequestParam("ejercicioId") Integer ejercicioId);
 }

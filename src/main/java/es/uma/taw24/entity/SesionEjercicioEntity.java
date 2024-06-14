@@ -20,6 +20,9 @@ public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
     @JoinColumn(name = "IDEJERCICIO", nullable = false)
     private EjercicioEntity idejercicio;
 
+    @Column(name = "SERIES")
+    private Integer series;
+
     @Column(name = "REPETICIONES")
     private Integer repeticiones;
 
@@ -134,5 +137,13 @@ public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
         sesionEjercicio.setVelocidad(this.velocidad);
         sesionEjercicio.setDistancia(this.distancia);
         return sesionEjercicio;
+    }
+
+    public Integer getSeries() {
+        return series;
+    }
+
+    public void setSeries(Integer series) {
+        this.series = series;
     }
 }

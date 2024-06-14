@@ -139,15 +139,32 @@ public class EntrenadorFuerzaController extends BaseController{
         }
         SesionEjercicio sesionEjercicio = new SesionEjercicio();
         Sesion sesion = sesionService.buscarSesion(id);
-        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosPorTipo("Fuerza");
         Ejercicio ejercicio = new Ejercicio();
+
         sesionEjercicio.setSesion(sesion);
         sesionEjercicio.setEjercicio(ejercicio);
+
+        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosPorTipo("Fuerza");
+
         model.addAttribute("ejercicios", ejercicios);
         model.addAttribute("sesionEjercicio", sesionEjercicio);
         return strTo;
     }
 
+    @PostMapping("/guardar_ejercicio")
+    public String guardarEjercicioSesion(@ModelAttribute("sesionEjercicio") SesionEjercicio sesionEjercicio, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
 
+        if (sesionEjercicio.getSesion() == null || sesionEjercicio.getSesion().getId() == null) {
+            throw new IllegalArgumentException("Sesion must not be null");
+        }
 
+        sesionEjercicioService.guardarSesionEjercicio(sesionEjercicio);
+        return "redirect:/entrenador/sesion/" + sesionEjercicio.getSesion().getId();
+    }
 }
