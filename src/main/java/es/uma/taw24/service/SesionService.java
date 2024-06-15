@@ -25,7 +25,6 @@ public class SesionService extends DTOService<Sesion, SesionEntity>{
         sesionEntity.setCrosstraining(sesion.getCrosstraining());
         sesionRepository.save(sesionEntity);
     }
-    private SesionRepository sesionRepository;
 
     public Sesion buscarSesion(Integer id) {
         return this.sesionRepository.findById(id).orElseThrow(() -> new RuntimeException("Sesion con id: " + id + " no encontrada.")).toDTO();

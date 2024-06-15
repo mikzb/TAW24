@@ -54,7 +54,7 @@ public class CrossController extends BaseController{
             return accessDenied();
         }
         Usuario user = (Usuario) session.getAttribute("usuario");
-        Entrenador entrenador = entrenadorService.buscarPorId(user.getId());
+        Entrenador entrenador = entrenadorService.buscarEntrenador(user.getId());
         model.addAttribute("entrenador", entrenador);
         return strTo;
     }
@@ -84,7 +84,7 @@ public class CrossController extends BaseController{
             return accessDenied();
         }
         Usuario user = (Usuario) session.getAttribute("usuario");
-        Entrenador entrenador = entrenadorService.buscarPorId(user.getId());
+        Entrenador entrenador = entrenadorService.buscarEntrenador(user.getId());
         model.addAttribute("entrenador", entrenador);
         Usuario cliente = usuarioService.buscarUsuarioPorId(id);
         model.addAttribute("cliente", cliente);
@@ -137,15 +137,15 @@ public class CrossController extends BaseController{
         rutinaSesion.setId(rsId);*/
         Sesion sesion = rutinaForm.getSesion();
         sesion.setCrosstraining(true);
-        rutinaSesion.setIdsesion(sesionService.buscarSesionPorId(sesion.getId()));
-        rutinaSesion.setIdrutina(rutinaService.buscarRutinaPorId(rutina.getId()));
+        rutinaSesion.setIdsesion(sesionService.buscarSesion(sesion.getId()));
+        rutinaSesion.setIdrutina(rutinaService.buscarRutinaPorId(rutina.getId()).toDTO());
         SesionEjercicio sesionEjercicio = rutinaForm.getSesionEjercicio();
-        sesionEjercicio.setIdsesion(sesionService.buscarSesionPorId(sesion.getId()));
+        sesionEjercicio.setSesion(sesionService.buscarSesion(sesion.getId()));
         Ejercicio ejercicio = rutinaForm.getEjercicio();//este ejercicio solo tiene id realmente
-        sesionEjercicio.setIdejercicio(ejercicioService.buscarEjercicioPorId(ejercicio.getId()));
-        sesionEjercicioService.guardar(sesionEjercicio);
+        sesionEjercicio.setEjercicio(ejercicioService.buscarEjercicioPorId(ejercicio.getId()).toDTO());
+        sesionEjercicioService.guardarSesionEjercicio(sesionEjercicio);
         sesionService.guardar(sesion);
-        rutinaSesionService.guardar(rutinaSesion);
+        //rutinaSesionService.guardar(rutinaSesion);
         return strTo;
         /*RutinaSesion rutinaSesion = new RutinaSesion();
         rutinaSesion.setId(rutinaForm.getRutinaSesionId());
