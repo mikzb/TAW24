@@ -47,7 +47,6 @@ public class RutinaUsuarioEntity implements DTO<RutinaUsuario> {
     @Override
     public RutinaUsuario toDTO() {
         RutinaUsuario rutinaUsuario = new RutinaUsuario();
-        rutinaUsuario.setId(this.id);
         rutinaUsuario.setIdrutina(this.idrutina.toDTO());
         rutinaUsuario.setIdusuario(this.idusuario.toDTO());
         return rutinaUsuario;
