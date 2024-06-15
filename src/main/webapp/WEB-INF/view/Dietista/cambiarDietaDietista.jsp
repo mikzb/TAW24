@@ -8,7 +8,6 @@
 
 <%
     Integer usuarioId = (Integer) request.getAttribute("usuarioId");
-    Dieta dieta = (Dieta) request.getAttribute("dieta");
     Dieta dietaActual = (Dieta) request.getAttribute("dietaActual");
 %>
 
@@ -17,7 +16,7 @@
     <title>Cambio Dieta</title>
 </head>
 <body>
-    <h1>Elige la Nueva Dieta. Actual: <%= dietaActual.getDescripcion() %></h1>
+    <h1>Elige la Nueva Dieta, Actual: <%= dietaActual.getDescripcion() %></h1>
 
     <form:form method="post" action="/dietista/guardarCambioDieta" modelAttribute="dieta">
         <input type="hidden" name="usuarioId" value="<%= usuarioId %>">

@@ -34,7 +34,7 @@
     </tr>
     <% } %>
 </table>
-<button onclick="window.location.href='/dietista/crearDieta'">Crear</button>
+<button onclick="window.location.href='/dietista/crearDieta?id=0'">Crear</button>
 <button onclick="window.location.href='/dietista/'">Volver</button>
 </body>
 </html>

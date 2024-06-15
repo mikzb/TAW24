@@ -85,7 +85,7 @@
         <td><%= dieta.getDias().get(6).getMenu().getComidas().get(4).getDescripcion() %></td>
     </tr>
 </table>
-<button onclick="window.location.href='/dietista/editarDieta'">Editar</button>
+<button onclick="window.location.href='/dietista/editarDieta?id=<%= dieta.getId() %>'">Editar</button>
 <button onclick="window.location.href='/dietista/dietas'">Volver</button>
 </body>
 </html>

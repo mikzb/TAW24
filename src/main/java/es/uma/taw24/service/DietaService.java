@@ -220,6 +220,8 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
         this.dietaRepository.update(dietaId, descripcion);
     }
 
-    public void actualizarComida(Integer actualId, Integer nuevoId, Integer dia, Integer comida) {
+    public void actualizarComida(Integer menuId, Integer comidaActualId, Integer comidaNuevaId) {
+        ComidaEntity comidaNueva = this.comidaRepository.findById(comidaNuevaId).orElse(null);
+        this.comidaMenuRepository.update(menuId, comidaActualId, comidaNueva);
     }
 }
