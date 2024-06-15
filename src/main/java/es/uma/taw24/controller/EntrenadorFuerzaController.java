@@ -81,6 +81,7 @@ public class EntrenadorFuerzaController extends BaseController{
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Rutina> rutinas = rutinaService.listarRutinas(id, usuarioEntrenador.getId());
         model.addAttribute("rutinas", rutinas);
+        model.addAttribute("idCliente", id);
         return strTo;
     }
 

@@ -13,6 +13,7 @@
 
 <%
     List<Rutina> rutinas = (List<Rutina>) request.getAttribute("rutinas");
+    Integer idCliente = (Integer) request.getAttribute("idCliente");
 %>
 
 <html>
@@ -40,8 +41,16 @@
         <td><%= rutina.getId() %></td>
         <td><%= Date.from(rutina.getFechacreacion()) %></td>
         <td><a href="/entrenador/rutina?id=<%= rutina.getId() %>">Editar Rutina</a></td>
+        <td><a href="/entrenador/rutina/borrar?id="<%=rutina.getId()%>>Borrar Rutina</a></td>
     </tr>
     <% } %>
+    <%
+        if(idCliente != null){
+    %>
+    <a href="/entrenador/rutina/anyadir?idCliente=<%=idCliente%>">Añadir rutina</a>
+        }
+    <%
+    %>
 </table>
 
 <button onclick="window.location.href='/entrenador/'">Volver</button>
