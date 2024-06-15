@@ -27,9 +27,15 @@
     <% } %>
     <% if (usuario.isPermisoEntrenador()) { %>
     <tr>
+        <%--if (usuario.isCrosstraining()){--%>
         <td>
-            <a href="/entrenador/">Inicio de entrenador</a>
+            <a href="/entrenadorCross/">Inicio de entrenador de Cross Training</a>
         </td>
+        <%--}else{--%>
+        <td>
+            <a href="/entrenador/">Inicio de entrenador de fuerza</a>
+        </td>
+        <%--}--%>
     </tr>
     <% } %>
     <% if (usuario.isPermisoDietista()) { %>

@@ -1,3 +1,9 @@
+<%--
+/**
+ * @author Cristian Ruiz Martín: 100%
+ */
+--%>
+
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.SesionEjercicio" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -41,8 +47,8 @@
         <td><%=se.getPeso()%></td>
         <td><a href="<%=se.getEjercicio().getUrl()%>">Ver vídeo</a></td>
         <td><%=se.isCompletado()%></td>
-        <td><a href="/entrenador/sesion/editar?idSesion=<%=se.getSesion().getId()%>?idEjercicio=<%=se.getEjercicio().getId()%>">Editar</a></td>
-        <td><a href="/entrenador/sesion/borrar?idSesion=<%=se.getSesion().getId()%>?idEjercicio=<%=se.getEjercicio().getId()%>">Borrar</a></td>
+        <td><a href="/entrenador/sesion/editar?idSesion=<%=se.getSesion().getId()%>&idEjercicio=<%=se.getEjercicio().getId()%>">Editar</a></td>
+        <td><a href="/entrenador/sesion/borrar?idSesion=<%=se.getSesion().getId()%>&idEjercicio=<%=se.getEjercicio().getId()%>">Borrar</a></td>
     </tr>
     <%
         }

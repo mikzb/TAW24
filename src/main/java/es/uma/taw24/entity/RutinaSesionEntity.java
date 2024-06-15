@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "RUTINA_SESION")
 public class RutinaSesionEntity implements DTO<RutinaSesion> {
     @EmbeddedId
-    private RutinaSesionIdEntity id;
+    private RutinaSesionIdEntity id = new RutinaSesionIdEntity();
 
     @MapsId("idrutina")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -1,3 +1,9 @@
+<%--
+/**
+ * @author Cristian Ruiz Martín: 100%
+ */
+--%>
+
 <%@ page import="es.uma.taw24.DTO.RutinaSesion" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
