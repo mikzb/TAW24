@@ -12,7 +12,6 @@
     <title>Anadir nuevo usuario</title>
 </head>
 <body>
-<jsp:include page="../cabecera.jsp"/>
 <h2>
     Anadir nuevo usuario
 </h2>
@@ -26,7 +25,7 @@
                 <form:label path="email">Email: </form:label>
             </td>
             <td>
-                <form:input path="email" />
+                <form:input maxlength="90" path="email" />
             </td>
         </tr>
         <tr>
@@ -34,7 +33,7 @@
                 <form:label path="password">Contrasena: </form:label>
             </td>
             <td>
-                <form:password path="password" />
+                <form:password maxlength="90" path="password" />
             </td>
         </tr>
         <tr>
@@ -42,7 +41,7 @@
                 <form:label path="nombre">Nombre: </form:label>
             </td>
             <td>
-                <form:input path="nombre" />
+                <form:input maxlength="45" path="nombre" />
             </td>
         </tr>
         <tr>
@@ -50,7 +49,7 @@
                 <form:label path="apellidos">Appelidos: </form:label>
             </td>
             <td>
-                <form:input path="apellidos" />
+                <form:input maxlength="90" path="apellidos" />
             </td>
         </tr>
         <tr>

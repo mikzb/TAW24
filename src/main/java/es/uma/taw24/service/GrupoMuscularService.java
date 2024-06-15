@@ -1,5 +1,6 @@
 package es.uma.taw24.service;
 
+
 import es.uma.taw24.DTO.GrupoMuscular;
 import es.uma.taw24.dao.GrupoMuscularRepository;
 import es.uma.taw24.entity.GrupomuscularEntity;
@@ -14,7 +15,12 @@ public class GrupoMuscularService extends DTOService<GrupoMuscular, Grupomuscula
     private GrupoMuscularRepository grupoMuscularRepository;
 
     public void guardarGrupoMuscular(GrupoMuscular grupoMuscular) {
-        GrupomuscularEntity grupoMuscularEntity = grupoMuscularRepository.findById(grupoMuscular.getId()).orElse(new GrupomuscularEntity());
+        GrupomuscularEntity grupoMuscularEntity;
+        if (grupoMuscular.getId() == null) {
+            grupoMuscularEntity = new GrupomuscularEntity();
+        } else {
+            grupoMuscularEntity = grupoMuscularRepository.findById(grupoMuscular.getId()).orElse(new GrupomuscularEntity());
+        }
         grupoMuscularEntity.setNombre(grupoMuscular.getNombre());
         grupoMuscularRepository.save(grupoMuscularEntity);
     }

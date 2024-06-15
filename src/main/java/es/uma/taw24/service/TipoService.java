@@ -1,5 +1,9 @@
 package es.uma.taw24.service;
 
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
+
 import es.uma.taw24.DTO.Tipo;
 import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.dao.TipoRepository;
@@ -17,7 +21,12 @@ public class TipoService extends DTOService<Tipo, TipoEntity>{
     TipoRepository tipoRepository;
 
     public void guardarTipo(Tipo tipo) {
-        TipoEntity tipoEntity = tipoRepository.findById(tipo.getId()).orElse(new TipoEntity());
+        TipoEntity tipoEntity;
+        if (tipo.getId() == null) {
+            tipoEntity = new TipoEntity();
+        } else {
+            tipoEntity = tipoRepository.findById(tipo.getId()).orElse(new TipoEntity());
+        }
         tipoEntity.setNombre(tipo.getNombre());
         tipoRepository.save(tipoEntity);
     }

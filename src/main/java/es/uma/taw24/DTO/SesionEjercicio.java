@@ -11,13 +11,13 @@ import lombok.Data;
 public class SesionEjercicio{
     private Sesion sesion;
     private Ejercicio ejercicio;
-    private int series;
-    private int repeticiones;
-    private short peso;
+    private Integer series;
+    private Integer repeticiones;
+    private Short peso;
     private boolean completado;
-    private int orden;
-    private int velocidad;
-    private int distancia;
-    private int duracion;
+    private Integer orden;
+    private Integer velocidad;
+    private Integer distancia;
+    private Integer duracion;
 
 }

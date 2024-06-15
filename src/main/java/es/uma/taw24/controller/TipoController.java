@@ -1,15 +1,18 @@
 package es.uma.taw24.controller;
 
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
 
 import es.uma.taw24.DTO.Tipo;
 import es.uma.taw24.DTO.Usuario;
+import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.service.TipoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -34,5 +37,80 @@ public class TipoController extends BaseController{
         model.addAttribute("usuario", session.getAttribute("usuario"));
         model.addAttribute("tipos", tipos);
         return strTo;
+    }
+
+    @GetMapping("/editar")
+    public String editarTipo(@RequestParam("id") int id, Model model, HttpSession session){
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        String strTo = "tipo/editar";
+        Tipo tipo = this.tipoService.buscarPorId(id);
+        model.addAttribute("usuario", session.getAttribute("usuario"));
+        model.addAttribute("tipo", tipo);
+        return strTo;
+    }
+
+    @PostMapping("/editar")
+    public String editarTipo(@ModelAttribute("tipo") Tipo tipo, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        this.tipoService.guardarTipo(tipo);
+        return "redirect:/tipo/listado";
+    }
+
+    @GetMapping("/borrar")
+    public String borrarTipo(@RequestParam("id") int id, Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        String strTo = "redirect:/tipo/listado";
+        try {
+            this.tipoService.borrarTipo(id);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        return strTo;
+    }
+
+    @GetMapping("/crear")
+    public String crearTipo(Model model, HttpSession session){
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        String strTo = "tipo/crear";
+        model.addAttribute("usuario", session.getAttribute("usuario"));
+        model.addAttribute("tipo", new Tipo());
+        return strTo;
+    }
+
+    @PostMapping("/crear")
+    public String crearTipo(@ModelAttribute("tipo") Tipo tipo, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        this.tipoService.guardarTipo(tipo);
+        return "redirect:/tipo/listado";
     }
 }

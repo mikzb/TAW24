@@ -1,7 +1,6 @@
 package es.uma.taw24.controller;
 
 import es.uma.taw24.DTO.*;
-import es.uma.taw24.entity.*;
 import es.uma.taw24.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -143,7 +141,7 @@ public class CrossController extends BaseController{
 
         List<RutinaSesion> lista = rutinaSesionService.buscarRutinaSesion(rutina.getId());
         model.addAttribute("listaRutinas", lista);
-        Usuario cliente = usuarioService.buscarUsuarioPorId(id);
+        Usuario cliente = usuarioService.buscarUsuario(id);
         model.addAttribute("cliente", cliente);
 
         return strTo;
