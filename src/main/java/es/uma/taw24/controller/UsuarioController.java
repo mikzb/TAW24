@@ -80,7 +80,7 @@ public class UsuarioController extends BaseController{
         }
         String strTo = "usuario/borrar";
         try {
-            Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+            Usuario usuario = usuarioService.buscarUsuario(id);
             model.addAttribute("usuario", usuario);
         } catch (NotFoundException e) {
             model.addAttribute("error", e.getMessage());
@@ -140,7 +140,7 @@ public class UsuarioController extends BaseController{
         }
         String strTo = "usuario/editar";
         try {
-            Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+            Usuario usuario = usuarioService.buscarUsuario(id);
             List<Entrenador> entrenadores = entrenadorService.listarEntrenadores();
             List<Entrenador> entrenadoresAsignados = entrenadorService.listarEntrenadoresDeUsuario(id);
             List<Usuario> dietistas = usuarioService.listarDietistas();

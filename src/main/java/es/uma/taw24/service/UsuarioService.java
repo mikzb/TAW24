@@ -17,7 +17,6 @@ import es.uma.taw24.entity.UsuarioEntity;
 import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.ui.FiltroUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -54,9 +53,9 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         return this.entidadesADTO(this.usuarioRepository.findAll());
     }
 
-    public Usuario buscarUsuarioPorId(int id) {
+    public Usuario buscarUsuario(int id) {
         return this.usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuario con id: " + id + " no encontrado.")).toDTO();
-        }
+    }
 
     public List<Usuario> listarClientes(Integer idEntrenador){ return this.entidadesADTO(this.entrenadorUsuarioRepository.findByEntrenadorId(idEntrenador)); }
 

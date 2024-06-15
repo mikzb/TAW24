@@ -7,13 +7,9 @@
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.Sesion;
-import es.uma.taw24.dao.RutinaSesionRepository;
 import es.uma.taw24.dao.SesionRepository;
 import es.uma.taw24.entity.SesionEntity;
-import es.uma.taw24.entity.UsuarioEntity;
-import es.uma.taw24.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 @Service
