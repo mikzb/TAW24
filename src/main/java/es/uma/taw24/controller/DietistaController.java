@@ -287,7 +287,7 @@ public class DietistaController extends BaseController {
     }
 
     @GetMapping("/verProgresoDieta")
-    public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
+    public String doVerProgresoDieta(@RequestParam("id") Integer clienteId, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -295,7 +295,9 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dieta = this.dietaService.cargarDietaPorDietaId(id);
+        Integer dietaId = this.dietaService.buscarDietaPorUsuarioId(clienteId).getId();
+
+        Dieta dieta = this.dietaService.cargarDietaPorDietaId(dietaId);
         model.addAttribute("dieta", dieta);
 
         return "./Dietista/verProgresoDieta";
