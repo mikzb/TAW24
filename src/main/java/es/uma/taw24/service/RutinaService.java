@@ -7,9 +7,11 @@
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.Rutina;
+import es.uma.taw24.DTO.RutinaUsuario;
 import es.uma.taw24.dao.RutinaRepository;
 import es.uma.taw24.dao.RutinaUsuarioRepository;
 import es.uma.taw24.entity.RutinaEntity;
+import es.uma.taw24.entity.RutinaUsuarioEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,12 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
     }
     public Rutina buscarRutina(Integer id) {
         return this.rutinaRepository.findById(id).orElseThrow(() -> new RuntimeException("Rutina con id: " + id + " no encontrada.")).toDTO();
+    }
+
+    public void borrarRutina(Integer id) {
+        List<RutinaUsuarioEntity> rutinaUsuarios = this.rutinaUsuarioRepository.findByRutinaId(id);
+        this.rutinaUsuarioRepository.deleteAll(rutinaUsuarios);
+        this.rutinaRepository.deleteById(id);
+
     }
 }

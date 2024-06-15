@@ -60,17 +60,4 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
     public RutinaSesion buscarRutinaSesion(Integer idRutina, Integer idSesion) {
         return this.rutinaSesionRepository.findByRutinaIdAndSesionId(idRutina, idSesion).toDTO();
     }
-
-    public void borrarRutinaSesion(Integer idRutina, Integer idSesion) {
-        RutinaSesionEntity rutinaSesionEntity = this.rutinaSesionRepository.findByRutinaIdAndSesionId(idRutina, idSesion);
-        SesionEntity sesionEntity = this.sesionRepository.findByIdSesion(idSesion);
-
-        if(sesionEntity != null){
-            this.sesionRepository.delete(sesionEntity);
-        }
-
-        if(rutinaSesionEntity != null){
-            this.rutinaSesionRepository.delete(rutinaSesionEntity);
-        }
-    }
 }

@@ -17,4 +17,8 @@ public class RutinaUsuarioService extends DTOService<RutinaUsuario, RutinaUsuari
     public List<RutinaUsuario> listarRutinasCliente(@Param("id") Integer clienteId) {
         return this.entidadesADTO(this.rutinaUsuarioRepository.findByIdusuario(clienteId));
     }
+
+    public List<RutinaUsuario> buscarRutinaUsuarioPorRutinaId(@Param("id") Integer rutinaId) {
+        return this.entidadesADTO(this.rutinaUsuarioRepository.findByRutinaId(rutinaId));
+    }
 }

@@ -44,14 +44,20 @@
         <td><a href="/entrenador/rutina/borrar?id="<%=rutina.getId()%>>Borrar Rutina</a></td>
     </tr>
     <% } %>
-    <%
-        if(idCliente != null){
-    %>
-    <a href="/entrenador/rutina/anyadir?idCliente=<%=idCliente%>">Añadir rutina</a>
-        }
-    <%
-    %>
 </table>
+
+<%
+    if(idCliente != null){
+%>
+<a href="/entrenador/rutina/anyadir?idCliente=<%=idCliente%>">Añadir rutina</a>
+<%
+}
+else{
+%>
+<a href="/entrenador/rutina/crear">Crear rutina</a>
+<%
+    }
+%>
 
 <button onclick="window.location.href='/entrenador/'">Volver</button>
 </body>
