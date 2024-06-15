@@ -17,6 +17,7 @@
 
 <%
     List<SesionEjercicio> sesionEjercicios = (List<SesionEjercicio>) request.getAttribute("sesionEjercicios");
+    Integer idSesion = (Integer) request.getAttribute("idSesion");
 %>
 
 <h1>Rutinas del Cliente</h1>
@@ -57,7 +58,7 @@
     </tbody>
 </table>
 
-<a href="/entrenador/sesion/<%=sesionEjercicios.getFirst().getSesion().getId()%>/ejercicio/anyadir">Añadir un nuevo ejercicio.</a>
+<a href="/entrenador/sesion/<%=idSesion%>/ejercicio/anyadir">Añadir un nuevo ejercicio.</a>
 
 </body>
 </html>

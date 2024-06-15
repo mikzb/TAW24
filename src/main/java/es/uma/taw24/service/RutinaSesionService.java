@@ -1,6 +1,7 @@
-/*
-    Álvaro Acedo Espejo: 50%
-    Cristian Ruiz Martín: 50%
+/**
+ * @author
+ * Cristian Ruiz Martín: 50%
+ * Álvaro Acedo Espejo: 50%
  */
 
 package es.uma.taw24.service;

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%-- @author Ignacy Borzestowski: 100%--%>
+<%-- @author Cristian Ruiz Martín: 100%--%>
 
 <!doctype html>
 <html lang="en">

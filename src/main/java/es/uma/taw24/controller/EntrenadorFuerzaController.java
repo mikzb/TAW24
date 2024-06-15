@@ -125,6 +125,7 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
         List<SesionEjercicio> sesionEjercicios = sesionEjercicioService.buscarSesionEjercicioPorIdSesion(id);
+        model.addAttribute("idSesion", id);
         model.addAttribute("sesionEjercicios", sesionEjercicios);
         return strTo;
     }
@@ -232,7 +233,7 @@ public class EntrenadorFuerzaController extends BaseController{
         }
 
         if(rutinaSesionService.contarRutinaSesionPorDia(rutinaSesion.getRutina().getId(), rutinaSesion.getDiadesemana()) > 0){
-            return "422";
+            return unprocessableEntity();
         }
 
         rutinaSesionService.guardar(rutinaSesion);
