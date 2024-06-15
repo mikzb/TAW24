@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 public class RutinaUsuario {
-    private RutinaUsuarioIdEntity id;
-    private RutinaEntity idrutina;
-    private UsuarioEntity idusuario;
+    private Rutina idrutina;
+    private Usuario idusuario;
 }
