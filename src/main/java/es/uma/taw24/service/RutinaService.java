@@ -22,4 +22,13 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
     public List<Rutina> listarRutinas(Integer entrenadorId) {
         return this.entidadesADTO(this.rutinaRepository.findByEntrenadorId(entrenadorId));
     }
+
+    public List<Rutina> listarRutinasEntidades(List<RutinaEntity> entidades) {
+        return this.entidadesADTO(entidades);
+    }
+
+    public RutinaEntity buscarRutinaPorId(Integer id) {
+        return this.rutinaRepository.findByIdRutina(id);
+    }
+
 }

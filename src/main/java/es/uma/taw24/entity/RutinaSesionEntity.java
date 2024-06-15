@@ -2,9 +2,11 @@ package es.uma.taw24.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "RUTINA_SESION")
-public class RutinaSesionEntity {
+public class RutinaSesionEntity implements Serializable {
     @EmbeddedId
     private RutinaSesionIdEntity id;
 
