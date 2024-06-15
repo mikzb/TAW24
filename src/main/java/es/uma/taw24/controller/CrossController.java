@@ -74,7 +74,30 @@ public class CrossController extends BaseController{
         return strTo;
     }
 
-    @GetMapping("/clientes/{id}/rutinas")
+    @GetMapping("/entrenadorCross/{id}/crearRutinaSesion/{dia}")
+    public String doCrearRutinaSesion(Model model, HttpSession session, @PathVariable int id, @PathVariable String dia,
+                                      @ModelAttribute Rutina rutina) {
+        String strTo = "entrenador/cross/sesion";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        RutinaSesion rutinaSesion = new RutinaSesion();
+        rutinaSesion.setIdrutina(rutina);
+        rutinaSesion.setDiadesemana(dia);
+        Sesion sesion = new Sesion();
+        rutinaSesion.setIdsesion(sesion);
+        sesion.setCrosstraining(true);
+        SesionEjercicio sesionEjercicio = new SesionEjercicio();
+        sesionEjercicio.setSesion(sesion);
+        //rutinaSesionService.guardar;
+        model.addAttribute("sesioEjercicio", sesionEjercicio);
+        return strTo;
+    }
+
+    /*@GetMapping("/clientes/{id}/rutinas")
     public String doRutinas(Model model, HttpSession session, @PathVariable int id) {
         String strTo = "entrenador/cross/rutinasCliente";
         if(!estaAutenticado(session)){
@@ -94,28 +117,35 @@ public class CrossController extends BaseController{
             listaRutinas.add(rutina.getIdrutina());
         }
         model.addAttribute("listaRutinas", rutinaService.listarRutinasEntidades(listaRutinas));
+        model.addAttribute("newRutina", new Rutina());
         return strTo;
-    }
+    }*/
 
     @GetMapping("/clientes/{id}/rutinas/crear")
-    public String doCrearRutinas(Model model, HttpSession session, @PathVariable int id) {
-        String strTo = "entrenador/cross/rutinaCross";
+    public String doCrearRutinas(Model model, HttpSession session, @PathVariable int id, @ModelAttribute Rutina rutina) {
+        String strTo = "entrenador/cross/creacionRutina";
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
         if (!esEntrenador(session)) {
             return accessDenied();
         }
-        RutinaForm rutinaForm = new RutinaForm();
+        /*RutinaForm rutinaForm = new RutinaForm();
         model.addAttribute("rutinaForm", rutinaForm);
         Usuario cliente = usuarioService.buscarUsuarioPorId(id);
         model.addAttribute("cliente", cliente);
         /*model.addAttribute("rutinaSesion", new RutinaSesion());
         model.addAttribute("sesion", new Sesion());
         model.addAttribute("sesionEjercicio", new SesionEjercicio());
-        model.addAttribute("ejercicio", new Ejercicio());*/
+        model.addAttribute("ejercicio", new Ejercicio());
         model.addAttribute("listaEj", ejercicioService.listarEjercicios());
-        model.addAttribute("rutina", new Rutina());
+        model.addAttribute("rutina", new Rutina());*/
+
+        List<RutinaSesion> lista = rutinaSesionService.buscarPorIdRutina(rutina.getId());
+        model.addAttribute("listaRutinas", lista);
+        Usuario cliente = usuarioService.buscarUsuarioPorId(id);
+        model.addAttribute("cliente", cliente);
+
         return strTo;
     }
 
