@@ -86,6 +86,21 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
         return dietasDTO;
     }
 
+    public List<Dieta> listarDietasDietistaPorDescripcion(Integer dietistaId, String descripcion) {
+        List<DietaEntity> dietas = this.dietaRepository.findByDietistaIdAndDescripcion(dietistaId, descripcion);
+
+        List<Dieta> dietasDTO = new ArrayList<>();
+        for (DietaEntity dieta : dietas) {
+            Dieta dietaDTO = new Dieta();
+            dietaDTO.setId(dieta.getId());
+            dietaDTO.setFechaCreacion(dieta.getFechacreacion());
+            dietaDTO.setDescripcion(dieta.getDescripcion());
+            dietasDTO.add(dietaDTO);
+        }
+
+        return dietasDTO;
+    }
+
     public Dieta cargarDietaPorDietaId(Integer dietaId) {
 
         Dieta dieta = this.buscarPorDietaId(dietaId);

@@ -21,22 +21,14 @@ public interface DietaRepository extends JpaRepository<DietaEntity, Integer> {
     @Query("SELECT d FROM DietaEntity d WHERE d.iddietista.id = :dietistaId")
     List<DietaEntity> findByDietistaId(@RequestParam("dietistaId") Integer dietistaId);
 
+    @Query("SELECT d FROM DietaEntity d WHERE d.iddietista.id = :dietistaId AND d.descripcion = :descripcion")
+    List<DietaEntity> findByDietistaIdAndDescripcion(Integer dietistaId, String descripcion);
+
     @Modifying
     @Query("DELETE FROM DietaEntity d WHERE d.id = :dietaId")
     void deleteById(@RequestParam("dietaId") Integer dietaId);
 
-    @Query(value = "SELECT c.* FROM Dieta d " +
-            "JOIN Dieta_Dia dd ON d.id = dd.iddieta " +
-            "JOIN Dia dia ON dd.iddia = dia.id " +
-            "JOIN Menu_Dia md ON dia.id = md.iddia " +
-            "JOIN Menu m ON md.idmenu = m.id " +
-            "JOIN Comida_Menu cm ON m.id = cm.idmenu " +
-            "JOIN Comida c ON cm.idcomida = c.id " +
-            "WHERE d.id = :dietaId " +
-            "ORDER BY dia.fecha", nativeQuery = true)
-    List<Object[]> findComidasByDietaId(@RequestParam("dietaId") Integer dietaId);
-
-    @Query("SELECT d FROM DietaEntity d WHERE d.descripcion = :descripcion")
+    @Query("SELECT d FROM DietaEntity d WHERE d.descripcion LIKE %:descripcion%")
     Optional<DietaEntity> findByDescripcion(@RequestParam("descripcion") String descripcion);
 
     @Modifying

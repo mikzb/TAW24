@@ -46,6 +46,29 @@ public class DietistaController extends BaseController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         List<Dieta> dietas = this.dietaService.listarDietasDietista(usuario.getId());
 
+        Dieta dieta = new Dieta();
+        model.addAttribute("dieta", dieta);
+
+        model.addAttribute("dietas", dietas);
+
+        return "./Dietista/dietas";
+    }
+
+    @PostMapping("/filtrarDietas")
+    public String doFiltrarDietas(@ModelAttribute("dieta") Dieta dietaD, Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        List<Dieta> dietas = this.dietaService.listarDietasDietistaPorDescripcion(usuario.getId(), dietaD.getDescripcion());
+
+        Dieta dieta = new Dieta();
+        model.addAttribute("dieta", dieta);
+
         model.addAttribute("dietas", dietas);
 
         return "./Dietista/dietas";
