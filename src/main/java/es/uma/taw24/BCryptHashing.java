@@ -1,5 +1,9 @@
 package es.uma.taw24;
 
+/**
+ * @author Ignacy Borzestowski: 100%
+ */
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class BCryptHashing {

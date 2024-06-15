@@ -30,7 +30,12 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
     }
 
     public void guardarEjercicio(Ejercicio ejercicio) {
-        EjercicioEntity ejercicioEntity = ejercicioRepository.findById(ejercicio.getId()).orElse(new EjercicioEntity());
+        EjercicioEntity ejercicioEntity;
+        if (ejercicio.getId() == null) {
+            ejercicioEntity = new EjercicioEntity();
+        } else {
+            ejercicioEntity = ejercicioRepository.findById(ejercicio.getId()).orElse(new EjercicioEntity());
+        }
         ejercicioEntity.setNombre(ejercicio.getNombre());
         ejercicioRepository.save(ejercicioEntity);
     }

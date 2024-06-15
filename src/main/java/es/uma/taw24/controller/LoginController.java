@@ -5,7 +5,7 @@ package es.uma.taw24.controller;
  */
 
 import es.uma.taw24.DTO.Usuario;
-import es.uma.taw24.exception.UserNotFoundException;
+import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
                 session.setAttribute("usuario", authenticatedUser);
                 strTo = "redirect:/inicio";
             }
-        } catch (UserNotFoundException e) {
+        } catch (NotFoundException e) {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
             strTo = this.doLogin(model, session);
         }
@@ -70,8 +70,8 @@ public class LoginController extends BaseController {
         return "redirect:/";
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserNotFoundException(UserNotFoundException e, Model model) {
+    @ExceptionHandler(NotFoundException.class)
+    public String handleUserNotFoundException(NotFoundException e, Model model) {
         model.addAttribute("error", e.getMessage());
         return "login";
     }

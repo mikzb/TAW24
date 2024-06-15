@@ -260,4 +260,16 @@ public class DietistaController extends BaseController {
 
         return "redirect:/dietista/clientesDietista";
     }
+
+    @PostMapping("/asignar")
+    public String asignarDietista(UsuarioDietistaForm usuarioDietistaForm) {
+        usuarioService.asignarDietista(usuarioDietistaForm);
+        return "redirect:/usuario/listado";
+    }
+
+    @PostMapping("/desasignar")
+    public String desasignarDietista(Usuario usuario) {
+        usuarioService.desasignarDietista(usuario);
+        return "redirect:/usuario/listado";
+    }
 }

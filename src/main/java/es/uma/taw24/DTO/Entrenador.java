@@ -9,7 +9,11 @@ import lombok.Data;
 
 @Data
 public class Entrenador {
-    private int id;
+    private Integer id;
     private boolean crosstraining;
     private Usuario usuario;
+
+    public String getNombreCompleto() {
+        return usuario.getNombre() + " " + usuario.getApellidos();
+    }
 }

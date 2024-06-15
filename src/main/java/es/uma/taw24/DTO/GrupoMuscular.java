@@ -8,6 +8,6 @@ import lombok.Data;
 
 @Data
 public class GrupoMuscular {
-    private int id;
+    private Integer id;
     private String nombre;
 }

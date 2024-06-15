@@ -10,10 +10,12 @@ package es.uma.taw24.service;
 import es.uma.taw24.BCryptHashing;
 import es.uma.taw24.DTO.Entrenador;
 import es.uma.taw24.DTO.Usuario;
+import es.uma.taw24.DTO.UsuarioDietistaForm;
 import es.uma.taw24.dao.EntrenadorUsuarioRepository;
 import es.uma.taw24.dao.UsuarioRepository;
 import es.uma.taw24.entity.UsuarioEntity;
-import es.uma.taw24.exception.UserNotFoundException;
+import es.uma.taw24.exception.NotFoundException;
+import es.uma.taw24.ui.FiltroUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
 
     public Usuario autenticar(String email, String password) {
         UsuarioEntity usuario = this.usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException("Usuario con email:  " + email + " no encontrado."));
+                .orElseThrow(() -> new NotFoundException("Usuario con email:  " + email + " no encontrado."));
 
 
         if (BCryptHashing.checkPassword(password, usuario.getPasswordhash())) {
@@ -43,12 +45,16 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         }
     }
 
+    public List<Usuario> listarDietistas() {
+        return this.entidadesADTO(this.usuarioRepository.findDietistas());
+    }
+
     public List<Usuario> listarUsuarios() {
         return this.entidadesADTO(this.usuarioRepository.findAll());
     }
 
     public Usuario buscarUsuarioPorId(int id) {
-        return this.usuarioRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario con id: " + id + " no encontrado.")).toDTO();
+        return this.usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuario con id: " + id + " no encontrado.")).toDTO();
     }
 
     public List<Usuario> listarClientes(Integer idEntrenador){ return this.entidadesADTO(this.entrenadorUsuarioRepository.findByEntrenadorId(idEntrenador)); }
@@ -58,7 +64,12 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
     }
 
     public void guardarUsuario(Usuario usuario) {
-        UsuarioEntity usuarioEntity = this.usuarioRepository.findById(usuario.getId()).orElse(new UsuarioEntity());
+        UsuarioEntity usuarioEntity;
+        if (usuario.getId() == null) {
+            usuarioEntity = new UsuarioEntity();
+        } else {
+            usuarioEntity = this.usuarioRepository.findById(usuario.getId()).orElse(new UsuarioEntity());
+        }
         usuarioEntity.setEmail(usuario.getEmail());
         usuarioEntity.setPasswordhash(BCryptHashing.hashPassword(usuario.getPassword()));
         usuarioEntity.setNombre(usuario.getNombre());
@@ -77,6 +88,24 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
             entrenador.setId(usuarioEntity.getId());
             entrenadorService.guardarEntrenador(entrenador);
         }
+    }
+
+    public void asignarDietista(UsuarioDietistaForm usuarioDietistaForm) {
+        UsuarioEntity usuarioEntity = this.usuarioRepository.findById(usuarioDietistaForm.getUsuarioId()).orElseThrow(() -> new NotFoundException("Usuario con id: " + usuarioDietistaForm.getUsuarioId()+ " no encontrado."));
+        if (usuarioEntity.getIdDietista() == null) {
+            usuarioEntity.setIdDietista(null);
+            this.usuarioRepository.save(usuarioEntity);
+        } else {
+            UsuarioEntity dietista = this.usuarioRepository.findById(usuarioDietistaForm.getDietistaId()).orElseThrow(() -> new NotFoundException("Usuario con id: " + usuarioDietistaForm.getDietistaId() + " no encontrado."));
+            usuarioEntity.setIdDietista(dietista);
+            this.usuarioRepository.save(usuarioEntity);
+        }
+    }
+
+    public void desasignarDietista(Usuario usuario) {
+        UsuarioEntity usuarioEntity = this.usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new NotFoundException("Usuario con id: " + usuario.getId() + " no encontrado."));
+        usuarioEntity.setIdDietista(null);
+        this.usuarioRepository.save(usuarioEntity);
     }
 
     public List<Usuario> listarClientesPorDietistaId(Integer dietistaId) {
@@ -99,6 +128,11 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         }
 
         return usuariosDTO;
+    }
+
+    public List<Usuario> listarClientesPorFiltro(FiltroUsuario filtroUsuario) {
+        List<UsuarioEntity> usuarios = this.usuarioRepository.findByFiltro(filtroUsuario);
+        return this.entidadesADTO(usuarios);
     }
 
     public void borrarUsuario(int id) {

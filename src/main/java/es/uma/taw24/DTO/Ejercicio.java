@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class Ejercicio {
-    private int id;
+    private Integer id;
     private Tipo tipo;
     private String nombre;
     private String url;
