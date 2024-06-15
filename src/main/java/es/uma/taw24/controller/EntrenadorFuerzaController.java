@@ -108,7 +108,8 @@ public class EntrenadorFuerzaController extends BaseController{
         if (!esEntrenador(session)) {
             return accessDenied();
         }
-        List<RutinaSesion> rutinaSesiones = rutinaSesionService.buscarPorIdRutina(id);
+        List<RutinaSesion> rutinaSesiones = rutinaSesionService.buscarRutinaSesion(id);
+        model.addAttribute("idRutina", id);
         model.addAttribute("rutinaSesiones", rutinaSesiones);
 
         return strTo;
@@ -124,13 +125,14 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
         List<SesionEjercicio> sesionEjercicios = sesionEjercicioService.buscarSesionEjercicioPorIdSesion(id);
+        model.addAttribute("idSesion", id);
         model.addAttribute("sesionEjercicios", sesionEjercicios);
         return strTo;
     }
 
-    @GetMapping("/sesion/{id}/anyadir")
-    public String anyadirEjercicioSesion(@PathVariable("id") Integer id, Model model, HttpSession session) {
-        String strTo = "entrenador/nuevo_ejercicio";
+    @GetMapping("/sesion/{id}/ejercicio/anyadir")
+    public String anyadirSesionEjercicio(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        String strTo = "entrenador/ejercicio";
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
@@ -151,7 +153,64 @@ public class EntrenadorFuerzaController extends BaseController{
         return strTo;
     }
 
-    @PostMapping("/guardar_ejercicio")
+    @GetMapping("/sesion/ejercicio/editar")
+    public String editarSesionEjercicio(@RequestParam("idSesion") Integer idSesion, @RequestParam("idEjercicio") Integer idEjercicio, Model model, HttpSession session) {
+        String strTo = "entrenador/ejercicio";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        SesionEjercicio sesionEjercicio = sesionEjercicioService.buscarSesionEjercicioPorIdSesionYEjercicio(idSesion, idEjercicio);
+
+        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosPorTipo("Fuerza");
+
+        model.addAttribute("ejercicios", ejercicios);
+        model.addAttribute("sesionEjercicio", sesionEjercicio);
+        return strTo;
+    }
+
+    @GetMapping("/sesion/crear")
+    public String crearSesion(@RequestParam("idRutina") Integer idRutina, Model model, HttpSession session) {
+        String strTo = "entrenador/datos_sesion";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        RutinaSesion rutinaSesion = new RutinaSesion();
+        Sesion sesion = new Sesion();
+        Rutina rutina = rutinaService.buscarRutina(idRutina);
+
+        sesion.setCrosstraining(false);
+
+        rutinaSesion.setRutina(rutina);
+        rutinaSesion.setSesion(sesion);
+
+        model.addAttribute("rutinaSesion", rutinaSesion);
+        return strTo;
+    }
+
+    @GetMapping("/sesion/editar")
+    public String crearSesion(@RequestParam("idRutina") Integer idRutina, @RequestParam("idSesion") Integer idSesion, Model model, HttpSession session) {
+        String strTo = "entrenador/datos_sesion";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        RutinaSesion rutinaSesion = rutinaSesionService.buscarRutinaSesion(idRutina, idSesion);
+
+        model.addAttribute("rutinaSesion", rutinaSesion);
+        return strTo;
+    }
+
+    @PostMapping("/sesion/ejercicio/guardar")
     public String guardarEjercicioSesion(@ModelAttribute("sesionEjercicio") SesionEjercicio sesionEjercicio, HttpSession session) {
         if(!estaAutenticado(session)){
             return redirectToLogin();
@@ -160,11 +219,50 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
 
-        if (sesionEjercicio.getSesion() == null || sesionEjercicio.getSesion().getId() == null) {
-            throw new IllegalArgumentException("Sesion must not be null");
+        sesionEjercicioService.guardar(sesionEjercicio);
+        return "redirect:/entrenador/sesion?id=" + sesionEjercicio.getSesion().getId();
+    }
+
+    @PostMapping("/sesion/guardar")
+    public String guardarRutinaSesion(@ModelAttribute("RutinaSesion") RutinaSesion rutinaSesion, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
         }
 
-        sesionEjercicioService.guardarSesionEjercicio(sesionEjercicio);
-        return "redirect:/entrenador/sesion?id=" + sesionEjercicio.getSesion().getId();
+        if(rutinaSesionService.contarRutinaSesionPorDia(rutinaSesion.getRutina().getId(), rutinaSesion.getDiadesemana()) > 0){
+            return unprocessableEntity();
+        }
+
+        rutinaSesionService.guardar(rutinaSesion);
+        return "redirect:/entrenador/rutina?id=" + rutinaSesion.getRutina().getId();
+    }
+
+    @GetMapping("/sesion/borrar")
+    public String borrarRutinaSesion(@RequestParam("idRutina") Integer idRutina, @RequestParam("idSesion") Integer idSesion, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        rutinaSesionService.borrarRutinaSesion(idRutina, idSesion);
+        return "redirect:/entrenador/rutina?id=" + idRutina;
+    }
+
+    @GetMapping("/sesion/ejercicio/borrar")
+    public String borrarEjercicioSesion(@RequestParam("idSesion") Integer idSesion, @RequestParam("idEjercicio") Integer idEjercicio, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        sesionEjercicioService.borrarSesionEjercicio(idSesion, idEjercicio);
+        return "redirect:/entrenador/sesion?id=" + idSesion;
     }
 }

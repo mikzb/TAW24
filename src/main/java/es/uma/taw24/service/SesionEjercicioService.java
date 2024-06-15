@@ -1,3 +1,8 @@
+/**
+ * @author
+ * Cristian Ruiz Martín: 100%
+ */
+
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.SesionEjercicio;
@@ -34,7 +39,7 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         return sesionEjercicioEntity.toDTO();
     }
 
-    public void guardarSesionEjercicio(SesionEjercicio sesionEjercicio) {
+    public void guardar(SesionEjercicio sesionEjercicio) {
         SesionEjercicioEntity sesionEjercicioEntity = this.sesionEjercicioRepository.findBySesionIdAndEjercicioId(sesionEjercicio.getSesion().getId(), sesionEjercicio.getEjercicio().getId());
         if (sesionEjercicioEntity == null) {
             sesionEjercicioEntity = new SesionEjercicioEntity();
@@ -55,5 +60,10 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         sesionEjercicioEntity.setDistancia(sesionEjercicio.getDistancia());
         if(sesionEjercicioEntity.getOrden() == null) sesionEjercicioEntity.setOrden(sesionEjercicio.getOrden());
         this.sesionEjercicioRepository.save(sesionEjercicioEntity);
+    }
+
+    public void borrarSesionEjercicio(Integer idSesion, Integer idEjercicio) {
+        SesionEjercicioEntity sesionEjercicioEntity = this.sesionEjercicioRepository.findBySesionIdAndEjercicioId(idSesion, idEjercicio);
+        this.sesionEjercicioRepository.delete(sesionEjercicioEntity);
     }
 }

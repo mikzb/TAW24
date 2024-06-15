@@ -1,6 +1,7 @@
 /**
  * @author
- * Cristian Ruiz Martín: 100%
+ * Cristian Ruiz Martín: 60%
+ * Álvaro Acedo espejo: 40%
  */
 
 package es.uma.taw24.service;
@@ -26,6 +27,15 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
     public List<Rutina> listarRutinas(Integer entrenadorId) {
         return this.entidadesADTO(this.rutinaRepository.findByEntrenadorId(entrenadorId));
     }
+
+    public List<Rutina> listarRutinasEntidades(List<RutinaEntity> entidades) {
+        return this.entidadesADTO(entidades);
+    }
+
+    public RutinaEntity buscarRutinaPorId(Integer id) {
+        return this.rutinaRepository.findByIdRutina(id);
+    }
+
 
     public List<Rutina> listarRutinas(Integer usuarioId, Integer entrenadorId) {
         return this.entidadesADTO(this.rutinaUsuarioRepository.findByUsuarioIdAndEntrenadorId(usuarioId, entrenadorId));

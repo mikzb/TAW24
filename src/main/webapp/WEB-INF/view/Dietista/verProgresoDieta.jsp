@@ -29,53 +29,53 @@
     </tr>
     <tr>
         <th>Desayuno</th>
-        <td><%= dieta.getDias().getFirst().getMenu().getComidas().getFirst() %></td>
-        <td><%= dieta.getDias().get(1).getMenu().getComidas().getFirst() %></td>
-        <td><%= dieta.getDias().get(2).getMenu().getComidas().getFirst() %></td>
-        <td><%= dieta.getDias().get(3).getMenu().getComidas().getFirst() %></td>
-        <td><%= dieta.getDias().get(4).getMenu().getComidas().getFirst() %></td>
-        <td><%= dieta.getDias().get(5).getMenu().getComidas().getFirst() %></td>
-        <td><%= dieta.getDias().get(6).getMenu().getComidas().getFirst() %></td>
+        <td><%= dieta.getDias().getFirst().getMenu().getComidas().getFirst().getDescripcion() %></td>
+        <td><%= dieta.getDias().get(1).getMenu().getComidas().getFirst().getDescripcion() %></td>
+        <td><%= dieta.getDias().get(2).getMenu().getComidas().getFirst().getDescripcion() %></td>
+        <td><%= dieta.getDias().get(3).getMenu().getComidas().getFirst().getDescripcion() %></td>
+        <td><%= dieta.getDias().get(4).getMenu().getComidas().getFirst().getDescripcion() %></td>
+        <td><%= dieta.getDias().get(5).getMenu().getComidas().getFirst().getDescripcion() %></td>
+        <td><%= dieta.getDias().get(6).getMenu().getComidas().getFirst().getDescripcion() %></td>
     </tr>
     <tr>
         <th>Almuerzo</th>
-        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(1) %></td>
-        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(1) %></td>
-        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(1) %></td>
-        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(1) %></td>
-        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(1) %></td>
-        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(1) %></td>
-        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(1) %></td>
+        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(1).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(1).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(1).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(1).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(1).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(1).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(1).getDescripcion() %></td>
     </tr>
     <tr>
         <th>Comida</th>
-        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(2) %></td>
-        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(2) %></td>
-        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(2) %></td>
-        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(2) %></td>
-        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(2) %></td>
-        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(2) %></td>
-        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(2) %></td>
+        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(2).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(2).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(2).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(2).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(2).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(2).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(2).getDescripcion() %></td>
     </tr>
     <tr>
         <th>Merienda</th>
-        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(3) %></td>
-        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(3) %></td>
-        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(3) %></td>
-        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(3) %></td>
-        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(3) %></td>
-        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(3) %></td>
-        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(3) %></td>
+        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(3).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(3).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(3).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(3).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(3).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(3).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(3).getDescripcion() %></td>
     </tr>
     <tr>
         <th>Cena</th>
-        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(4) %></td>
-        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(4) %></td>
-        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(4) %></td>
-        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(4) %></td>
-        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(4) %></td>
-        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(4) %></td>
-        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(4) %></td>
+        <td><%= dieta.getDias().getFirst().getMenu().getComidas().get(4).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(1).getMenu().getComidas().get(4).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(2).getMenu().getComidas().get(4).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(3).getMenu().getComidas().get(4).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(4).getMenu().getComidas().get(4).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(5).getMenu().getComidas().get(4).getDescripcion() %></td>
+        <td><%= dieta.getDias().get(6).getMenu().getComidas().get(4).getDescripcion() %></td>
     </tr>
     <tr>
         <th>Completado</th>

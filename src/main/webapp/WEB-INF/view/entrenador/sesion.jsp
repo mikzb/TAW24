@@ -1,3 +1,9 @@
+<%--
+/**
+ * @author Cristian Ruiz Martín: 100%
+ */
+--%>
+
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.SesionEjercicio" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -11,6 +17,7 @@
 
 <%
     List<SesionEjercicio> sesionEjercicios = (List<SesionEjercicio>) request.getAttribute("sesionEjercicios");
+    Integer idSesion = (Integer) request.getAttribute("idSesion");
 %>
 
 <h1>Rutinas del Cliente</h1>
@@ -41,8 +48,8 @@
         <td><%=se.getPeso()%></td>
         <td><a href="<%=se.getEjercicio().getUrl()%>">Ver vídeo</a></td>
         <td><%=se.isCompletado()%></td>
-        <td><a href="/entrenador/sesion/editar?idSesion=<%=se.getSesion().getId()%>?idEjercicio=<%=se.getEjercicio().getId()%>">Editar</a></td>
-        <td><a href="/entrenador/sesion/borrar?idSesion=<%=se.getSesion().getId()%>?idEjercicio=<%=se.getEjercicio().getId()%>">Borrar</a></td>
+        <td><a href="/entrenador/sesion/ejercicio/editar?idSesion=<%=se.getSesion().getId()%>&idEjercicio=<%=se.getEjercicio().getId()%>">Editar</a></td>
+        <td><a href="/entrenador/sesion/ejercicio/borrar?idSesion=<%=se.getSesion().getId()%>&idEjercicio=<%=se.getEjercicio().getId()%>">Borrar</a></td>
     </tr>
     <%
         }
@@ -51,7 +58,7 @@
     </tbody>
 </table>
 
-<a href="/entrenador/sesion/<%=sesionEjercicios.getFirst().getSesion().getId()%>/anyadir">Añadir un nuevo ejercicio.</a>
+<a href="/entrenador/sesion/<%=idSesion%>/ejercicio/anyadir">Añadir un nuevo ejercicio.</a>
 
 </body>
 </html>

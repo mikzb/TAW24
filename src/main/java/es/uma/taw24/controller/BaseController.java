@@ -1,7 +1,8 @@
 package es.uma.taw24.controller;
 
 /**
- * @author Ignacy Borzestowski: 100%
+ * @author Ignacy Borzestowski: 95%
+ *         Cristian Ruiz Martín: 5%
  */
 
 import es.uma.taw24.DTO.Usuario;
@@ -39,5 +40,9 @@ public class BaseController {
 
     protected String accessDenied() {
         return "error/403";
+    }
+
+    protected String unprocessableEntity() {
+        return "error/422";
     }
 }
