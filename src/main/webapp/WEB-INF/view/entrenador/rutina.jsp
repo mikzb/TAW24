@@ -17,6 +17,7 @@
 
 <%
     List<RutinaSesion> rutinaSesiones = (List<RutinaSesion>) request.getAttribute("rutinaSesiones");
+    Integer idRutina = (Integer) request.getAttribute("idRutina");
 %>
 
 <h1>Rutinas del Cliente</h1>
@@ -26,7 +27,7 @@
     <thead>
     <tr>
         <th>SESIÓN</th>
-        <th>DÍA</th>
+        <th></th>
         <th></th>
     </tr>
     </thead>
@@ -36,9 +37,9 @@
             for(RutinaSesion rs : rutinaSesiones){
         %>
         <tr>
-        <td><a href="/entrenador/sesion?id=<%=rs.getIdsesion().getId()%>">Sesión <%=rs.getIdsesion().getId()%></a></td>
-        <td><%=rs.getDiadesemana()%></td>
-        <td><a href="/entrenador/sesion/borrar?id=" <%=rs.getIdsesion().getId()%>>Borrar</a></td>
+        <td><a href="/entrenador/sesion?id=<%=rs.getSesion().getId()%>"><%=rs.getNombreDia()%></a></td>
+        <td><a href="/entrenador/sesion/editar?idRutina=<%=idRutina%>&idSesion=<%=rs.getSesion().getId()%>">Editar</a></td>
+        <td><a href="/entrenador/sesion/borrar?idRutina=<%=idRutina%>&idSesion=<%=rs.getSesion().getId()%>">Borrar</a></td>
         </tr>
         <%
             }
@@ -47,7 +48,7 @@
     </tbody>
 </table>
 
-<a href="/entrenador/sesion/crear">Crear nueva sesión.</a>
+<a href="/entrenador/sesion/crear?idRutina=<%=idRutina%>">Crear nueva sesión.</a>
 
 </body>
 </html>

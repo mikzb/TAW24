@@ -39,7 +39,7 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         return sesionEjercicioEntity.toDTO();
     }
 
-    public void guardarSesionEjercicio(SesionEjercicio sesionEjercicio) {
+    public void guardar(SesionEjercicio sesionEjercicio) {
         SesionEjercicioEntity sesionEjercicioEntity = this.sesionEjercicioRepository.findBySesionIdAndEjercicioId(sesionEjercicio.getSesion().getId(), sesionEjercicio.getEjercicio().getId());
         if (sesionEjercicioEntity == null) {
             sesionEjercicioEntity = new SesionEjercicioEntity();

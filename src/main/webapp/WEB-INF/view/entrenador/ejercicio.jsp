@@ -15,7 +15,7 @@
 
 <h1>Datos</h1>
 
-<form:form method="post" action="/entrenador/guardar_ejercicio" modelAttribute="sesionEjercicio">
+<form:form method="post" action="/entrenador/sesion/ejercicio/guardar" modelAttribute="sesionEjercicio">
     <form:hidden path="sesion.id"/>
 
     <table border="0">
