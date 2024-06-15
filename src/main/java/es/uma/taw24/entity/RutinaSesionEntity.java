@@ -1,12 +1,12 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.RutinaSesion;
 import jakarta.persistence.*;
-
-import java.io.Serializable;
 
 @Entity
 @Table(name = "RUTINA_SESION")
-public class RutinaSesionEntity implements Serializable {
+public class RutinaSesionEntity implements DTO<RutinaSesion> {
     @EmbeddedId
     private RutinaSesionIdEntity id;
 
@@ -55,4 +55,11 @@ public class RutinaSesionEntity implements Serializable {
         this.diadesemana = diadesemana;
     }
 
+    public RutinaSesion toDTO() {
+        RutinaSesion rutinaSesion = new RutinaSesion();
+        rutinaSesion.setIdrutina(this.idrutina.toDTO());
+        rutinaSesion.setIdsesion(this.idsesion.toDTO());
+        rutinaSesion.setDiadesemana(this.diadesemana);
+        return rutinaSesion;
+    }
 }

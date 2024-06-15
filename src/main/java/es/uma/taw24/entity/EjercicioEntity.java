@@ -5,10 +5,14 @@ import es.uma.taw24.DTO.Ejercicio;
 import es.uma.taw24.DTO.Usuario;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "EJERCICIO")
-public class EjercicioEntity implements DTO<Ejercicio> {
+public class EjercicioEntity implements Serializable, DTO<Ejercicio> {
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 

@@ -4,12 +4,15 @@ import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.DTO.Rutina;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
 @Table(name = "RUTINA")
-public class RutinaEntity implements DTO<Rutina> {
+public class RutinaEntity implements Serializable, DTO<Rutina> {
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 

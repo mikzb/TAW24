@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "DIETA_DIA")
 public class DietaDiaEntity {
     @EmbeddedId
-    private DietaDiaIdEntity id;
+    private DietaDiaIdEntity id = new DietaDiaIdEntity();
 
     @MapsId("iddieta")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

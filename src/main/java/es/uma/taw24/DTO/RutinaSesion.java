@@ -7,8 +7,7 @@ import lombok.Data;
 
 @Data
 public class RutinaSesion {
-    private RutinaSesionIdEntity id;
-    private RutinaEntity idrutina;
-    private SesionEntity idsesion;
+    private Rutina idrutina;
+    private Sesion idsesion;
     private String diadesemana;
 }

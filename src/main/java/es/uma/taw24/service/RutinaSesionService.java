@@ -1,3 +1,8 @@
+/*
+    Álvaro Acedo Espejo: 70%
+    Cristian Ruiz Martín: 30%
+ */
+
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.RutinaSesion;
@@ -6,8 +11,11 @@ import es.uma.taw24.entity.RutinaSesionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEntity> {
+public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEntity>{
+
     @Autowired
     private RutinaSesionRepository rutinaSesionRepository;
     public void guardar(RutinaSesion rutinaSesion) {
@@ -22,4 +30,10 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
         rutinaSesion2.setDiadesemana(rutinaSesion.getDiadesemana());
         this.rutinaSesionRepository.save(rutinaSesion2);
     }
+
+    public List<RutinaSesion> buscarPorIdRutina(Integer rutinaId) {
+        List<RutinaSesionEntity> lista = this.rutinaSesionRepository.findByRutinaId(rutinaId);
+        return this.entidadesADTO(lista);
+    }
+
 }

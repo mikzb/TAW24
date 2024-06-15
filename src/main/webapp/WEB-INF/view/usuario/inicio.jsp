@@ -9,28 +9,33 @@
 <body>
 
 <jsp:include page="../cabecera.jsp"/>
+<h3>Listados</h3>
 <table>
     <tr>
         <td>
-            <a href="/usuario/listado">Lista de usuarios.</a>
+            <a href="/usuario/listado">Lista de usuarios</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="/usuario/ejercicios">Lista de ejercicos.</a>
+            <a href="/ejercicio/listado">Lista de ejercicos</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="/usuario/comidas">Lista de comidas.</a>
+            <a href="/comida/listado">Lista de comidas</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="/usuario/">Lista de algo..</a>
+            <a href="/tipo/listado">Lista de tipos de ejercicios</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="/grupomuscular/listado">Lista de grupos musculares</a>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

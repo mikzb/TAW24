@@ -1,12 +1,14 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.SesionEjercicio;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "SESION_EJERCICIO")
-public class SesionEjercicioEntity {
+public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
     @EmbeddedId
-    private SesionEjercicioIdEntity id;
+    private SesionEjercicioIdEntity id = new SesionEjercicioIdEntity();
 
     @MapsId("idsesion")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -17,6 +19,9 @@ public class SesionEjercicioEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "IDEJERCICIO", nullable = false)
     private EjercicioEntity idejercicio;
+
+    @Column(name = "SERIES")
+    private Integer series;
 
     @Column(name = "REPETICIONES")
     private Integer repeticiones;
@@ -29,7 +34,7 @@ public class SesionEjercicioEntity {
 
     @Column(name = "COMPLETADO", nullable = false)
     private Boolean completado = false;
-
+    
     @Column(name = "ORDEN", nullable = false)
     private Integer orden;
 
@@ -119,4 +124,26 @@ public class SesionEjercicioEntity {
         this.distancia = distancia;
     }
 
+    public Integer getSeries() {
+        return series;
+    }
+
+    public void setSeries(Integer series) {
+        this.series = series;
+    }
+
+    @Override
+    public SesionEjercicio toDTO() {
+        SesionEjercicio sesionEjercicio = new SesionEjercicio();
+        sesionEjercicio.setSesion(this.idsesion.toDTO());
+        sesionEjercicio.setEjercicio(this.idejercicio.toDTO());
+        sesionEjercicio.setRepeticiones(this.repeticiones);
+        sesionEjercicio.setSeries(this.series);
+        sesionEjercicio.setDuracion(this.duracion);
+        sesionEjercicio.setPeso(this.peso);
+        sesionEjercicio.setCompletado(this.completado);
+        sesionEjercicio.setVelocidad(this.velocidad);
+        sesionEjercicio.setDistancia(this.distancia);
+        return sesionEjercicio;
+    }
 }

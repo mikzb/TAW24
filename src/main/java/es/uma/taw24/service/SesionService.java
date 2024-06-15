@@ -1,7 +1,6 @@
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.Sesion;
-import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.dao.RutinaSesionRepository;
 import es.uma.taw24.dao.SesionRepository;
 import es.uma.taw24.entity.SesionEntity;
@@ -25,5 +24,10 @@ public class SesionService extends DTOService<Sesion, SesionEntity>{
         SesionEntity sesionEntity = this.sesionRepository.findById(sesion.getId()).orElse(new SesionEntity());
         sesionEntity.setCrosstraining(sesion.getCrosstraining());
         sesionRepository.save(sesionEntity);
+    }
+    private SesionRepository sesionRepository;
+
+    public Sesion buscarSesion(Integer id) {
+        return this.sesionRepository.findById(id).orElseThrow(() -> new RuntimeException("Sesion con id: " + id + " no encontrada.")).toDTO();
     }
 }

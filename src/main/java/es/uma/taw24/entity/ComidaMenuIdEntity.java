@@ -9,6 +9,7 @@ import java.util.Objects;
 @Embeddable
 public class ComidaMenuIdEntity implements java.io.Serializable {
     private static final long serialVersionUID = -2795143243716658712L;
+
     @Column(name = "IDCOMIDA", nullable = false)
     private Integer idcomida;
 
@@ -44,5 +45,4 @@ public class ComidaMenuIdEntity implements java.io.Serializable {
     public int hashCode() {
         return Objects.hash(idcomida, idmenu);
     }
-
 }

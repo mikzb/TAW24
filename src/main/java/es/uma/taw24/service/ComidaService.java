@@ -1,5 +1,11 @@
 package es.uma.taw24.service;
 
+/**
+ * @author Ignacy Borzestowski: 50%
+ * @author Pablo Rubia Arias: 50%
+ */
+
+
 import es.uma.taw24.DTO.Comida;
 import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.dao.ComidaRepository;
@@ -16,5 +22,24 @@ public class ComidaService extends DTOService<Comida, ComidaEntity>{
 
     public List<Comida> listarComidas() {
         return this.entidadesADTO(this.comidaRepository.findAll());
+    }
+
+    public void guardarComida(Comida comida) {
+        ComidaEntity comidaEntity = comidaRepository.findById(comida.getId()).orElse(new ComidaEntity());
+        comidaEntity.setDescripcion(comida.getDescripcion());
+        comidaRepository.save(comidaEntity);
+    }
+
+    public Comida buscarPorId(int id) {
+        ComidaEntity comida = this.comidaRepository.findById(id).orElse(null);
+        if (comida != null) {
+            return comida.toDTO();
+        } else {
+            return null;
+        }
+    }
+
+    public void borrarComida(int id) {
+        this.comidaRepository.deleteById(id);
     }
 }

@@ -49,7 +49,7 @@ public class UsuarioController extends BaseController{
     }
 
     @GetMapping("/listado")
-    public String listadoUsuarios(Model model, HttpSession session){
+    public String listarUsuarios(Model model, HttpSession session){
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -65,7 +65,7 @@ public class UsuarioController extends BaseController{
     }
 
     @GetMapping("/ejercicios")
-    public String listadoEjercicios(Model model, HttpSession session){
+    public String listarEjercicios(Model model, HttpSession session){
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -80,8 +80,10 @@ public class UsuarioController extends BaseController{
         return strTo;
     }
 
-    @GetMapping("/comidas")
-    public String listadoComidas(Model model, HttpSession session){
+
+
+    @GetMapping("/borrar")
+    public String borrarUsuario(@RequestParam("id") int id, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -89,16 +91,19 @@ public class UsuarioController extends BaseController{
         if (!esAdmin(session)) {
             return accessDenied();
         }
-        String strTo = "usuario/listadoComida";
-        ArrayList<Comida> comidas = (ArrayList<Comida>) this.comidaService.listarComidas();
-        model.addAttribute("usuario", session.getAttribute("usuario"));
-        model.addAttribute("comidas", comidas);
+        String strTo = "usuario/borrar";
+        try {
+            Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+            model.addAttribute("usuario", usuario);
+        } catch (UserNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            strTo = "usuario/listado";
+        }
         return strTo;
     }
 
-
-    @PostMapping("/eliminar")
-    public String eliminarUsuario(@RequestParam("id") int id, Model model, HttpSession session) {
+    @PostMapping("/borrar")
+    public String borrarUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -107,8 +112,10 @@ public class UsuarioController extends BaseController{
             return accessDenied();
         }
         String strTo = "redirect:/usuario/listado";
+
         try {
-            this.usuarioService.eliminarUsuario(id);
+            int id = usuario.getId();
+            this.usuarioService.borrarUsuario(id);
         } catch (UserNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             strTo = "usuario/listado";

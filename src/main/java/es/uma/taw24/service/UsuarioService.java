@@ -1,7 +1,8 @@
 /**
  * @author
- * Ignacy Borzestowski: 80%
- * Cristian Ruiz Martín: 20%
+ * Ignacy Borzestowski: 65%
+ * Cristian Ruiz Martín: 15%
+ * Pablo Rubia Arias: 20%
  */
 
 package es.uma.taw24.service;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -78,7 +80,30 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         }
     }
 
-    public void eliminarUsuario(int id) {
+    public List<Usuario> listarClientesPorDietistaId(Integer dietistaId) {
+        List<UsuarioEntity> usuarios = this.usuarioRepository.findByDietistaId(dietistaId);
+        List<Usuario> usuariosDTO = new ArrayList<>();
+
+        for (UsuarioEntity usuario : usuarios) {
+            Usuario usuarioDTO = new Usuario();
+            usuarioDTO.setId(usuario.getId());
+            usuarioDTO.setEmail(usuario.getEmail());
+            usuarioDTO.setNombre(usuario.getNombre());
+            usuarioDTO.setApellidos(usuario.getApellidos());
+            usuarioDTO.setEdad(usuario.getEdad());
+            usuarioDTO.setSexo(usuario.getSexo());
+            usuarioDTO.setPermisoAdmin(usuario.getPermisoAdmin());
+            usuarioDTO.setPermisoEntrenador(usuario.getPermisoEntrenador());
+            usuarioDTO.setPermisoDietista(usuario.getPermisoDietista());
+            usuarioDTO.setPermisoCliente(usuario.getPermisoCliente());
+            usuariosDTO.add(usuarioDTO);
+        }
+
+        return usuariosDTO;
+    }
+
+    public void borrarUsuario(int id) {
+        this.entrenadorService.borrarEntrenador(id);
         this.usuarioRepository.deleteById(id);
     }
 }
