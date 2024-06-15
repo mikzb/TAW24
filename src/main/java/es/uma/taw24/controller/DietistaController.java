@@ -112,7 +112,7 @@ public class DietistaController extends BaseController {
         return "./Dietista/editarDieta";
     }
 
-    //TODO: Could not set value of type [java.lang.Integer]: 'es.uma.taw24.entity.DietaDiaIdEntity.iddia' (setter)
+    //TODO: si una comida se repite en un dia salta error (por ello el doble objeto vacío)
     @PostMapping("/guardarCreacionDieta")
     public String doGuardarCreacionDieta(@ModelAttribute("dieta") Dieta dieta, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -126,7 +126,7 @@ public class DietistaController extends BaseController {
 
         this.dietaService.guardarDietaCreada(dieta, dietistaId);
 
-        return "redirect:/dietas";
+        return "redirect:/dietista/dietas";
     }
 
     //TODO: actualizarDescripcionDieta, actualizarComida
@@ -156,7 +156,7 @@ public class DietistaController extends BaseController {
             }
         }
 
-        return "redirect:/dietas";
+        return "redirect:/dietista/dietas";
     }
 
     @GetMapping("/eliminarDieta")
@@ -189,7 +189,7 @@ public class DietistaController extends BaseController {
         return "./Dietista/clientesDietista";
     }
 
-    //TODO: LA QUERY DEVUELVE 10 COMIDAS, DEBERÍA DEVOLVER 35
+    //TODO: LA QUERY DEVUELVE 21 COMIDAS, DEBERÍA DEVOLVER 35
     @GetMapping("/verDietaDietista")
     public String doVerDietaCreada(Model model, @RequestParam("id") Integer dietaId, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -205,7 +205,7 @@ public class DietistaController extends BaseController {
         return "./Dietista/verDietaDietista";
     }
 
-    //TODO: LA QUERY DEVUELVE 10 COMIDAS, DEBERÍA DEVOLVER 35
+    //TODO: LA QUERY DEVUELVE 21 COMIDAS, DEBERÍA DEVOLVER 35
     @GetMapping("/verProgresoDieta")
     public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {

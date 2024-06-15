@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DietaRepository extends JpaRepository<DietaEntity, Integer> {
 
@@ -32,4 +33,7 @@ public interface DietaRepository extends JpaRepository<DietaEntity, Integer> {
             "WHERE d.id = :dietaId " +
             "ORDER BY dia.fecha")
     List<ComidaEntity> findComidasByDietaId(Integer dietaId);
+
+    @Query("SELECT d FROM DietaEntity d WHERE d.descripcion = :descripcion")
+    Optional<DietaEntity> findByDescripcion(@RequestParam("descripcion") String descripcion);
 }

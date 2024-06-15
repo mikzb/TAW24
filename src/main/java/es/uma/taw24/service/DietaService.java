@@ -7,12 +7,17 @@ package es.uma.taw24.service;
 import es.uma.taw24.DTO.*;
 import es.uma.taw24.dao.*;
 import es.uma.taw24.entity.*;
+import es.uma.taw24.exception.ExistingDietaException;
+import es.uma.taw24.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DietaService extends DTOService<Dieta, DietaEntity>{
@@ -143,18 +148,34 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
     }
 
     public void guardarDietaCreada(Dieta dieta, Integer dietistaID) {
-        DietaEntity dietaEntity = new DietaEntity();
-        dietaEntity.setFechacreacion(Instant.now());
-        dietaEntity.setDescripcion(dieta.getDescripcion());
-        UsuarioEntity dietista = this.usuarioRepository.findById(dietistaID).orElse(null);
-        dietaEntity.setIddietista(dietista);
-
-        this.dietaRepository.save(dietaEntity);
+        // Comprobar si la dieta ya existe, usando algún criterio para determinar la unicidad
+        Optional<DietaEntity> existingDieta = this.dietaRepository.findByDescripcion(dieta.getDescripcion());
+        DietaEntity dietaEntity;
+        if (existingDieta.isPresent()) {
+            throw new ExistingDietaException("La dieta con descripción " +
+                    existingDieta.get().getDescripcion() + " ya existe");
+        } else {
+            dietaEntity = new DietaEntity();
+            dietaEntity.setFechacreacion(Instant.now());
+            dietaEntity.setDescripcion(dieta.getDescripcion());
+            UsuarioEntity dietista = this.usuarioRepository.findById(dietistaID).orElse(null);
+            dietaEntity.setIddietista(dietista);
+            this.dietaRepository.save(dietaEntity);
+        }
 
         for (int i = 0; i < dieta.getDias().size(); i++) {
             DiaEntity dia = new DiaEntity();
-            dia.setFecha(Instant.now());
-            this.diaRepository.save(dia);
+            LocalDate currentDate = LocalDate.now();
+            LocalDate newDate = currentDate.plusDays(i);
+            Instant instantDate = newDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+            dia.setFecha(instantDate);
+
+            Optional<DiaEntity> existingDia = this.diaRepository.findByFecha(dia.getFecha());
+            if (existingDia.isPresent()) {
+                dia = existingDia.get();
+            } else {
+                this.diaRepository.save(dia);
+            }
 
             DietaDiaEntity dietaDiaEntity = new DietaDiaEntity();
             dietaDiaEntity.setDieta(dietaEntity);
