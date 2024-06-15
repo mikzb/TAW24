@@ -1,3 +1,9 @@
+/**
+ * @author
+ * Cristian Ruiz Martín: 50%
+ * Álvaro Acedo Espejo: 50%
+ */
+
 package es.uma.taw24.dao;
 
 import es.uma.taw24.entity.RutinaSesionEntity;

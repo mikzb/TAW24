@@ -1,3 +1,8 @@
+/**
+ * @author
+ * Cristian Ruiz Martín: 100%
+ */
+
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.SesionEjercicio;
@@ -55,5 +60,10 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         sesionEjercicioEntity.setDistancia(sesionEjercicio.getDistancia());
         if(sesionEjercicioEntity.getOrden() == null) sesionEjercicioEntity.setOrden(sesionEjercicio.getOrden());
         this.sesionEjercicioRepository.save(sesionEjercicioEntity);
+    }
+
+    public void borrarSesionEjercicio(Integer idSesion, Integer idEjercicio) {
+        SesionEjercicioEntity sesionEjercicioEntity = this.sesionEjercicioRepository.findBySesionIdAndEjercicioId(idSesion, idEjercicio);
+        this.sesionEjercicioRepository.delete(sesionEjercicioEntity);
     }
 }
