@@ -12,6 +12,7 @@ import es.uma.taw24.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -73,6 +74,21 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
 
     public List<Dieta> listarDietasDietista(Integer dietistaId) {
         List<DietaEntity> dietas = this.dietaRepository.findByDietistaId(dietistaId);
+
+        List<Dieta> dietasDTO = new ArrayList<>();
+        for (DietaEntity dieta : dietas) {
+            Dieta dietaDTO = new Dieta();
+            dietaDTO.setId(dieta.getId());
+            dietaDTO.setFechaCreacion(dieta.getFechacreacion());
+            dietaDTO.setDescripcion(dieta.getDescripcion());
+            dietasDTO.add(dietaDTO);
+        }
+
+        return dietasDTO;
+    }
+
+    public List<Dieta> listarDietasDietistaPorDescripcion(Integer dietistaId, String descripcion) {
+        List<DietaEntity> dietas = this.dietaRepository.findByDietistaIdAndDescripcion(dietistaId, descripcion);
 
         List<Dieta> dietasDTO = new ArrayList<>();
         for (DietaEntity dieta : dietas) {
@@ -179,17 +195,8 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
 
         for (int i = 0; i < dieta.getDias().size(); i++) {
             DiaEntity dia = new DiaEntity();
-            LocalDate currentDate = LocalDate.now();
-            LocalDate newDate = currentDate.plusDays(i);
-            Instant instantDate = newDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
-            dia.setFecha(instantDate);
-
-            Optional<DiaEntity> existingDia = this.diaRepository.findByFecha(dia.getFecha());
-            if (existingDia.isPresent()) {
-                dia = existingDia.get();
-            } else {
-                this.diaRepository.save(dia);
-            }
+            dia.setFecha(Instant.now().plus(Duration.ofDays(i)));
+            this.diaRepository.save(dia);
 
             DietaDiaEntity dietaDiaEntity = new DietaDiaEntity();
             dietaDiaEntity.setDieta(dietaEntity);
@@ -220,6 +227,8 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
         this.dietaRepository.update(dietaId, descripcion);
     }
 
-    public void actualizarComida(Integer actualId, Integer nuevoId, Integer dia, Integer comida) {
+    public void actualizarComida(Integer menuId, Integer comidaActualId, Integer comidaNuevaId) {
+        ComidaEntity comidaNueva = this.comidaRepository.findById(comidaNuevaId).orElse(null);
+        this.comidaMenuRepository.update(menuId, comidaActualId, comidaNueva);
     }
 }

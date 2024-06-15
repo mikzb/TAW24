@@ -2,7 +2,7 @@ package es.uma.taw24.service;
 
 /**
  * @author Ignacy Borzestowski: 70%
- * @author Álvaro Acedo espejo: 30%
+ * @author Álvaro Acedo Espejo: 30%
  */
 
 

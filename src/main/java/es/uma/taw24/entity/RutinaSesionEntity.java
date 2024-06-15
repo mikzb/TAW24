@@ -21,7 +21,7 @@ public class RutinaSesionEntity implements DTO<RutinaSesion> {
     private SesionEntity idsesion;
 
     @Column(name = "DIADESEMANA", nullable = false, length = 10)
-    private String diadesemana;
+    private short diadesemana;
 
     public RutinaSesionIdEntity getId() {
         return id;
@@ -47,18 +47,18 @@ public class RutinaSesionEntity implements DTO<RutinaSesion> {
         this.idsesion = idsesion;
     }
 
-    public String getDiadesemana() {
+    public short getDiadesemana() {
         return diadesemana;
     }
 
-    public void setDiadesemana(String diadesemana) {
+    public void setDiadesemana(Short diadesemana) {
         this.diadesemana = diadesemana;
     }
 
     public RutinaSesion toDTO() {
         RutinaSesion rutinaSesion = new RutinaSesion();
-        rutinaSesion.setIdrutina(this.idrutina.toDTO());
-        rutinaSesion.setIdsesion(this.idsesion.toDTO());
+        rutinaSesion.setRutina(this.idrutina.toDTO());
+        rutinaSesion.setSesion(this.idsesion.toDTO());
         rutinaSesion.setDiadesemana(this.diadesemana);
         return rutinaSesion;
     }

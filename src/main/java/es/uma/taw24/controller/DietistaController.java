@@ -46,13 +46,16 @@ public class DietistaController extends BaseController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         List<Dieta> dietas = this.dietaService.listarDietasDietista(usuario.getId());
 
+        Dieta dieta = new Dieta();
+        model.addAttribute("dieta", dieta);
+
         model.addAttribute("dietas", dietas);
 
         return "./Dietista/dietas";
     }
 
-    @GetMapping("/crearDieta")
-    public String doCrearDieta(Model model, HttpSession session) {
+    @PostMapping("/filtrarDietas")
+    public String doFiltrarDietas(@ModelAttribute("dieta") Dieta dietaD, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -60,26 +63,96 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        List<Dieta> dietas = this.dietaService.listarDietasDietistaPorDescripcion(usuario.getId(), dietaD.getDescripcion());
+
         Dieta dieta = new Dieta();
-        dieta.setDias(new ArrayList<>());
-        for (int i = 0; i < 7; i++) {
-            Dia dia = new Dia();
-            Menu menu = new Menu();
-            menu.setComidas(new ArrayList<>());
-            for (int j = 0; j < 5; j++) {
-                menu.getComidas().add(new Comida());
-            }
-            dia.setMenu(menu);
-            dieta.getDias().add(dia);
-        }
         model.addAttribute("dieta", dieta);
 
-        List<Comida> comidas = this.comidaService.listarComidas();
-        model.addAttribute("comidasDisponibles", comidas);
+        model.addAttribute("dietas", dietas);
+
+        return "./Dietista/dietas";
+    }
+
+    @GetMapping("/crearDieta")
+    public String doCrearDieta(@RequestParam("id") Integer dietaId, Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
+
+        List<Comida> comidasDisponibles = this.comidaService.listarComidas();
+        Dieta dieta;
+        if (dietaId != 0) {
+            dieta = this.dietaService.cargarDietaPorDietaId(dietaId);
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 5; j++) {
+                    List<Comida> comidas = new ArrayList<>(comidasDisponibles);
+                    Comida comida = dieta.getDias().get(i).getMenu().getComidas().get(j);
+                    comidas.remove(comida);
+                    comidas.add(0, comida);
+                    model.addAttribute("comidas" + (i * 5 + j + 1), comidas);
+                }
+            }
+        } else {
+            dieta = new Dieta();
+            dieta.setDias(new ArrayList<>());
+            for (int i = 0; i < 7; i++) {
+                Dia dia = new Dia();
+                Menu menu = new Menu();
+                menu.setComidas(new ArrayList<>());
+                for (int j = 0; j < 5; j++) {
+                    menu.getComidas().add(new Comida());
+                    model.addAttribute("comidas" + (i * 5 + j + 1), comidasDisponibles);
+                }
+                dia.setMenu(menu);
+                dieta.getDias().add(dia);
+            }
+        }
+
+        model.addAttribute("dietaActual", dieta);
+        model.addAttribute("dietaNueva", new Dieta());
 
         return "./Dietista/crearDieta";
     }
 
+    @GetMapping("/importarDieta")
+    public String doImportarDieta(Model model, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
+
+        Integer dietistaId = ((Usuario) session.getAttribute("usuario")).getId();
+
+        List<Dieta> dietas = this.dietaService.listarDietasDietista(dietistaId);
+        model.addAttribute("dietas", dietas);
+
+        Dieta dieta = new Dieta();
+        model.addAttribute("dieta", dieta);
+
+        return "./Dietista/elegirDieta";
+    }
+
+    @GetMapping("/guardarImportacion")
+    public String doGuardarImportacion(@ModelAttribute("dieta") Dieta dieta, HttpSession session) {
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+        if (!esDietista(session) && !esAdmin(session)) {
+            return accessDenied();
+        }
+
+        Integer dietaId = dieta.getId();
+
+        return "redirect:/dietista/crearDieta?id=" + dietaId;
+    }
+
+    //TODO: si una comida se repite en un dia salta error
     @GetMapping("/editarDieta")
     public String doEditarDieta(@RequestParam("id") Integer dietaId, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -89,7 +162,7 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dietaActual = this.dietaService.buscarPorDietaId(dietaId);
+        Dieta dietaActual = this.dietaService.cargarDietaPorDietaId(dietaId);
         model.addAttribute("dietaActual", dietaActual);
 
         Dieta dietaNueva = new Dieta();
@@ -106,13 +179,22 @@ public class DietistaController extends BaseController {
         }
         model.addAttribute("dietaNueva", dietaNueva);
 
-        List<Comida> comidas = this.comidaService.listarComidas();
-        model.addAttribute("comidasDisponibles", comidas);
+        List<Comida> comidasDisponibles = this.comidaService.listarComidas();
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 5; j++) {
+                List<Comida> comidas = new ArrayList<>(comidasDisponibles);
+                Comida comida = dietaActual.getDias().get(i).getMenu().getComidas().get(j);
+                comidas.remove(comida);
+                comidas.add(0, comida);
+                model.addAttribute("comidas" + (i * 5 + j + 1), comidas);
+            }
+        }
 
         return "./Dietista/editarDieta";
     }
 
-    //TODO: si una comida se repite en un dia salta error (por ello el doble objeto vacío)
+    //TODO: si una comida se repite en un dia salta error (por ello la doble comida vacía)
     @PostMapping("/guardarCreacionDieta")
     public String doGuardarCreacionDieta(@ModelAttribute("dieta") Dieta dieta, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -129,7 +211,6 @@ public class DietistaController extends BaseController {
         return "redirect:/dietista/dietas";
     }
 
-    //TODO: actualizarComida
     @PostMapping("/guardarEdicionDieta")
     public String doGuardarEdicionDieta(@RequestParam("dietaId") Integer dietaId, @ModelAttribute("dieta") Dieta dietaNueva, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -139,7 +220,7 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dietaActual = this.dietaService.buscarPorDietaId(dietaId);
+        Dieta dietaActual = this.dietaService.cargarDietaPorDietaId(dietaId);
 
         if (!dietaActual.getDescripcion().equals(dietaNueva.getDescripcion())) {
             this.dietaService.actualizarDescripcionDieta(dietaId, dietaNueva.getDescripcion());
@@ -147,16 +228,17 @@ public class DietistaController extends BaseController {
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 5; j++) {
-                Comida comidaActual = dietaActual.getDias().get(i).getMenu().getComidas().get(j);
-                Comida comidaNueva = dietaNueva.getDias().get(i).getMenu().getComidas().get(j);
+                Integer comidaActualId = dietaActual.getDias().get(i).getMenu().getComidas().get(j).getId();
+                Integer comidaNuevaId = dietaNueva.getDias().get(i).getMenu().getComidas().get(j).getId();
 
-                if (comidaActual.getId() != comidaNueva.getId() ) {
-                    this.dietaService.actualizarComida(comidaActual.getId(), comidaNueva.getId(), i, j);
+                if (comidaActualId != comidaNuevaId) {
+                    Integer menuId = dietaActual.getDias().get(i).getMenu().getId();
+                    this.dietaService.actualizarComida(menuId, comidaActualId, comidaNuevaId);
                 }
             }
         }
 
-        return "redirect:/dietista/dietas";
+        return "redirect:/dietista/verDietaDietista?id=" + dietaId;
     }
 
     @GetMapping("/eliminarDieta")
@@ -205,7 +287,7 @@ public class DietistaController extends BaseController {
     }
 
     @GetMapping("/verProgresoDieta")
-    public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
+    public String doVerProgresoDieta(@RequestParam("id") Integer clienteId, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -213,7 +295,9 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dieta = this.dietaService.cargarDietaPorDietaId(id);
+        Integer dietaId = this.dietaService.buscarDietaPorUsuarioId(clienteId).getId();
+
+        Dieta dieta = this.dietaService.cargarDietaPorDietaId(dietaId);
         model.addAttribute("dieta", dieta);
 
         return "./Dietista/verProgresoDieta";
@@ -233,10 +317,11 @@ public class DietistaController extends BaseController {
         Integer dietistaId = ((Usuario) session.getAttribute("usuario")).getId();
 
         List<Dieta> dietas = this.dietaService.listarDietasDietista(dietistaId);
+
         Dieta dietaActual = this.dietaService.buscarDietaPorUsuarioId(usuarioId);
-        dietas.remove(dietaActual);
         model.addAttribute("dietaActual", dietaActual);
 
+        dietas.remove(dietaActual);
         model.addAttribute("dietas", dietas);
 
         Dieta dieta = new Dieta();
@@ -258,6 +343,4 @@ public class DietistaController extends BaseController {
 
         return "redirect:/dietista/clientesDietista";
     }
-
-    //TODO: IMPORTAR DIETA Y AÑADIR NUEVO USUARIO
 }

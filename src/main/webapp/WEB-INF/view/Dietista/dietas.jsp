@@ -2,9 +2,9 @@
  Pablo Rubia Arias: 100%
 --%>
 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.Dieta" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -17,6 +17,13 @@
 </head>
 <body>
 <h1>Tus Dietas</h1>
+
+<form:form action="/dietista/filtrarDietas" method="post" modelAttribute="dieta">
+    Buscar: <form:input path="descripcion"/>
+    <button>Filtrar</button>
+</form:form>
+
+<button onclick="window.location.href='/dietista/dietas'">Quitar Filtro</button>
 
 <table border="1">
     <tr>
@@ -34,7 +41,7 @@
     </tr>
     <% } %>
 </table>
-<button onclick="window.location.href='/dietista/crearDieta'">Crear</button>
+<button onclick="window.location.href='/dietista/crearDieta?id=0'">Crear</button>
 <button onclick="window.location.href='/dietista/'">Volver</button>
 </body>
 </html>
