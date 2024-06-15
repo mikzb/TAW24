@@ -129,7 +129,7 @@ public class DietistaController extends BaseController {
         return "redirect:/dietista/dietas";
     }
 
-    //TODO: actualizarDescripcionDieta, actualizarComida
+    //TODO: actualizarComida
     @PostMapping("/guardarEdicionDieta")
     public String doGuardarEdicionDieta(@RequestParam("dietaId") Integer dietaId, @ModelAttribute("dieta") Dieta dietaNueva, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -189,7 +189,6 @@ public class DietistaController extends BaseController {
         return "./Dietista/clientesDietista";
     }
 
-    //TODO: LA QUERY DEVUELVE 21 COMIDAS, DEBERÍA DEVOLVER 35
     @GetMapping("/verDietaDietista")
     public String doVerDietaCreada(Model model, @RequestParam("id") Integer dietaId, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -199,13 +198,12 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dieta = this.dietaService.buscarComidasPorDietaId(dietaId);
+        Dieta dieta = this.dietaService.cargarDietaPorDietaId(dietaId);
         model.addAttribute("dieta", dieta);
 
         return "./Dietista/verDietaDietista";
     }
 
-    //TODO: LA QUERY DEVUELVE 21 COMIDAS, DEBERÍA DEVOLVER 35
     @GetMapping("/verProgresoDieta")
     public String doVerProgresoDieta(@RequestParam("id") Integer id, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -215,7 +213,7 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dieta = this.dietaService.buscarComidasPorDietaId(id);
+        Dieta dieta = this.dietaService.cargarDietaPorDietaId(id);
         model.addAttribute("dieta", dieta);
 
         return "./Dietista/verProgresoDieta";
@@ -260,4 +258,6 @@ public class DietistaController extends BaseController {
 
         return "redirect:/dietista/clientesDietista";
     }
+
+    //TODO: IMPORTAR DIETA Y AÑADIR NUEVO USUARIO
 }

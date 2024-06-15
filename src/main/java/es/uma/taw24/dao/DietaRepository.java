@@ -5,6 +5,7 @@
 package es.uma.taw24.dao;
 
 import es.uma.taw24.entity.ComidaEntity;
+import es.uma.taw24.entity.DiaEntity;
 import es.uma.taw24.entity.DietaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,17 +24,20 @@ public interface DietaRepository extends JpaRepository<DietaEntity, Integer> {
     @Query("DELETE FROM DietaEntity d WHERE d.id = :dietaId")
     void deleteById(@RequestParam("dietaId") Integer dietaId);
 
-    @Query("SELECT c  FROM DietaEntity d " +
-            "JOIN DietaDiaEntity dd ON d.id = dd.id.iddieta " +
-            "JOIN DiaEntity dia ON dd.id.iddia = dia.id " +
-            "JOIN MenuDiaEntity md ON dia.id = md.id.iddia " +
-            "JOIN MenuEntity m ON md.id.idmenu = m.id " +
-            "JOIN ComidaMenuEntity cm ON m.id = cm.id.idmenu " +
-            "JOIN ComidaEntity c ON cm.id.idcomida = c.id " +
+    @Query(value = "SELECT c.* FROM Dieta d " +
+            "JOIN Dieta_Dia dd ON d.id = dd.iddieta " +
+            "JOIN Dia dia ON dd.iddia = dia.id " +
+            "JOIN Menu_Dia md ON dia.id = md.iddia " +
+            "JOIN Menu m ON md.idmenu = m.id " +
+            "JOIN Comida_Menu cm ON m.id = cm.idmenu " +
+            "JOIN Comida c ON cm.idcomida = c.id " +
             "WHERE d.id = :dietaId " +
-            "ORDER BY dia.fecha")
-    List<ComidaEntity> findComidasByDietaId(Integer dietaId);
+            "ORDER BY dia.fecha", nativeQuery = true)
+    List<Object[]> findComidasByDietaId(@RequestParam("dietaId") Integer dietaId);
 
     @Query("SELECT d FROM DietaEntity d WHERE d.descripcion = :descripcion")
     Optional<DietaEntity> findByDescripcion(@RequestParam("descripcion") String descripcion);
+
+    @Query("UPDATE DietaEntity d SET d.descripcion = :descripcion WHERE d.id = :dietaId")
+    void update(@RequestParam("dietaId") Integer dietaId, @RequestParam("descripcion") String descripcion);
 }

@@ -41,13 +41,13 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
     private ComidaRepository comidaRepository;
 
     @Autowired
-    private ComidaMenuRepository comidaMenuRepository;
-
-    @Autowired
     private MenuDiaRepository menuDiaRepository;
 
     @Autowired
     private DiaRepository diaRepository;
+
+    @Autowired
+    private ComidaMenuRepository comidaMenuRepository;
 
     public Dieta buscarPorDietaId(Integer dietaId) {
         DietaEntity dieta = this.dietaRepository.findById(dietaId).orElse(null);
@@ -60,42 +60,13 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
         return dietaDTO;
     }
 
-    public Dieta buscarComidasPorDietaId(Integer dietaId) {
-
-        List<ComidaEntity> comidas = this.dietaRepository.findComidasByDietaId(dietaId);
-        List<Comida> comidasDTO = new ArrayList<>();
-
-        for (ComidaEntity comida : comidas) {
-            Comida comidaDTO = new Comida();
-
-            comidaDTO.setId(comida.getId());
-            comidaDTO.setDescripcion(comida.getDescripcion());
-
-            comidasDTO.add(comidaDTO);
-        }
-
-        DietaEntity dieta = this.dietaRepository.findById(dietaId).orElse(null);
+    public Dieta buscarDietaPorUsuarioId(Integer usuarioId) {
+        DietaEntity dieta = this.usuarioRepository.findDietaByUsuarioId(usuarioId);
         Dieta dietaDTO = new Dieta();
-        List<Dia> dias = new ArrayList<>();
-        dietaDTO.setDias(dias);
 
         dietaDTO.setId(dieta.getId());
         dietaDTO.setFechaCreacion(dieta.getFechacreacion());
         dietaDTO.setDescripcion(dieta.getDescripcion());
-
-        for (int i = 0; i < 5; i++) {
-            Menu menu = new Menu();
-            List<Comida> comidasMenu = new ArrayList<>();
-
-            for (int j = 0; j < 7; j++) {
-                comidasMenu.add(comidasDTO.get(i * 7 + j));
-            }
-
-            menu.setComidas(comidasMenu);
-            Dia dia = new Dia();
-            dia.setMenu(menu);
-            dietaDTO.getDias().add(dia);
-        }
 
         return dietaDTO;
     }
@@ -113,6 +84,61 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
         }
 
         return dietasDTO;
+    }
+
+    public Dieta cargarDietaPorDietaId(Integer dietaId) {
+
+        Dieta dieta = this.buscarPorDietaId(dietaId);
+
+        List<Dia> dias = this.buscarDiasPorDietaId(dietaId);
+        dieta.setDias(dias);
+
+        for (Dia dia : dias) {
+            Menu menu = this.buscarMenuPorDiaId(dia.getId());
+            dia.setMenu(menu);
+
+            List<Comida> comidas = this.buscarComidasPorMenuId(menu.getId());
+            menu.setComidas(comidas);
+        }
+
+        return dieta;
+    }
+
+    public List<Dia> buscarDiasPorDietaId(Integer dietaId) {
+        List<DiaEntity> dietaDias = this.diaRepository.findDiasByDietaId(dietaId);
+        List<Dia> dias = new ArrayList<>();
+        for (DiaEntity dia : dietaDias) {
+            Dia diaDTO = new Dia();
+            diaDTO.setId(dia.getId());
+            diaDTO.setFecha(dia.getFecha());
+            dias.add(diaDTO);
+        }
+
+        return dias;
+    }
+
+    public Menu buscarMenuPorDiaId(Integer diaId) {
+        MenuEntity menu = this.menuRepository.findMenuByDiaId(diaId);
+        Menu menuDTO = new Menu();
+        menuDTO.setId(menu.getId());
+        return menuDTO;
+    }
+
+    public List<Comida> buscarComidasPorMenuId(Integer menuId) {
+        List<ComidaEntity> comidasMenu = this.comidaRepository.findComidasByMenuId(menuId);
+        List<Comida> comidas = new ArrayList<>();
+
+        int i = 1;
+        for (ComidaEntity comida : comidasMenu) {
+            Comida comidaDTO = new Comida();
+            comidaDTO.setId(comida.getId());
+            comidaDTO.setDescripcion(comida.getDescripcion());
+            comidaDTO.setNumero(i);
+            comidas.add(comidaDTO);
+            i++;
+        }
+
+        return comidas;
     }
 
     public void borrarDieta(Integer dietaId) {
@@ -136,19 +162,7 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
         this.usuarioDietaRepository.updateDieta(usuarioId, dieta);
     }
 
-    public Dieta buscarDietaPorUsuarioId(Integer usuarioId) {
-        DietaEntity dieta = this.usuarioRepository.findDietaByUsuarioId(usuarioId);
-        Dieta dietaDTO = new Dieta();
-
-        dietaDTO.setId(dieta.getId());
-        dietaDTO.setFechaCreacion(dieta.getFechacreacion());
-        dietaDTO.setDescripcion(dieta.getDescripcion());
-
-        return dietaDTO;
-    }
-
     public void guardarDietaCreada(Dieta dieta, Integer dietistaID) {
-        // Comprobar si la dieta ya existe, usando algún criterio para determinar la unicidad
         Optional<DietaEntity> existingDieta = this.dietaRepository.findByDescripcion(dieta.getDescripcion());
         DietaEntity dietaEntity;
         if (existingDieta.isPresent()) {
@@ -196,12 +210,14 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
                 ComidaMenuEntity comidaMenuEntity = new ComidaMenuEntity();
                 comidaMenuEntity.setMenu(menuEntity);
                 comidaMenuEntity.setComida(comida);
+                comidaMenuEntity.setNumero(j+1);
                 this.comidaMenuRepository.save(comidaMenuEntity);
             }
         }
     }
 
     public void actualizarDescripcionDieta(Integer dietaId, String descripcion) {
+        this.dietaRepository.update(dietaId, descripcion);
     }
 
     public void actualizarComida(Integer actualId, Integer nuevoId, Integer dia, Integer comida) {

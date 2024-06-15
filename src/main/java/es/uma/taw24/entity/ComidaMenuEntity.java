@@ -18,6 +18,9 @@ public class ComidaMenuEntity {
     @JoinColumn(name = "IDMENU", nullable = false)
     private MenuEntity menu;
 
+    @Column(name = "NUMERO", nullable = false)
+    private Integer numero;
+
     public ComidaMenuIdEntity getId() {
         return id;
     }
@@ -42,4 +45,11 @@ public class ComidaMenuEntity {
         this.menu = idmenu;
     }
 
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 }
