@@ -17,6 +17,9 @@ import java.util.List;
 public interface RutinaRepository extends JpaRepository<RutinaEntity, Integer> {
     @Query("SELECT r FROM RutinaEntity r WHERE r.identrenador.id =:entrenadorId")
     public List<RutinaEntity> findByEntrenadorId(@Param("entrenadorId") Integer entrenadorId);
+
+    @Query("SELECT r FROM RutinaEntity r WHERE r.identrenador.id =:entrenadorId AND r.fechacreacion >= :lowerFecha AND r.fechacreacion <= :upperFecha")
+    public List<RutinaEntity> findByEntrenadorIdAndFecha(@Param("entrenadorId") Integer entrenadorId, @Param("lowerFecha") Instant lowerFecha, @Param("upperFecha") Instant upperFecha);
 }
 
 
