@@ -78,37 +78,15 @@ public class UsuarioController extends BaseController{
         if (!esAdmin(session)) {
             return accessDenied();
         }
-        String strTo = "usuario/borrar";
-        try {
-            Usuario usuario = usuarioService.buscarUsuario(id);
-            model.addAttribute("usuario", usuario);
-        } catch (NotFoundException e) {
-            model.addAttribute("error", e.getMessage());
-            strTo = "usuario/listado";
-        }
-        return strTo;
-    }
-
-    @PostMapping("/borrar")
-    public String borrarUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
-        if (!estaAutenticado(session)) {
-            return redirectToLogin();
-        }
-
-        if (!esAdmin(session)) {
-            return accessDenied();
-        }
         String strTo = "redirect:/usuario/listado";
-
         try {
-            int id = usuario.getId();
             this.usuarioService.borrarUsuario(id);
         } catch (NotFoundException e) {
             model.addAttribute("error", e.getMessage());
-            strTo = "usuario/listado";
         }
         return strTo;
     }
+
 
     @GetMapping("/crear")
     public String crearUsuario(Model model) {

@@ -57,7 +57,7 @@
                 <form:label path="edad">Edad: </form:label>
             </td>
             <td>
-                <form:input required="true" path="edad" />
+                <form:input type="number" min="0" step="1" required="true" path="edad" />
             </td>
         </tr>
         <tr>

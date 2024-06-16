@@ -152,7 +152,6 @@ public class DietistaController extends BaseController {
         return "redirect:/dietista/crearDieta?id=" + dietaId;
     }
 
-    //TODO: si una comida se repite en un dia salta error
     @GetMapping("/editarDieta")
     public String doEditarDieta(@RequestParam("id") Integer dietaId, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
@@ -194,7 +193,6 @@ public class DietistaController extends BaseController {
         return "./Dietista/editarDieta";
     }
 
-    //TODO: si una comida se repite en un dia salta error (por ello la doble comida vacía)
     @PostMapping("/guardarCreacionDieta")
     public String doGuardarCreacionDieta(@ModelAttribute("dieta") Dieta dieta, HttpSession session) {
         if (!estaAutenticado(session)) {

@@ -24,4 +24,7 @@ public interface UsuarioDietaRepository extends JpaRepository<UsuarioDietaEntity
     @Transactional
     @Query("UPDATE UsuarioDietaEntity ud SET ud.dieta = :dieta WHERE ud.usuario.id = :usuarioId")
     void updateDieta(@Param("usuarioId") Integer usuarioId, @Param("dieta") DietaEntity dieta);
+
+    @Query("SELECT ud FROM UsuarioDietaEntity ud WHERE ud.usuario.id = :usuarioId")
+    List<UsuarioDietaEntity> findByUsuarioId(@Param("usuarioId") Integer usuarioId);
 }

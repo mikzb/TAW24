@@ -16,6 +16,6 @@
 <body>
 <h1>Hola, <%=trainer.getUsuario().getNombre() + " " + trainer.getUsuario().getApellidos()%></h1>
 <button onclick="window.location.href='/entrenadorCross/clientes'">Ver Clientes</button>
-<button onclick="window.location.href='/entrenadorCross/rutinas'">Ver Rutinas</button>
+<%--<button onclick="window.location.href='/entrenadorCross/rutinas'">Ver Rutinas</button>--%>
 </body>
 </html>
