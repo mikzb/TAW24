@@ -17,8 +17,10 @@ import java.util.List;
 public interface EntrenadorUsuarioRepository extends JpaRepository<EntrenadorUsuarioEntity, Integer> {
     @Query("SELECT eu.idusuario FROM EntrenadorUsuarioEntity eu WHERE eu.identrenador.id = :entrenadorId")
     public List<UsuarioEntity> findByEntrenadorId(@Param("entrenadorId") Integer entrenadorId);
+
     @Query("SELECT eu.identrenador FROM EntrenadorUsuarioEntity eu WHERE eu.idusuario.id = :usuarioId")
     public List<EntrenadorEntity> findByUsuarioId(@Param("usuarioId") Integer usuarioId);
+    
     @Query("SELECT eu FROM EntrenadorUsuarioEntity eu WHERE eu.idusuario.id = :usuarioId AND eu.identrenador.id = :entrenadorId")
     public List<EntrenadorUsuarioEntity> findByEntrenadorIdAndUsuarioID(@Param("usuarioId") Integer usuarioId, @Param("entrenadorId") Integer entrenadorId);
 

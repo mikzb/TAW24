@@ -1,7 +1,7 @@
 /**
  * @author
- * Cristian Ruiz Martín: 50%
- * Álvaro Acedo Espejo: 50%
+ * Cristian Ruiz Martín: 70%
+ * Álvaro Acedo Espejo: 30%
  */
 
 package es.uma.taw24.dao;
@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.List;
 
 public interface RutinaUsuarioRepository extends JpaRepository<RutinaUsuarioEntity, Integer> {
@@ -27,4 +28,7 @@ public interface RutinaUsuarioRepository extends JpaRepository<RutinaUsuarioEnti
 
     @Query("SELECT ru FROM RutinaUsuarioEntity ru WHERE ru.idrutina.id = :id")
     public List<RutinaUsuarioEntity> findByRutinaId(@Param("id") Integer id);
+
+    @Query("SELECT ru.idrutina FROM RutinaUsuarioEntity ru WHERE ru.idusuario.id = :clienteId AND ru.idrutina.identrenador.id = :entrenadorId AND ru.idrutina.fechacreacion >= :lowerFecha AND ru.idrutina.fechacreacion <= :upperFecha")
+    public List<RutinaEntity> findByClienteIdAndFecha(@Param("entrenadorId") Integer entrenadorId , @Param("clienteId") Integer clienteId, @Param("lowerFecha") Instant lowerFecha, @Param("upperFecha") Instant upperFecha);
 }

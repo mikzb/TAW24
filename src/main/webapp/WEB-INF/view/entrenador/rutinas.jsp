@@ -25,12 +25,22 @@
 <body>
 <h1>Tus Rutinas</h1>
 
-<%--<form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">--%>
-<%--    Contiene: <form:input path="titulo" />--%>
-<%--    y fue publicado después de: <form:input path="anyo"  />--%>
-<%--    <input type="submit" value="Filtrar">--%>
-
-<%--</form:form>--%>
+<form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">
+    <% if (clientes != null) { %>
+    Cliente:
+    <form:select path="idCliente">
+        <form:option value="0" label="Selecciona un cliente..." />
+        <form:options items="${clientes}" itemLabel="nombre" itemValue="id" />
+    </form:select>
+    <% } else{ %>
+    <form:input path="idCliente" type="hidden" value="${idCliente}"/>
+    <%
+        }
+    %>
+    Creada después de (dd-MM-yyyy): <form:input path="lowerFecha" />
+    Creada antes de (dd-MM-yyyy): <form:input path="upperFecha" />
+    <form:button type="submit">Filtrar</form:button>
+</form:form>
 
 <table border="1">
     <tr>

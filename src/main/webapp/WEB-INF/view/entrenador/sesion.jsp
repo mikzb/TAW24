@@ -6,23 +6,34 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.SesionEjercicio" %>
+<%@ page import="es.uma.taw24.ui.FiltroSesionEjercicio" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
-    <title>Rutina Cliente</title>
+    <title>Ejercicios</title>
 </head>
 <body>
 
 <%
     List<SesionEjercicio> sesionEjercicios = (List<SesionEjercicio>) request.getAttribute("sesionEjercicios");
-    Integer idSesion = (Integer) request.getAttribute("idSesion");
+    FiltroSesionEjercicio filtro = (FiltroSesionEjercicio) request.getAttribute("filtro");
 %>
 
-<h1>Rutinas del Cliente</h1>
+<h1>Ejercicios</h1>
 
-<h2>Tabla de Rutinas</h2>
+<form:form method="post" action="/entrenador/sesion/filtrar" modelAttribute="filtro">
+    <form:input path="idSesion" type="hidden" value="<%=filtro.getIdSesion()%>"/>
+    Series > <form:input path="series" type="text"/>
+    Repeticiones > <form:input path="repeticiones" type="text"/>
+    Peso > <form:input path="peso" type="text"/>
+    Completado: <form:checkbox path="completado"/>
+    <form:button type="submit">Filtrar</form:button>
+    <button><a href="/entrenador/sesion?id=<%=filtro.getIdSesion()%>">Limpiar</a></button>
+</form:form>
+
+<h2>Tabla de ejercicios</h2>
 <table border="1">
     <thead>
     <tr>
@@ -58,7 +69,7 @@
     </tbody>
 </table>
 
-<a href="/entrenador/sesion/<%=idSesion%>/ejercicio/anyadir">Añadir un nuevo ejercicio.</a>
+<a href="/entrenador/sesion/<%=filtro.getIdSesion()%>/ejercicio/anyadir">Añadir un nuevo ejercicio.</a>
 
 </body>
 </html>

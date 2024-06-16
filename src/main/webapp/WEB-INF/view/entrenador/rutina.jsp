@@ -11,7 +11,7 @@
 
 <html>
 <head>
-    <title>Rutina Cliente</title>
+    <title>Sesiones</title>
 </head>
 <body>
 
