@@ -7,19 +7,19 @@
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.Rutina;
-import es.uma.taw24.dao.EntrenadorRepository;
-import es.uma.taw24.dao.RutinaRepository;
-import es.uma.taw24.dao.RutinaSesionRepository;
-import es.uma.taw24.dao.RutinaUsuarioRepository;
+import es.uma.taw24.DTO.Sesion;
+import es.uma.taw24.dao.*;
 import es.uma.taw24.entity.RutinaEntity;
 import es.uma.taw24.entity.RutinaSesionEntity;
 import es.uma.taw24.entity.RutinaUsuarioEntity;
+import es.uma.taw24.entity.SesionEntity;
 import es.uma.taw24.ui.FiltroRutina;
 import es.uma.taw24.ui.FiltroUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,6 +37,8 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
 
     @Autowired
     private RutinaSesionRepository rutinaSesionRepository;
+    @Autowired
+    private SesionService sesionService;
 
     public List<Rutina> listarRutinas(Integer entrenadorId) {
         return this.entidadesADTO(this.rutinaRepository.findByEntrenadorId(entrenadorId));
@@ -79,7 +81,11 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
         List<RutinaUsuarioEntity> rutinaUsuarios = this.rutinaUsuarioRepository.findByRutinaId(id);
         this.rutinaUsuarioRepository.deleteAll(rutinaUsuarios);
         List<RutinaSesionEntity> rutinaSesiones = this.rutinaSesionRepository.findByRutinaId(id);
+        List<Sesion> sesiones = new ArrayList<>();
         this.rutinaSesionRepository.deleteAll(rutinaSesiones);
+        for(RutinaSesionEntity rutinaSesion : rutinaSesiones){
+            sesionService.borrarSesion(rutinaSesion.getIdsesion().getId());
+        }
         this.rutinaRepository.deleteById(id);
 
     }
