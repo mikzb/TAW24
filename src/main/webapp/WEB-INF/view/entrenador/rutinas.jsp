@@ -23,7 +23,7 @@
     <title>Rutinas</title>
 </head>
 <body>
-<h1>Tus Rutinas</h1>
+<h1>Rutinas</h1>
 
 <form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">
     <% if (clientes != null) { %>
@@ -73,7 +73,8 @@ else{
 <%
     }
 %>
-
-<button onclick="window.location.href='/entrenador/'">Volver</button>
+<br>
+<br>
+<button onclick="window.location.href='/entrenador/'">Volver al inicio</button>
 </body>
 </html>

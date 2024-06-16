@@ -38,8 +38,9 @@
         </tr>
     </table>
 </form:form>
-
-<a href="/entrenador/">Volver atrás.</a>
+<br>
+<br>
+<button onclick="window.location.href='/entrenador/'">Volver al inicio</button>
 
 </body>
 </html>

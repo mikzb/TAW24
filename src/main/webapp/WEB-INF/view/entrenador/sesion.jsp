@@ -30,8 +30,8 @@
     Peso > <form:input path="peso" type="text"/>
     Completado: <form:checkbox path="completado"/>
     <form:button type="submit">Filtrar</form:button>
-    <button><a href="/entrenador/sesion?id=<%=filtro.getIdSesion()%>">Limpiar</a></button>
 </form:form>
+<button onclick="window.location.href='/entrenador/sesion?id=<%=filtro.getIdSesion()%>'">Limpiar</button>
 
 <h2>Tabla de ejercicios</h2>
 <table border="1">
@@ -70,6 +70,9 @@
 </table>
 
 <a href="/entrenador/sesion/<%=filtro.getIdSesion()%>/ejercicio/anyadir">Añadir un nuevo ejercicio.</a>
+<br>
+<br>
+<button onclick="window.location.href='/entrenador/'">Volver al inicio</button>
 
 </body>
 </html>
