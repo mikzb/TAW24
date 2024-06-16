@@ -8,9 +8,12 @@ package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.RutinaSesion;
 import es.uma.taw24.DTO.Sesion;
+import es.uma.taw24.DTO.SesionEjercicio;
 import es.uma.taw24.dao.RutinaSesionRepository;
+import es.uma.taw24.dao.SesionEjercicioRepository;
 import es.uma.taw24.dao.SesionRepository;
 import es.uma.taw24.entity.RutinaSesionEntity;
+import es.uma.taw24.entity.SesionEjercicioEntity;
 import es.uma.taw24.entity.SesionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class SesionService extends DTOService<Sesion, SesionEntity>{
 
     @Autowired
     private RutinaSesionRepository rutinaSesionRepository;
+
+    @Autowired
+    private SesionEjercicioRepository sesionEjercicioRepository;
 
     public SesionEntity buscarSesionPorId( int id) {
         return this.sesionRepository.findByIdSesion(id);
@@ -43,6 +49,8 @@ public class SesionService extends DTOService<Sesion, SesionEntity>{
     public void borrarSesion(Integer id) {
         List<RutinaSesionEntity> rutinaSesiones = this.rutinaSesionRepository.findBySesionId(id);
         this.rutinaSesionRepository.deleteAll(rutinaSesiones);
+        List<SesionEjercicioEntity> sesionEjercicios = this.sesionEjercicioRepository.findBySesionId(id);
+        this.sesionEjercicioRepository.deleteAll(sesionEjercicios);
         this.sesionRepository.deleteById(id);
     }
 }

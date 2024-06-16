@@ -6,7 +6,6 @@
 
 package es.uma.taw24.dao;
 
-import es.uma.taw24.DTO.RutinaSesion;
 import es.uma.taw24.entity.RutinaSesionEntity;
 import es.uma.taw24.entity.RutinaSesionIdEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +17,7 @@ import java.util.List;
 public interface RutinaSesionRepository extends JpaRepository<RutinaSesionEntity, Integer> {
 
     @Query("SELECT rs FROM RutinaSesionEntity rs WHERE rs.idrutina.id = :rutinaId ORDER BY rs.diadesemana")
-    public List<RutinaSesionEntity> findByRutinaIdOrderByDiadesemana(@RequestParam("rutinaId") Integer rutinaId);
+    public List<RutinaSesionEntity> findByRutinaId(@RequestParam("rutinaId") Integer rutinaId);
 
     @Query("SELECT COUNT(rs) FROM RutinaSesionEntity rs WHERE rs.idrutina.id = :rutinaId AND rs.diadesemana = :diaSemana")
     public Integer countByRutinaIdAndDiaSemana(@RequestParam("rutinaId") Integer rutinaId, @RequestParam("diaSemana") Short diaSemana);
@@ -31,4 +30,5 @@ public interface RutinaSesionRepository extends JpaRepository<RutinaSesionEntity
 
     @Query("SELECT rs FROM RutinaSesionEntity rs WHERE rs.idsesion.id = :id")
     public List<RutinaSesionEntity> findBySesionId(Integer id);
+
 }

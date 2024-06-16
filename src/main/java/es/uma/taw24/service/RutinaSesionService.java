@@ -29,7 +29,7 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
     private SesionRepository sesionRepository;
 
     public List<RutinaSesion> buscarRutinaSesion(Integer rutinaId) {
-        List<RutinaSesionEntity> lista = this.rutinaSesionRepository.findByRutinaIdOrderByDiadesemana(rutinaId);
+        List<RutinaSesionEntity> lista = this.rutinaSesionRepository.findByRutinaId(rutinaId);
         return this.entidadesADTO(lista);
     }
 
