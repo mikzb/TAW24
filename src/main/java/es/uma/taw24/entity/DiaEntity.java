@@ -1,5 +1,6 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.Dia;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -38,4 +39,10 @@ public class DiaEntity {
         this.fecha = fecha;
     }
 
+    public Dia toDTO() {
+        Dia dia = new Dia();
+        dia.setId(this.id);
+        dia.setFecha(this.fecha);
+        return dia;
+    }
 }

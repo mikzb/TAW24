@@ -45,4 +45,5 @@ public class MenuDiaIdEntity implements java.io.Serializable {
         return Objects.hash(iddia, idmenu);
     }
 
+
 }

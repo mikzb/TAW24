@@ -1,5 +1,6 @@
 /*
- * Pablo Rubia Arias: 100%
+ * Pablo Rubia Arias: 80%
+ * Mikolaj Zabski 20%
  */
 
 package es.uma.taw24.service;
@@ -230,5 +231,32 @@ public class DietaService extends DTOService<Dieta, DietaEntity>{
     public void actualizarComida(Integer menuId, Integer comidaActualId, Integer comidaNuevaId) {
         ComidaEntity comidaNueva = this.comidaRepository.findById(comidaNuevaId).orElse(null);
         this.comidaMenuRepository.update(menuId, comidaActualId, comidaNueva);
+    }
+
+    public List<Dieta> findDietasByClienteId(Integer id) {
+        List<DietaEntity> dietas = this.dietaRepository.findDietasByClienteId(id);
+        List<Dieta> dietasDTO = new ArrayList<>();
+        for (DietaEntity dieta : dietas) {
+            Dieta dietaDTO = new Dieta();
+            dietaDTO.setId(dieta.getId());
+            dietaDTO.setDescripcion(dieta.getDescripcion());
+            dietasDTO.add(dietaDTO);
+        }
+        return dietasDTO;
+    }
+
+    public List<Dieta> findDietasByClienteIdByDescripcion(Integer clienteId, String descripcion) {
+        List<DietaEntity> dietas = this.dietaRepository.findByClienteIdAndDescripcion(clienteId, descripcion);
+
+        List<Dieta> dietasDTO = new ArrayList<>();
+        for (DietaEntity dieta : dietas) {
+            Dieta dietaDTO = new Dieta();
+            dietaDTO.setId(dieta.getId());
+            dietaDTO.setFechaCreacion(dieta.getFechacreacion());
+            dietaDTO.setDescripcion(dieta.getDescripcion());
+            dietasDTO.add(dietaDTO);
+        }
+
+        return dietasDTO;
     }
 }

@@ -1,10 +1,13 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.Menu;
+import es.uma.taw24.DTO.MenuDia;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "MENU_DIA")
-public class MenuDiaEntity {
+public class MenuDiaEntity implements DTO<MenuDia> {
     @EmbeddedId
     private MenuDiaIdEntity id = new MenuDiaIdEntity();
 
@@ -53,4 +56,12 @@ public class MenuDiaEntity {
         this.completado = completado;
     }
 
+    @Override
+    public MenuDia toDTO() {
+        MenuDia menuDia = new MenuDia();
+        menuDia.setMenu(this.menu.toDTO());
+        menuDia.setDia(this.dia.toDTO());
+        menuDia.setCompletado(this.completado);
+        return menuDia;
+    }
 }

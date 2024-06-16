@@ -35,4 +35,9 @@ public interface DietaRepository extends JpaRepository<DietaEntity, Integer> {
     @Transactional
     @Query("UPDATE DietaEntity d SET d.descripcion = :descripcion WHERE d.id = :dietaId")
     void update(@RequestParam("dietaId") Integer dietaId, @RequestParam("descripcion") String descripcion);
-}
+
+    @Query("SELECT d FROM DietaEntity d JOIN UsuarioDietaEntity ud on ud.usuario.id=:usuarioId")
+    List<DietaEntity> findDietasByClienteId(Integer usuarioId);
+
+    @Query("SELECT d FROM DietaEntity d JOIN UsuarioDietaEntity ud on ud.usuario.id=:clienteId AND d.descripcion LIKE %:descripcion%")
+    List<DietaEntity> findByClienteIdAndDescripcion(Integer clienteId, String descripcion);}

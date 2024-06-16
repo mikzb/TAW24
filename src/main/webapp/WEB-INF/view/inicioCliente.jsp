@@ -10,8 +10,8 @@
 <form method="get" action="/cliente/entrenamientoCliente">
     <input type="submit" value="entrenamientoCliente">
 </form>
-<form method="get" action="/cliente/dietaCliente">
-    <input type="submit" value="dietaCliente">
+<form method="get" action="/cliente/dietasCliente">
+    <input type="submit" value="dietasCliente">
 </form>
 <form method="get" action="/salir">
     <input type="submit" value="salir">

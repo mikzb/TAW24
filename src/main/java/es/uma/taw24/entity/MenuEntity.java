@@ -1,5 +1,6 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.Menu;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -27,4 +28,9 @@ public class MenuEntity {
         this.id = id;
     }
 
+    public Menu toDTO() {
+        Menu menu = new Menu();
+        menu.setId(this.id);
+        return menu;
+    }
 }

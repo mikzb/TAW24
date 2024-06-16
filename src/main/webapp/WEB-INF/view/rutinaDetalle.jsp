@@ -1,3 +1,5 @@
+<%-- Mikolaj Zabski --%>
+
 <%@ page import="es.uma.taw24.entity.SesionEjercicioEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.SesionEjercicio" %>
@@ -15,7 +17,7 @@
     Rutina rutina = (Rutina) request.getAttribute("rutina");
 
 %>
-<h1>Detalle de Rutina</h1>
+<h1>Detalles de la Rutina <%= rutina.getId().toString() %></h1>
 
 <h2>Tabla de ejercicios</h2>
 <table border="1">
