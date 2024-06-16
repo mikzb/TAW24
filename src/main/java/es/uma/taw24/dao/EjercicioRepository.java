@@ -18,5 +18,6 @@ public interface EjercicioRepository extends JpaRepository<EjercicioEntity, Inte
     public EjercicioEntity findByIdEjercicio(Integer idS);
     @Query("SELECT e FROM EjercicioEntity e WHERE e.idtipo.nombre = :tipo")
     public List<EjercicioEntity> buscarPorTipo(@RequestParam("tipo") String tipo);
-
+    @Query("SELECT e FROM EjercicioEntity e WHERE e.nombre = :nombre")
+    public EjercicioEntity findByNombre(@RequestParam("nombre") String nombre);
 }

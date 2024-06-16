@@ -33,8 +33,13 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
         return this.entidadesADTO(this.ejercicioRepository.findAll());
     }
 
-    public EjercicioEntity buscarEjercicioPorId(Integer id) {
-        return this.ejercicioRepository.findByIdEjercicio(id);
+    public Ejercicio buscarEjercicioPorNombre(String nombre) {
+        EjercicioEntity ejercicio = this.ejercicioRepository.findByNombre(nombre);
+        if (ejercicio != null) {
+            return ejercicio.toDTO();
+        } else {
+            return null;
+        }
     }
 
     public List<Ejercicio> buscarEjerciciosPorTipo(String tipo) {
@@ -54,6 +59,7 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
         }
         ejercicioEntity.setNombre(ejercicio.getNombre());
         ejercicioEntity.setIdtipo(tipoRepository.findById(ejercicio.getTipo().getId()).orElse(null));
+        ejercicioEntity.setUrl(ejercicio.getUrl());
         ejercicioRepository.save(ejercicioEntity);
     }
 

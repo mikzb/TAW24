@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Guard;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -28,27 +30,43 @@ public class EjerciciogrupomuscularService extends DTOService<EjercicioGrupomusc
     private GrupoMuscularRepository grupomuscularRepository;
 
     @Transactional
-    public void asignarEjercicioGrupo(EjercicioGrupomuscular ejercicioGrupomuscular) {
-        EjercicioEntity ejercicioEntity = ejercicioRepository.findById(ejercicioGrupomuscular.getEjercicioId()).orElseThrow(() -> new IllegalArgumentException("Ejercicio no encontrado"));
-        GrupomuscularEntity grupomuscularEntity = grupomuscularRepository.findById(ejercicioGrupomuscular.getGrupomuscularId()).orElseThrow(() -> new IllegalArgumentException("Grupo muscular no encontrado"));
+    public void asignarEjercicioGrupo(Integer ejercicioId, Integer grupoMuscularId) {
+        EjercicioEntity ejercicio = ejercicioRepository.findById(ejercicioId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid ejercicio ID:" + ejercicioId));
+        GrupomuscularEntity grupoMuscular = grupomuscularRepository.findById(grupoMuscularId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid grupo muscular ID:" + grupoMuscularId));
 
-        EjercicioGrupomuscularIdEntity id = new EjercicioGrupomuscularIdEntity();
-        id.setIdejercicio(ejercicioEntity.getId());
-        id.setIdgrupomuscular(grupomuscularEntity.getId());
 
-        EjercicioGrupomuscularEntity newAssignment = new EjercicioGrupomuscularEntity();
-        newAssignment.setId(id);
-        newAssignment.setIdgrupomuscular(grupomuscularEntity);
-        newAssignment.setIdejercicio(ejercicioEntity);
+        if (ejercicio.getGruposMusculares() == null) {
+            ejercicio.setGruposMusculares(new HashSet<>());
+        }
 
-        ejercicioGrupomuscularRepository.save(newAssignment);
+        if (ejercicio.getGruposMusculares().contains(grupoMuscular)) {
+            throw new IllegalArgumentException("Ejercicio " + ejercicioId + " ya tiene asignado el grupo muscular " + grupoMuscularId);
+        }
+
+
+        ejercicio.getGruposMusculares().add(grupoMuscular);
+        ejercicioRepository.save(ejercicio);
     }
 
     @Transactional
-    public void desasignarEjercicioGrupo( int idEjercicio, int idGrupomuscular) {
-        List<EjercicioGrupomuscularEntity> ejercicioGrupomuscularEntities = ejercicioGrupomuscularRepository.findByEjercicioIdAndGrupoMuscularId(idEjercicio, idGrupomuscular);
-        if (!ejercicioGrupomuscularEntities.isEmpty()) {
-            ejercicioGrupomuscularRepository.delete(ejercicioGrupomuscularEntities.getFirst());
+    public void desasignarEjercicioGrupo(Integer ejercicioId, Integer grupoMuscularId) {
+        EjercicioEntity ejercicio = ejercicioRepository.findById(ejercicioId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid ejercicio ID:" + ejercicioId));
+        GrupomuscularEntity grupoMuscular = grupomuscularRepository.findById(grupoMuscularId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid grupo muscular ID:" + grupoMuscularId));
+
+        if (ejercicio.getGruposMusculares() == null) {
+            throw new IllegalArgumentException("Ejercicio " + ejercicioId + " no tiene asignado ningún grupo muscular");
         }
+
+        if (!ejercicio.getGruposMusculares().contains(grupoMuscular)) {
+            throw new IllegalArgumentException("Ejercicio " + ejercicioId + " no tiene asignado el grupo muscular " + grupoMuscularId);
+        }
+
+
+        ejercicio.getGruposMusculares().remove(grupoMuscular);
+        ejercicioRepository.save(ejercicio);
     }
 }

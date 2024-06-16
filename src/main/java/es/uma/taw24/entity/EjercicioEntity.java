@@ -69,6 +69,14 @@ public class EjercicioEntity implements Serializable, DTO<Ejercicio> {
     )
     private Set<GrupomuscularEntity> gruposMusculares;
 
+    public Set<GrupomuscularEntity> getGruposMusculares() {
+        return gruposMusculares;
+    }
+
+    public void setGruposMusculares(Set<GrupomuscularEntity> gruposMusculares) {
+        this.gruposMusculares = gruposMusculares;
+    }
+
     public Ejercicio toDTO() {
         Ejercicio ej = new Ejercicio();
         ej.setId(this.id);

@@ -1,3 +1,5 @@
+<%@ page import="es.uma.taw24.DTO.GrupoMuscular" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%-- @author Ignacy Borzestowski: 100%--%>
@@ -30,7 +32,7 @@
                 <form:label path="tipo">Tipo: </form:label>
             </td>
             <td>
-                <form:select path="tipo">
+                <form:select path="tipo.id">
                     <form:options items="${tipos}" itemValue="id" itemLabel="nombre"/>
                 </form:select>
             </td>
@@ -49,6 +51,21 @@
             </td>
             <td>
                 <form:input maxlength="256" path="url" />
+            </td>
+        </tr>
+        <tr>
+            <td>Grupos Musculares:</td>
+            <td>
+                <%
+                    List<GrupoMuscular> gruposmusculares = (List<GrupoMuscular>) request.getAttribute("gruposmusculares");
+                    if (gruposmusculares != null) {
+                        for (GrupoMuscular grupo : gruposmusculares) {
+                %>
+                <input type="checkbox" name="gruposMuscularesIds" value="<%= grupo.getId() %>"><%= grupo.getNombre() %><br/>
+                <%
+                        }
+                    }
+                %>
             </td>
         </tr>
     </table>

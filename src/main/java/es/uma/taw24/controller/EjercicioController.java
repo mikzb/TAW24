@@ -121,10 +121,7 @@ public class EjercicioController extends BaseController{
             // Assign new groups
             for (Integer id : newGruposIds) {
                 if (!gruposAssignadosIds.contains(id)) {
-                    EjercicioGrupomuscular ejercicioGrupomuscular = new EjercicioGrupomuscular();
-                    ejercicioGrupomuscular.setEjercicioId(ejercicio.getId());
-                    ejercicioGrupomuscular.setGrupomuscularId(id);
-                    this.ejerciciogrupomuscularService.asignarEjercicioGrupo(ejercicioGrupomuscular);
+                    this.ejerciciogrupomuscularService.asignarEjercicioGrupo(ejercicio.getId(),id);
                 }
             }
 
@@ -135,14 +132,6 @@ public class EjercicioController extends BaseController{
                 }
             }
 
-            if (gruposMuscularesIds != null) {
-                for (Integer id : gruposMuscularesIds) {
-                    EjercicioGrupomuscular ejercicioGrupomuscular = new EjercicioGrupomuscular();
-                    ejercicioGrupomuscular.setEjercicioId(ejercicio.getId());
-                    ejercicioGrupomuscular.setGrupomuscularId(id);
-                    this.ejerciciogrupomuscularService.asignarEjercicioGrupo(ejercicioGrupomuscular);
-                }
-            }
         } catch (NotFoundException e) {
             model.addAttribute("error", e.getMessage());
             strTo = "ejercicio/editar";
@@ -179,12 +168,13 @@ public class EjercicioController extends BaseController{
         }
         String strTo = "ejercicio/crear";
         model.addAttribute("tipos", this.tipoService.listarTipos());
+        model.addAttribute("gruposmusculares", this.grupomuscularService.listarGruposMusculares());
         model.addAttribute("ejercicio", new Ejercicio());
         return strTo;
     }
 
     @PostMapping("/crear")
-    public String crearEjercicio(@ModelAttribute("comida") Ejercicio ejercicio, Model model, HttpSession session) {
+    public String crearEjercicio(@ModelAttribute("ejercicio") Ejercicio ejercicio, @RequestParam(value = "gruposMuscularesIds", required = false) List<Integer> gruposMuscularesIds, Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -194,7 +184,24 @@ public class EjercicioController extends BaseController{
         }
         String strTo = "redirect:/ejercicio/listado";
         try {
+
             this.ejercicioService.guardarEjercicio(ejercicio);
+
+            Ejercicio ejercicioGuardado = this.ejercicioService.buscarEjercicioPorNombre(ejercicio.getNombre());
+
+            Set<Integer> newGruposIds = new HashSet<>(gruposMuscularesIds != null ? gruposMuscularesIds : new ArrayList<>());
+
+            List<GrupoMuscular> gruposAssignados = this.grupomuscularService.buscarGrupomuscularPorEjercicio(ejercicioGuardado.getId());
+            Set<Integer> gruposAssignadosIds = gruposAssignados.stream()
+                    .map(GrupoMuscular::getId)
+                    .collect(Collectors.toSet());
+
+            for (Integer id : newGruposIds) {
+                if (!gruposAssignadosIds.contains(id)) {
+                    this.ejerciciogrupomuscularService.asignarEjercicioGrupo(ejercicioGuardado.getId(),id);
+                }
+            }
+
         } catch (NotFoundException e) {
             model.addAttribute("error", e.getMessage());
             strTo = "ejercicio/crear";

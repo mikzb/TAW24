@@ -21,7 +21,7 @@ public class EjercicioGrupomuscularController extends BaseController {
 
     @PostMapping("/asignar")
     public String asignarGrupo(EjercicioGrupomuscular ejercicioGrupomuscular) {
-        ejerciciogrupomuscularService.asignarEjercicioGrupo(ejercicioGrupomuscular);
+        ejerciciogrupomuscularService.asignarEjercicioGrupo(ejercicioGrupomuscular.getEjercicioId(), ejercicioGrupomuscular.getGrupomuscularId());
         return "redirect:/ejercicio/listado";
     }
 
