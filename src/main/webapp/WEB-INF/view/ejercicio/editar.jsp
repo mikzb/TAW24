@@ -71,5 +71,6 @@
     </table>
     <input type="submit" value="Editar"/>
 </form:form>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

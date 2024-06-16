@@ -36,5 +36,6 @@
     </table>
     <input type="submit" value="Crear"/>
 </form:form>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

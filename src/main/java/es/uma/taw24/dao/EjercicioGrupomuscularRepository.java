@@ -19,5 +19,6 @@ public interface EjercicioGrupomuscularRepository extends JpaRepository<Ejercici
      List<EjercicioEntity> findByGrupoMuscularId(@Param("grupoMuscularId") Integer grupoMuscularId);
 
     @Query("SELECT egm FROM EjercicioGrupomuscularEntity egm WHERE egm.idejercicio.id = :ejercicioId")
+
      List<EjercicioGrupomuscularEntity> findByRelatioshipsByEjercicioId(@Param("ejercicioId") Integer ejercicioId);
 }
