@@ -23,7 +23,13 @@
     <title>Rutinas</title>
 </head>
 <body>
-<h1>Rutinas</h1>
+<h1>Rutinas <%
+    if(idCliente != null){
+%>
+    del cliente seleccionado
+    <%
+        }
+    %></h1>
 
 <form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">
     <% if (clientes != null) { %>
@@ -58,8 +64,8 @@
         %>
         <td><a href="/entrenador/rutina/borrar?id=<%=rutina.getId()%>">Borrar Rutina</a></td>
         <%
-            }
-            else{
+        }
+        else{
         %>
         <td><a href="/entrenador/cliente/rutina/borrar?idRutina=<%=rutina.getId()%>&idCliente=<%=idCliente%>">Borrar Rutina</a></td>
         <%
