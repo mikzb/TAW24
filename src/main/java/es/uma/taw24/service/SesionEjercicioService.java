@@ -44,9 +44,6 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         if (sesionEjercicioEntity == null) {
             sesionEjercicioEntity = new SesionEjercicioEntity();
         }
-        else{
-
-        }
         SesionEntity sesion = this.sesionRepository.findById(sesionEjercicio.getSesion().getId()).orElse(null);
         EjercicioEntity ejercicio = this.ejercicioRepository.findById(sesionEjercicio.getEjercicio().getId()).orElse(null);
         sesionEjercicioEntity.setIdsesion(sesion);
@@ -58,7 +55,6 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         sesionEjercicioEntity.setDuracion(sesionEjercicio.getDuracion());
         sesionEjercicioEntity.setVelocidad(sesionEjercicio.getVelocidad());
         sesionEjercicioEntity.setDistancia(sesionEjercicio.getDistancia());
-        if(sesionEjercicioEntity.getOrden() == null) sesionEjercicioEntity.setOrden(sesionEjercicio.getOrden());
         this.sesionEjercicioRepository.save(sesionEjercicioEntity);
     }
 

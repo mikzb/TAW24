@@ -1,7 +1,6 @@
 /**
  * @author
- * Cristian Ruiz Martín: 50%
- * Álvaro Acedo Espejo: 50%
+ * Cristian Ruiz Martín: 100%
  */
 
 package es.uma.taw24.dao;
@@ -16,9 +15,6 @@ import java.util.List;
 public interface RutinaRepository extends JpaRepository<RutinaEntity, Integer> {
     @Query("SELECT r FROM RutinaEntity r WHERE r.identrenador.id =:entrenadorId")
     public List<RutinaEntity> findByEntrenadorId(Integer entrenadorId);
-
-    @Query("SELECT s FROM RutinaEntity s WHERE s.id = :idS")
-    public RutinaEntity findByIdRutina(Integer idS);
 }
 
 

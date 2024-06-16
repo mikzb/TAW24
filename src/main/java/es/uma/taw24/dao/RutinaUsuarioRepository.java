@@ -15,8 +15,16 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RutinaUsuarioRepository extends JpaRepository<RutinaUsuarioEntity, Integer> {
+
     @Query("SELECT r FROM RutinaUsuarioEntity r where r.idusuario.id = :id")
-        public List<RutinaUsuarioEntity> findByIdusuario(@Param("id")Integer id);
+    public List<RutinaUsuarioEntity> findByIdusuario(@Param("id")Integer id);
+
     @Query("SELECT ru.idrutina FROM RutinaUsuarioEntity ru WHERE ru.idusuario.id = :usuarioId and ru.idrutina.identrenador.id = :entrenadorId")
-    public List<RutinaEntity> findByUsuarioIdAndEntrenadorId(Integer usuarioId, Integer entrenadorId);
+    public List<RutinaEntity> findByUsuarioIdAndEntrenadorId(@Param("usuarioId") Integer usuarioId,@Param("entrenadorId") Integer entrenadorId);
+
+    @Query("SELECT ru FROM RutinaUsuarioEntity ru WHERE ru.idrutina.id = :rutinaId AND ru.idusuario.id = :usuarioId")
+    public RutinaUsuarioEntity findByRutinaIdAndUsuarioId(@Param("rutinaId") Integer rutinaId,@Param("usuarioId") Integer usuarioId);
+
+    @Query("SELECT ru FROM RutinaUsuarioEntity ru WHERE ru.idrutina.id = :id")
+    public List<RutinaUsuarioEntity> findByRutinaId(@Param("id") Integer id);
 }

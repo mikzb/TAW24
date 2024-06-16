@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
 /**
  * @author Cristian Ruiz Martín: 100%
@@ -13,6 +14,8 @@
 
 <%
     List<Rutina> rutinas = (List<Rutina>) request.getAttribute("rutinas");
+    Integer idCliente = (Integer) request.getAttribute("idCliente");
+    List<Usuario> clientes = (List<Usuario>) request.getAttribute("clientes");
 %>
 
 <html>
@@ -22,12 +25,12 @@
 <body>
 <h1>Tus Rutinas</h1>
 
-<form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">
-    Contiene: <form:input path="titulo" />
-    y fue publicado después de: <form:input path="anyo"  />
-    <form:button>Filtrar</form:button>
+<%--<form:form method="post" action="/entrenador/rutinas/filtrar" modelAttribute="filtro">--%>
+<%--    Contiene: <form:input path="titulo" />--%>
+<%--    y fue publicado después de: <form:input path="anyo"  />--%>
+<%--    <input type="submit" value="Filtrar">--%>
 
-</form:form>
+<%--</form:form>--%>
 
 <table border="1">
     <tr>
@@ -40,9 +43,26 @@
         <td><%= rutina.getId() %></td>
         <td><%= Date.from(rutina.getFechacreacion()) %></td>
         <td><a href="/entrenador/rutina?id=<%= rutina.getId() %>">Editar Rutina</a></td>
+        <td><a href="/entrenador/rutina/borrar?id=<%=rutina.getId()%>">Borrar Rutina</a></td>
     </tr>
     <% } %>
 </table>
+
+<%
+    if(idCliente != null){
+%>
+<a href="/entrenador/rutina/anyadir?idCliente=<%=idCliente%>">Añadir rutina</a>
+<%
+}
+else{
+%>
+<form:form method="post" action="/entrenador/rutina/crear" modelAttribute="cliente">
+    Cliente: <form:select path="id" items="${clientes}" itemLabel="nombre" itemValue="id"></form:select>
+    <input type="submit" value="Añadir rutina">
+</form:form>
+<%
+    }
+%>
 
 <button onclick="window.location.href='/entrenador/'">Volver</button>
 </body>

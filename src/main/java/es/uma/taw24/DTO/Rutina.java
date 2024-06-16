@@ -12,6 +12,6 @@ import java.time.Instant;
 @Data
 public class Rutina {
     private Integer id;
-    private Entrenador identrenador;
+    private Entrenador entrenador;
     private Instant fechacreacion;
 }

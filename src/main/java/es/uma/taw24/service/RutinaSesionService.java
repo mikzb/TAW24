@@ -29,7 +29,7 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
     private SesionRepository sesionRepository;
 
     public List<RutinaSesion> buscarRutinaSesion(Integer rutinaId) {
-        List<RutinaSesionEntity> lista = this.rutinaSesionRepository.findByRutinaIdOrderByDiadesemana(rutinaId);
+        List<RutinaSesionEntity> lista = this.rutinaSesionRepository.findByRutinaId(rutinaId);
         return this.entidadesADTO(lista);
     }
 
@@ -42,7 +42,7 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
         if(rutinaSesionEntity == null){
             rutinaSesionEntity = new RutinaSesionEntity();
         }
-        RutinaEntity rutinaEntity = this.rutinaRepository.findByIdRutina(rutinaSesion.getRutina().getId());
+        RutinaEntity rutinaEntity = this.rutinaRepository.findById(rutinaSesion.getRutina().getId()).orElse(null);
         SesionEntity sesionEntity = this.sesionRepository.findByIdSesion(rutinaSesion.getSesion().getId());
 
         if(sesionEntity == null){
@@ -59,18 +59,5 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
 
     public RutinaSesion buscarRutinaSesion(Integer idRutina, Integer idSesion) {
         return this.rutinaSesionRepository.findByRutinaIdAndSesionId(idRutina, idSesion).toDTO();
-    }
-
-    public void borrarRutinaSesion(Integer idRutina, Integer idSesion) {
-        RutinaSesionEntity rutinaSesionEntity = this.rutinaSesionRepository.findByRutinaIdAndSesionId(idRutina, idSesion);
-        SesionEntity sesionEntity = this.sesionRepository.findByIdSesion(idSesion);
-
-        if(sesionEntity != null){
-            this.sesionRepository.delete(sesionEntity);
-        }
-
-        if(rutinaSesionEntity != null){
-            this.rutinaSesionRepository.delete(rutinaSesionEntity);
-        }
     }
 }
