@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.Comida" %>
 <%@ page import="es.uma.taw24.DTO.Ejercicio" %>
@@ -19,6 +20,20 @@
 <h2>
     Lista de grupos musculares
 </h2>
+
+<form:form method="post" modelAttribute="filtro" action="/grupomuscular/filtrar">
+    <table>
+        <tr>
+            <td>Nombre:</td>
+            <td><form:input path="nombre" value="${filtro.nombre}"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button>Filtrar</button>
+            </td>
+        </tr>
+    </table>
+</form:form>
 <table border="1">
     <tr>
         <th>Nombre</th>

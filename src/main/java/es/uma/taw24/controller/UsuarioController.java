@@ -43,7 +43,7 @@ public class UsuarioController extends BaseController{
     }
 
     @GetMapping("/listado")
-    public String listarUsuarios(Model model, HttpSession session){
+    public String listar(Model model, HttpSession session){
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -206,7 +206,7 @@ public class UsuarioController extends BaseController{
 
 
     @PostMapping("/filtrar")
-    public String doListar (@ModelAttribute("filtro") FiltroUsuario filtro, Model model, HttpSession session) {
+    public String filtrar (@ModelAttribute("filtro") FiltroUsuario filtro, Model model, HttpSession session) {
         String strTo = "usuario/listado";
         if (!estaAutenticado(session)) {
             return redirectToLogin();
@@ -218,7 +218,7 @@ public class UsuarioController extends BaseController{
         if (filtro.estaVacio()) {
             strTo = "redirect:/usuario/listado";
         } else {
-            List<Usuario> usuarios = this.usuarioService.listarClientesPorFiltro(filtro);
+            List<Usuario> usuarios = this.usuarioService.listarUsuariosPorFiltro(filtro);
             model.addAttribute("usuarios", usuarios);
             model.addAttribute("usuario", session.getAttribute("usuario"));
             model.addAttribute("filtro", filtro);

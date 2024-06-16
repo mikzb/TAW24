@@ -3,9 +3,12 @@ package es.uma.taw24.entity;
 import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.DTO.Ejercicio;
 import es.uma.taw24.DTO.Usuario;
+import es.uma.taw24.service.GrupoMuscularService;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "EJERCICIO")
@@ -57,6 +60,14 @@ public class EjercicioEntity implements Serializable, DTO<Ejercicio> {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "EJERCICIO_GRUPOMUSCULAR",
+            joinColumns = @JoinColumn(name = "IDEJERCICIO"),
+            inverseJoinColumns = @JoinColumn(name = "IDGRUPOMUSCULAR")
+    )
+    private Set<GrupomuscularEntity> gruposMusculares;
 
     public Ejercicio toDTO() {
         Ejercicio ej = new Ejercicio();

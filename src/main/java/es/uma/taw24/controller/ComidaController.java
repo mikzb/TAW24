@@ -7,6 +7,7 @@ package es.uma.taw24.controller;
 import es.uma.taw24.DTO.Comida;
 import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.service.ComidaService;
+import es.uma.taw24.ui.FiltroComida;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class ComidaController extends BaseController {
     private ComidaService comidaService;
 
     @GetMapping("/listado")
-    public String listarComidas(Model model, HttpSession session){
+    public String listar(Model model, HttpSession session){
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -35,6 +36,7 @@ public class ComidaController extends BaseController {
         ArrayList<Comida> comidas = (ArrayList<Comida>) this.comidaService.listarComidas();
         model.addAttribute("usuario", session.getAttribute("usuario"));
         model.addAttribute("comidas", comidas);
+        model.addAttribute("filtro", new FiltroComida());
         return strTo;
     }
 
@@ -121,6 +123,27 @@ public class ComidaController extends BaseController {
             model.addAttribute("error", e.getMessage());
             strTo = "comida/crear";
         }
+        return strTo;
+    }
+
+    @PostMapping("/filtrar")
+    public String filtrar(@ModelAttribute("filtro")FiltroComida filtro, Model model, HttpSession session){
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        String strTo = "comida/listado";
+        if (filtro.estaVacio()) {
+            strTo = "redirect:/comida/listado";
+        } else {
+            ArrayList<Comida> comidas = (ArrayList<Comida>) this.comidaService.listarComidasPorFiltro(filtro);
+            model.addAttribute("usuario", session.getAttribute("usuario"));
+            model.addAttribute("comidas", comidas);
+        }
+
         return strTo;
     }
 }

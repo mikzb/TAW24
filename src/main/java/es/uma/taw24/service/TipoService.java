@@ -9,6 +9,7 @@ import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.dao.TipoRepository;
 import es.uma.taw24.entity.TipoEntity;
 import es.uma.taw24.entity.UsuarioEntity;
+import es.uma.taw24.ui.FiltroTipo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,9 @@ public class TipoService extends DTOService<Tipo, TipoEntity>{
         } else {
             return null;
         }
+    }
+
+    public List<Tipo> listarTiposPorFiltro(FiltroTipo filtro) {
+        return this.entidadesADTO(this.tipoRepository.findByFiltro(filtro.getNombre()));
     }
 }

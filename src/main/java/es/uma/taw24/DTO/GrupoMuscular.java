@@ -6,6 +6,8 @@ package es.uma.taw24.DTO;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class GrupoMuscular {
     private Integer id;

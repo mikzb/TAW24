@@ -8,6 +8,7 @@ import es.uma.taw24.DTO.Tipo;
 import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.service.TipoService;
+import es.uma.taw24.ui.FiltroTipo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class TipoController extends BaseController{
     private TipoService tipoService;
 
     @GetMapping("/listado")
-    public String listarTipos(Model model, HttpSession session){
+    public String listar(Model model, HttpSession session){
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -36,6 +37,7 @@ public class TipoController extends BaseController{
         ArrayList<Tipo> tipos = (ArrayList<Tipo>) this.tipoService.listarTipos();
         model.addAttribute("usuario", session.getAttribute("usuario"));
         model.addAttribute("tipos", tipos);
+        model.addAttribute("filtro", new FiltroTipo());
         return strTo;
     }
 
@@ -112,5 +114,26 @@ public class TipoController extends BaseController{
         }
         this.tipoService.guardarTipo(tipo);
         return "redirect:/tipo/listado";
+    }
+
+    @PostMapping("/filtrar")
+    public String filtrar(@ModelAttribute("filtro")FiltroTipo filtro, Model model, HttpSession session){
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+
+        String strTo = "tipo/listado";
+        if (filtro.estaVacio()) {
+            strTo = "redirect:/tipo/listado";
+        } else {
+            ArrayList<Tipo> tipos = (ArrayList<Tipo>) this.tipoService.listarTiposPorFiltro(filtro);
+            model.addAttribute("usuario", session.getAttribute("usuario"));
+            model.addAttribute("tipos", tipos);
+        }
+        return strTo;
     }
 }

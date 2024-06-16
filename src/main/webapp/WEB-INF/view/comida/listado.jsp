@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.Comida" %>
 
@@ -17,9 +18,23 @@
 <h2>
     Lista de comidas
 </h2>
+
+<form:form method="post" modelAttribute="filtro" action="/comida/filtrar">
+    <table>
+        <tr>
+            <td>Descripcion:</td>
+            <td><form:input path="descripcion" value="${filtro.descripcion}"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button>Filtrar</button>
+            </td>
+        </tr>
+    </table>
+</form:form>
+
 <table border="1">
     <tr>
-        <th>Id</th>
         <th>Descripcion</th>
         <th></th>
         <th></th>
@@ -29,7 +44,6 @@
         for (Comida comida: comidas) {
     %>
     <tr>
-        <td><%= comida.getId() %></td>
         <td><%= comida.getDescripcion() %></td>
         <td><a href="/comida/editar?id=<%= comida.getId() %>">Editar</a></td>
         <td><a href="/comida/borrar?id=<%= comida.getId() %>">Borrar</a></td>

@@ -4,15 +4,19 @@ package es.uma.taw24.controller;
  * @author Ignacy Borzestowski: 100%
  */
 
+import es.uma.taw24.DTO.Comida;
 import es.uma.taw24.DTO.GrupoMuscular;
 import es.uma.taw24.DTO.Tipo;
 import es.uma.taw24.service.GrupoMuscularService;
 import es.uma.taw24.service.TipoService;
+import es.uma.taw24.ui.FiltroComida;
+import es.uma.taw24.ui.FiltroGrupoMuscular;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,7 +29,7 @@ public class GrupoMuscularController extends BaseController {
     private GrupoMuscularService grupoMuscularService;
 
     @GetMapping("/listado")
-    public String listarTipos(Model model, HttpSession session) {
+    public String listar(Model model, HttpSession session) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -37,6 +41,7 @@ public class GrupoMuscularController extends BaseController {
         ArrayList<GrupoMuscular> gruposMusculares = (ArrayList<GrupoMuscular>) this.grupoMuscularService.listarGruposMusculares();
         model.addAttribute("usuario", session.getAttribute("usuario"));
         model.addAttribute("gruposmusculares", gruposMusculares);
+        model.addAttribute("filtro", new FiltroGrupoMuscular());
         return strTo;
     }
 
@@ -108,5 +113,26 @@ public class GrupoMuscularController extends BaseController {
         }
         this.grupoMuscularService.borrarGrupoMuscular(id);
         return "redirect:/grupomuscular/listado";
+    }
+
+    @PostMapping("/filtrar")
+    public String filtrar(@ModelAttribute("filtro") FiltroGrupoMuscular filtro, Model model, HttpSession session){
+        if (!estaAutenticado(session)) {
+            return redirectToLogin();
+        }
+
+        if (!esAdmin(session)) {
+            return accessDenied();
+        }
+        String strTo = "grupomuscular/listado";
+        if (filtro.estaVacio()) {
+            strTo = "redirect:/grupomuscular/listado";
+        } else {
+            ArrayList<GrupoMuscular> grupoMusculares = (ArrayList<GrupoMuscular>) this.grupoMuscularService.listarGruposMuscularesPorFiltro(filtro);
+            model.addAttribute("usuario", session.getAttribute("usuario"));
+            model.addAttribute("gruposmusculares", grupoMusculares);
+        }
+
+        return strTo;
     }
 }

@@ -130,7 +130,7 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         return usuariosDTO;
     }
 
-    public List<Usuario> listarClientesPorFiltro(FiltroUsuario filtroUsuario) {
+    public List<Usuario> listarUsuariosPorFiltro(FiltroUsuario filtroUsuario) {
         List<UsuarioEntity> usuarios = this.usuarioRepository.findByFiltro(filtroUsuario);
         return this.entidadesADTO(usuarios);
     }

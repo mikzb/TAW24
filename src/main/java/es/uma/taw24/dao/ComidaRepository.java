@@ -34,4 +34,7 @@ public interface ComidaRepository extends JpaRepository<ComidaEntity, Integer> {
             "WHERE m.id = :menuId " +
             "ORDER BY cm.numero ASC")
     List<ComidaEntity> findComidasByMenuId(@RequestParam("menuId") Integer menuId);
+
+    @Query("SELECT c FROM ComidaEntity c WHERE c.descripcion LIKE %:descripcion%")
+    List<ComidaEntity> findByFiltro(String descripcion);
 }

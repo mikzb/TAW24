@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-public interface EjercicioRepository extends JpaRepository<EjercicioEntity, Integer> {
+public interface EjercicioRepository extends JpaRepository<EjercicioEntity, Integer>, EjercicioRepositoryCustom {
     @Query("SELECT s FROM EjercicioEntity s WHERE s.id = :idS")
     public EjercicioEntity findByIdEjercicio(Integer idS);
     @Query("SELECT e FROM EjercicioEntity e WHERE e.idtipo.nombre = :tipo")

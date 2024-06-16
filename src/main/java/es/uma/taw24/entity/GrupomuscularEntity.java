@@ -5,6 +5,7 @@ import es.uma.taw24.DTO.GrupoMuscular;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "GRUPOMUSCULAR")
@@ -17,6 +18,9 @@ public class GrupomuscularEntity implements Serializable, DTO<GrupoMuscular> {
 
     @Column(name = "NOMBRE", nullable = false, length = 45)
     private String nombre;
+
+    @ManyToMany(mappedBy = "gruposMusculares")
+    private Set<EjercicioEntity> ejercicios;
 
     public Integer getId() {
         return id;

@@ -7,10 +7,14 @@ package es.uma.taw24.service;
 
 
 import es.uma.taw24.DTO.Ejercicio;
+import es.uma.taw24.dao.EjercicioGrupomuscularRepository;
 import es.uma.taw24.dao.EjercicioRepository;
+import es.uma.taw24.dao.TipoRepository;
 import es.uma.taw24.entity.EjercicioEntity;
+import es.uma.taw24.ui.FiltroEjercicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -19,6 +23,11 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
 
     @Autowired
     private EjercicioRepository ejercicioRepository;
+    @Autowired
+    private EjercicioGrupomuscularRepository ejercicioGrupomuscularRepository;
+
+    @Autowired
+    private TipoRepository tipoRepository;
 
     public List<Ejercicio> listarEjercicios() {
         return this.entidadesADTO(this.ejercicioRepository.findAll());
@@ -32,6 +41,10 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
         return this.entidadesADTO(this.ejercicioRepository.buscarPorTipo(tipo));
     }
 
+    public List<Ejercicio> buscarEjercicioPorGrupoMuscular(Integer idGrupoMuscular) {
+        return this.entidadesADTO(this.ejercicioGrupomuscularRepository.findByGrupoMuscularId(idGrupoMuscular));
+    }
+
     public void guardarEjercicio(Ejercicio ejercicio) {
         EjercicioEntity ejercicioEntity;
         if (ejercicio.getId() == null) {
@@ -40,6 +53,7 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
             ejercicioEntity = ejercicioRepository.findById(ejercicio.getId()).orElse(new EjercicioEntity());
         }
         ejercicioEntity.setNombre(ejercicio.getNombre());
+        ejercicioEntity.setIdtipo(tipoRepository.findById(ejercicio.getTipo().getId()).orElse(null));
         ejercicioRepository.save(ejercicioEntity);
     }
 
@@ -54,5 +68,10 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
 
     public void borrarEjercicio(int id) {
         this.ejercicioRepository.deleteById(id);
+    }
+
+    public List<Ejercicio> listarEjerciciosPorFiltro(FiltroEjercicio filtro) {
+        List<EjercicioEntity> ejercicios = this.ejercicioRepository.findByFiltro(filtro);
+        return this.entidadesADTO(ejercicios);
     }
 }

@@ -10,6 +10,7 @@ import es.uma.taw24.DTO.Comida;
 import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.dao.ComidaRepository;
 import es.uma.taw24.entity.ComidaEntity;
+import es.uma.taw24.ui.FiltroComida;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,9 @@ public class ComidaService extends DTOService<Comida, ComidaEntity>{
 
     public void borrarComida(int id) {
         this.comidaRepository.deleteById(id);
+    }
+
+    public List<Comida> listarComidasPorFiltro(FiltroComida filtro) {
+        return this.entidadesADTO(this.comidaRepository.findByFiltro(filtro.getDescripcion()));
     }
 }
