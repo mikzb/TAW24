@@ -128,7 +128,13 @@ public class EntrenadorFuerzaController extends BaseController{
 
 
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
-        List<Rutina> rutinas = rutinaService.listarRutinasPorFiltro(usuarioEntrenador.getId(), filtro);
+        List<Rutina> rutinas;
+        if(filtro.getIdCliente() == 0){
+            rutinas = rutinaService.listarRutinasPorFiltroSinCliente(usuarioEntrenador.getId(), filtro);
+        }
+        else {
+             rutinas = rutinaService.listarRutinasPorFiltro(usuarioEntrenador.getId(), filtro);
+        }
         List<Usuario> clientes = usuarioService.listarClientes(usuarioEntrenador.getId());
 
 
@@ -398,6 +404,19 @@ public class EntrenadorFuerzaController extends BaseController{
 
         rutinaService.borrarRutina(id);
         return "redirect:/entrenador/rutinas";
+    }
+
+    @GetMapping("/cliente/rutina/borrar")
+    public String borrarRutina(@RequestParam("idRutina") Integer idRutina, @RequestParam("idCliente") Integer idCliente, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        rutinaService.borrarRutina(idRutina);
+        return "redirect:/entrenador/cliente/"+idCliente+"/rutinas";
     }
 
     @PostMapping("/rutina/guardar")

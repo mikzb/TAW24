@@ -53,7 +53,18 @@
         <td><%= rutina.getId() %></td>
         <td><%= Date.from(rutina.getFechacreacion()) %></td>
         <td><a href="/entrenador/rutina?id=<%= rutina.getId() %>">Editar Rutina</a></td>
+        <%
+            if(idCliente == null){
+        %>
         <td><a href="/entrenador/rutina/borrar?id=<%=rutina.getId()%>">Borrar Rutina</a></td>
+        <%
+            }
+            else{
+        %>
+        <td><a href="/entrenador/cliente/rutina/borrar?idRutina=<%=rutina.getId()%>&idCliente=<%=idCliente%>">Borrar Rutina</a></td>
+        <%
+            }
+        %>
     </tr>
     <% } %>
 </table>
