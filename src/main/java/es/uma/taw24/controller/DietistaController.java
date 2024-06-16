@@ -5,6 +5,7 @@
 package es.uma.taw24.controller;
 
 import es.uma.taw24.DTO.*;
+import es.uma.taw24.exception.ComidaDuplicadaException;
 import es.uma.taw24.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,7 +205,11 @@ public class DietistaController extends BaseController {
 
         Integer dietistaId = ((Usuario) session.getAttribute("usuario")).getId();
 
-        this.dietaService.guardarDietaCreada(dieta, dietistaId);
+        try {
+            this.dietaService.guardarDietaCreada(dieta, dietistaId);
+        } catch (Exception e) {
+            throw new ComidaDuplicadaException("No se puede añadir la misma comida más de una vez en el mismo día.");
+        }
 
         return "redirect:/dietista/dietas";
     }
@@ -218,22 +223,27 @@ public class DietistaController extends BaseController {
             return accessDenied();
         }
 
-        Dieta dietaActual = this.dietaService.cargarDietaPorDietaId(dietaId);
+        try {
+            Dieta dietaActual = this.dietaService.cargarDietaPorDietaId(dietaId);
 
-        if (!dietaActual.getDescripcion().equals(dietaNueva.getDescripcion())) {
-            this.dietaService.actualizarDescripcionDieta(dietaId, dietaNueva.getDescripcion());
-        }
+            if (!dietaActual.getDescripcion().equals(dietaNueva.getDescripcion())) {
+                this.dietaService.actualizarDescripcionDieta(dietaId, dietaNueva.getDescripcion());
+            }
 
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 5; j++) {
-                Integer comidaActualId = dietaActual.getDias().get(i).getMenu().getComidas().get(j).getId();
-                Integer comidaNuevaId = dietaNueva.getDias().get(i).getMenu().getComidas().get(j).getId();
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 5; j++) {
+                    Integer comidaActualId = dietaActual.getDias().get(i).getMenu().getComidas().get(j).getId();
+                    Integer comidaNuevaId = dietaNueva.getDias().get(i).getMenu().getComidas().get(j).getId();
 
-                if (comidaActualId != comidaNuevaId) {
-                    Integer menuId = dietaActual.getDias().get(i).getMenu().getId();
-                    this.dietaService.actualizarComida(menuId, comidaActualId, comidaNuevaId);
+                    if (comidaActualId != comidaNuevaId) {
+                        Integer menuId = dietaActual.getDias().get(i).getMenu().getId();
+                        this.dietaService.actualizarComida(menuId, comidaActualId, comidaNuevaId);
+                    }
                 }
             }
+
+        } catch (Exception e) {
+            throw new ComidaDuplicadaException("No se puede añadir la misma comida más de una vez en el mismo día.");
         }
 
         return "redirect:/dietista/verDietaDietista?id=" + dietaId;

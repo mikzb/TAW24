@@ -4,8 +4,10 @@ package es.uma.taw24.controller;
  * @author Ignacy Borzestowski: 100%
  */
 
+import es.uma.taw24.DTO.Entrenador;
 import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.exception.NotFoundException;
+import es.uma.taw24.service.EntrenadorService;
 import es.uma.taw24.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,10 @@ public class LoginController extends BaseController {
 
 
     @Autowired
-    protected UsuarioService usuarioService;
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private EntrenadorService entrenadorService;
 
     @GetMapping("/")
     public String doLogin (Model model, HttpSession session) {
@@ -39,7 +44,17 @@ public class LoginController extends BaseController {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
-        model.addAttribute("usuario", session.getAttribute("usuario"));
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        model.addAttribute("usuario", usuario);
+
+        Entrenador entrenador = entrenadorService.buscarEntrenador(usuario.getId());
+        if(usuario.isPermisoEntrenador()){
+            model.addAttribute("crosstraining", entrenador.isCrosstraining());
+        }
+        else{
+            model.addAttribute("crosstraining", false);
+        }
         return "inicio";
     }
 

@@ -41,15 +41,16 @@
             for (SesionEjercicio se : list){
     %>
                 <tr>
-                    <th><%=se.getEjercicio().getNombre()%></th>
-                    <th><%=se.getRepeticiones()%></th>
-                    <th><%=se.getPeso()%></th>
-                    <th><%=se.getSeries()%></th>
-                    <th><%=se.getDistancia()%></th>
-                    <th><%=se.getDuracion()%></th>
-                    <th><%=se.getVelocidad()%></th>
-                    <th><%=se.getEjercicio().getTipo().getNombre()%></th>
-                    <th><a href="<%=se.getEjercicio().getUrl()%>"></a></th>
+                    <td><%=se.getEjercicio().getNombre()%></td>
+                    <td><%=se.getRepeticiones()%></td>
+                    <td><%=se.getPeso()%></td>
+                    <td><%=se.getSeries()%></td>
+                    <td><%=se.getDistancia()%></td>
+                    <td><%=se.getDuracion()%></td>
+                    <td><%=se.getVelocidad()%></td>
+                    <td><%=se.getEjercicio().getTipo().getNombre()%></td>
+                    <th><a href="<%=se.getEjercicio().getUrl()%>">Ver Tutorial</a></th>
+                    <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=dia%>/borrarEjercicio?rutinaId=<%=idRutina%>&sesionId=<%=sesion%>&ejercicioId=<%=se.getEjercicio().getId()%>">Borrar</a></th>
                 </tr>
     <%
             }

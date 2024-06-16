@@ -1,3 +1,9 @@
+<%--
+/**
+ * @author Álvaro Acedo Espejo: 100%
+ */
+--%>
+
 <%@ page import="es.uma.taw24.entity.*" %>
 <%@ page import="es.uma.taw24.DTO.Entrenador" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>

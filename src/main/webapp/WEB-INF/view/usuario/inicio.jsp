@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td>
-            <a href="/ejercicio/listado">Lista de ejercicos</a>
+            <a href="/ejercicio/listado">Lista de ejercicios</a>
         </td>
     </tr>
     <tr>

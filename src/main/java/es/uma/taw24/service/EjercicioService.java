@@ -1,8 +1,9 @@
 package es.uma.taw24.service;
 
 /**
- * @author Ignacy Borzestowski: 70%
- * @author Álvaro Acedo Espejo: 30%
+ * @author Ignacy Borzestowski: 60%
+ * @author Cristian Ruiz Martín: 20%
+ * @author Álvaro Acedo Espejo: 20%
  */
 
 
@@ -42,14 +43,10 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
             return null;
         }
     }
-
-    public List<Ejercicio> buscarEjerciciosPorTipo(String tipo) {
-        return this.entidadesADTO(this.ejercicioRepository.buscarPorTipo(tipo));
+    public List<Ejercicio> buscarEjerciciosNoContenidosEnSesionPorTipo(Integer idSesion, String tipo) {
+        return this.entidadesADTO(this.ejercicioRepository.findNotContainedInSesionByTipo(idSesion, tipo));
     }
 
-    public List<Ejercicio> buscarEjercicioPorGrupoMuscular(Integer idGrupoMuscular) {
-        return this.entidadesADTO(this.ejercicioGrupomuscularRepository.findByGrupoMuscularId(idGrupoMuscular));
-    }
 
     public void guardarEjercicio(Ejercicio ejercicio) {
         EjercicioEntity ejercicioEntity;

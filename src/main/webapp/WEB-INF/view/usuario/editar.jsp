@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td>
-                <form:label path="password">Contrasena: </form:label>
+                <form:label path="password">Contraseña: </form:label>
             </td>
             <td>
                 <form:password maxlength="90" path="password" />
@@ -55,7 +55,7 @@
         </tr>
         <tr>
             <td>
-                <form:label path="apellidos">Appelidos: </form:label>
+                <form:label path="apellidos">Apellidos: </form:label>
             </td>
             <td>
                 <form:input maxlength="90" path="apellidos" />
@@ -161,8 +161,8 @@
     </form:select>
     <input type="submit" value="Asignar"/>
 </form:form>
-
-
 <% } %>
+
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

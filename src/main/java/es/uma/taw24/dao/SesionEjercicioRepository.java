@@ -1,7 +1,8 @@
 /**
  * @author
- * Cristian Ruiz Martín: 70%
- * Álvaro Acedo Espejo: 30%
+ * Cristian Ruiz Martín: 60%
+ * Álvaro Acedo Espejo: 20%
+ * Mikolaj Zabski: 20%
  */
 
 package es.uma.taw24.dao;
