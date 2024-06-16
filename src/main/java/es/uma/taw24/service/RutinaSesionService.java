@@ -43,12 +43,14 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
             rutinaSesionEntity = new RutinaSesionEntity();
         }
         RutinaEntity rutinaEntity = this.rutinaRepository.findById(rutinaSesion.getRutina().getId()).orElse(null);
-        SesionEntity sesionEntity = this.sesionRepository.findByIdSesion(rutinaSesion.getSesion().getId());
 
-        if(sesionEntity == null){
+        SesionEntity sesionEntity;
+        if(rutinaSesion.getSesion().getId() == null){
             sesionEntity = new SesionEntity();
             sesionEntity.setCrosstraining(false);
             this.sesionRepository.save(sesionEntity);
+        }else {
+            sesionEntity = this.sesionRepository.findById(rutinaSesion.getSesion().getId()).orElse(null);
         }
 
         rutinaSesionEntity.setIdrutina(rutinaEntity);
