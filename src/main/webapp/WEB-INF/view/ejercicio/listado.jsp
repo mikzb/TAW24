@@ -87,6 +87,7 @@
         }
     %>
 </table>
-<a href="/ejercicio/crear">Nuevo ejercicio... </a>
+<a href="/ejercicio/crear">Nuevo ejercicio... </a> <br/>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

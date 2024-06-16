@@ -83,7 +83,10 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
             usuarioEntity = this.usuarioRepository.findById(usuario.getId()).orElse(new UsuarioEntity());
         }
         usuarioEntity.setEmail(usuario.getEmail());
-        usuarioEntity.setPasswordhash(BCryptHashing.hashPassword(usuario.getPassword()));
+        if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
+            usuarioEntity.setPasswordhash(BCryptHashing.hashPassword(usuario.getPassword()));
+
+        }
         usuarioEntity.setNombre(usuario.getNombre());
         usuarioEntity.setApellidos(usuario.getApellidos());
         usuarioEntity.setEdad(usuario.getEdad());

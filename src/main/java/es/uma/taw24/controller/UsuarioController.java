@@ -175,6 +175,7 @@ public class UsuarioController extends BaseController{
         String strTo = "redirect:/usuario/listado";
         try {
             this.usuarioService.guardarUsuario(usuario);
+            session.setAttribute("usuario", usuario);
         } catch (NotFoundException e) {
             model.addAttribute("error", e.getMessage());
             strTo = "usuario/editar";

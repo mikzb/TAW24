@@ -56,6 +56,7 @@
         }
     %>
 </table>
-<a href="/grupomuscular/crear">Nuevo grupo muscular... </a>
+<a href="/grupomuscular/crear">Nuevo grupo muscular... </a> <br/>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>
