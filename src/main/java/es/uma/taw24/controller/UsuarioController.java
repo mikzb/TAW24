@@ -38,7 +38,8 @@ public class UsuarioController extends BaseController{
             return accessDenied();
         }
         String strTo = "usuario/inicio";
-        model.addAttribute("usuario", session.getAttribute("usuario"));
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
         return strTo;
     }
 
@@ -97,7 +98,7 @@ public class UsuarioController extends BaseController{
 
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
-        String strTo = "redirect:/usuario/listado";
+        String strTo = "redirect:/";
         if (this.usuarioService.emailOcupado(usuario.getEmail())) {
             model.addAttribute("error", "El email " + usuario.getEmail() + " esta ocupado.");
             strTo = "usuario/crear";
@@ -175,6 +176,7 @@ public class UsuarioController extends BaseController{
         String strTo = "redirect:/usuario/listado";
         try {
             this.usuarioService.guardarUsuario(usuario);
+            session.setAttribute("usuario", usuario);
         } catch (NotFoundException e) {
             model.addAttribute("error", e.getMessage());
             strTo = "usuario/editar";

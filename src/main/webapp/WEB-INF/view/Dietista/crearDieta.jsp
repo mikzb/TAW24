@@ -17,7 +17,7 @@
 <body>
 <h1>Crear Dieta</h1>
 <form:form method="post" action="/dietista/guardarCreacionDieta" modelAttribute="dietaNueva">
-    Descripcion: <form:input path="descripcion" value="<%=dietaActual.getDescripcion()%>"></form:input>
+    Descripcion: <form:input path="descripcion" value="<%=dietaActual.getDescripcion()%>" required="true"></form:input>
     <table border="1">
         <tr>
             <th></th>

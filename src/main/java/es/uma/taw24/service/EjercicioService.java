@@ -42,14 +42,10 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
             return null;
         }
     }
-
-    public List<Ejercicio> buscarEjerciciosPorTipo(String tipo) {
-        return this.entidadesADTO(this.ejercicioRepository.buscarPorTipo(tipo));
+    public List<Ejercicio> buscarEjerciciosNoContenidosEnSesionPorTipo(Integer idSesion, String tipo) {
+        return this.entidadesADTO(this.ejercicioRepository.findNotContainedInSesionByTipo(idSesion, tipo));
     }
 
-    public List<Ejercicio> buscarEjercicioPorGrupoMuscular(Integer idGrupoMuscular) {
-        return this.entidadesADTO(this.ejercicioGrupomuscularRepository.findByGrupoMuscularId(idGrupoMuscular));
-    }
 
     public void guardarEjercicio(Ejercicio ejercicio) {
         EjercicioEntity ejercicioEntity;

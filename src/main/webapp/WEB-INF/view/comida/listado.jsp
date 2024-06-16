@@ -55,6 +55,7 @@
         }
     %>
 </table>
-<a href="/comida/crear">Nueva comida... </a>
+<a href="/comida/crear">Nueva comida... </a> <br/>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

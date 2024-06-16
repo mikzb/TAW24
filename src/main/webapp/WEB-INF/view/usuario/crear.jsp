@@ -9,11 +9,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Anadir nuevo usuario</title>
+    <title>A&ntildeadir nuevo usuario</title>
 </head>
 <body>
 <h2>
-    Anadir nuevo usuario
+    A&ntildeadir nuevo usuario
 </h2>
     <div style="color: red;">
             ${error}
@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <td>
-                <form:label path="password">Contrasena: </form:label>
+                <form:label path="password">Contrase&ntildea: </form:label>
             </td>
             <td>
                 <form:password required="true" maxlength="90" path="password" />
@@ -102,5 +102,6 @@
     </table>
     <input type="submit" value="Crear"/>
 </form:form>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

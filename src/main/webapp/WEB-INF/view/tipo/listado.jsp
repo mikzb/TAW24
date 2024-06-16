@@ -55,6 +55,7 @@
         }
     %>
 </table>
-<a href="/tipo/crear">Nuevo tipo de ejercicio... </a>
+<a href="/tipo/crear">Nuevo tipo de ejercicio... </a> <br/>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>

@@ -218,7 +218,9 @@ public class EntrenadorFuerzaController extends BaseController{
         sesionEjercicio.setSesion(sesion);
         sesionEjercicio.setEjercicio(ejercicio);
 
-        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosPorTipo("Fuerza");
+        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosNoContenidosEnSesionPorTipo(id, "Fuerza");
+
+
 
         model.addAttribute("ejercicios", ejercicios);
         model.addAttribute("sesionEjercicio", sesionEjercicio);
@@ -236,9 +238,6 @@ public class EntrenadorFuerzaController extends BaseController{
         }
         SesionEjercicio sesionEjercicio = sesionEjercicioService.buscarSesionEjercicioPorIdSesionYEjercicio(idSesion, idEjercicio);
 
-        List<Ejercicio> ejercicios = ejercicioService.buscarEjerciciosPorTipo("Fuerza");
-
-        model.addAttribute("ejercicios", ejercicios);
         model.addAttribute("sesionEjercicio", sesionEjercicio);
         return strTo;
     }

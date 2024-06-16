@@ -97,6 +97,7 @@
         }
     %>
 </table>
-<a href="/usuario/crear">Nuevo usuario ... </a>
+<a href="/usuario/crear">Nuevo usuario ... </a> <br/>
+<button onclick="window.location.href='/usuario/'">Volver al inicio</button>
 </body>
 </html>
