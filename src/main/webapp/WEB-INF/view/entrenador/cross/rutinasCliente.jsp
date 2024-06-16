@@ -33,15 +33,15 @@
                 <th><%=rutinal.getId()%></th>
                 <th><%=rutinal.getEntrenador().getUsuario().getNombre()%></th>
                 <th><%=rutinal.getFechacreacion()%></th>
-                <th><a href="/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/crear?rutinaId=<%=rutinal.getId()%>">Editar</a> </th>
-                <%--<th><a href="/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/borrar?rutinaId=<%=rutinal.getId()%>">Borrar</a> </th>--%>
+                <th><a href="/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/crearNuevo?rutinaId=<%=rutinal.getId()%>">Editar</a> </th>
+                <th><a href="/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/borrar?rutinaId=<%=rutinal.getId()%>">Borrar</a> </th>
             </tr>
     <%
         }
         }
     %>
 </table>
-<button onclick="window.location.href='/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/crear?rutinaId=<%=rutina.getId()%>' "
+<button onclick="window.location.href='/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/crear' "
     >Crear Rutina</button>
 <button onclick="window.location.href='/entrenadorCross/'">Volver</button>
 </body>

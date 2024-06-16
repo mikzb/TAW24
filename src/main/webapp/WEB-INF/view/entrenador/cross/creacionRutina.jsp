@@ -204,7 +204,7 @@
                     for (RutinaSesion rs : list) {
                         if (rs.getDiadesemana() == dia) {
             %>
-            <a href="/entrenadorCross/<%= client.getId() %>/crearRutinaSesion/<%= dia %>/listarSesiones?rutinaId=<%= idRutina %>&sesionId=<%=sesionId%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%= client.getId() %>/crearRutinaSesion/<%= dia %>/listarSesiones?rutinaId=<%= idRutina %>&sesionId=<%=rs.getSesion().getId()%>">Editar Sesi&oacuten</a>
             <%
                     }
                 }
