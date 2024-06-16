@@ -98,7 +98,7 @@ public class UsuarioController extends BaseController{
 
     @PostMapping("/crear")
     public String crearUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
-        String strTo = "redirect:/usuario/listado";
+        String strTo = "redirect:/";
         if (this.usuarioService.emailOcupado(usuario.getEmail())) {
             model.addAttribute("error", "El email " + usuario.getEmail() + " esta ocupado.");
             strTo = "usuario/crear";
