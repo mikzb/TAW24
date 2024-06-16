@@ -1,6 +1,7 @@
 /**
  * @author
- * Cristian Ruiz Martín: 100%
+ * Cristian Ruiz Martín: 70%
+ * Ignacy Borzestowski: 30%
  */
 
 package es.uma.taw24.service;
