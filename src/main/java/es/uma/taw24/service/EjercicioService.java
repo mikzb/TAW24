@@ -11,10 +11,11 @@ import es.uma.taw24.dao.EjercicioGrupomuscularRepository;
 import es.uma.taw24.dao.EjercicioRepository;
 import es.uma.taw24.dao.TipoRepository;
 import es.uma.taw24.entity.EjercicioEntity;
+import es.uma.taw24.entity.EjercicioGrupomuscularEntity;
+import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.ui.FiltroEjercicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -73,6 +74,12 @@ public class EjercicioService extends DTOService<Ejercicio, EjercicioEntity>{
     }
 
     public void borrarEjercicio(int id) {
+        EjercicioEntity ejercicio = this.ejercicioRepository.findById(id).orElseThrow(() -> new NotFoundException("Ejercicio not found with id: " + id));
+        List<EjercicioGrupomuscularEntity> ejerciciosGrupomuscular = ejercicioGrupomuscularRepository.findByRelatioshipsByEjercicioId(ejercicio.getId());
+        if (!ejerciciosGrupomuscular.isEmpty()) {
+            ejercicioGrupomuscularRepository.deleteAll(ejerciciosGrupomuscular);
+        }
+
         this.ejercicioRepository.deleteById(id);
     }
 

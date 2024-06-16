@@ -7,9 +7,11 @@ package es.uma.taw24.service;
 
 
 import es.uma.taw24.DTO.Comida;
-import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.dao.ComidaMenuRepository;
 import es.uma.taw24.dao.ComidaRepository;
 import es.uma.taw24.entity.ComidaEntity;
+import es.uma.taw24.entity.ComidaMenuEntity;
+import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.ui.FiltroComida;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ import java.util.List;
 public class ComidaService extends DTOService<Comida, ComidaEntity>{
     @Autowired
     private ComidaRepository comidaRepository;
+
+    @Autowired
+    private ComidaMenuRepository comidaMenuRepository;
 
     public List<Comida> listarComidas() {
         return this.entidadesADTO(this.comidaRepository.findAll());
@@ -46,6 +51,11 @@ public class ComidaService extends DTOService<Comida, ComidaEntity>{
     }
 
     public void borrarComida(int id) {
+        ComidaEntity comida = this.comidaRepository.findById(id).orElseThrow(() -> new NotFoundException("Ejercicio not found with id: " + id));
+        List<ComidaMenuEntity> comidasMenu = comidaMenuRepository.findByComidaId(comida.getId());
+        if (!comidasMenu.isEmpty()) {
+            comidaMenuRepository.deleteAll(comidasMenu);
+        }
         this.comidaRepository.deleteById(id);
     }
 

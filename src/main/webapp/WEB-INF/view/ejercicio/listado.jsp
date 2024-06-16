@@ -23,6 +23,9 @@
     Lista de ejercicios
 </h2>
 
+<div style="color: red;">
+    ${error}
+</div>
 <form:form method="post" modelAttribute="filtro" action="/ejercicio/filtrar">
     <table>
         <tr>

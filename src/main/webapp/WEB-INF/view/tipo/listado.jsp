@@ -1,8 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.List" %>
-<%@ page import="es.uma.taw24.DTO.Comida" %>
-<%@ page import="es.uma.taw24.DTO.Ejercicio" %>
-<%@ page import="es.uma.taw24.DTO.GrupoMuscular" %>
 <%@ page import="es.uma.taw24.DTO.Tipo" %>
 
 <%-- @author Ignacy Borzestowski: 100%--%>
@@ -21,6 +18,9 @@
 <h2>
     Lista de tipos de ejercicios
 </h2>
+<div style="color: red;">
+    ${error}
+</div>
 
 <form:form method="post" modelAttribute="filtro" action="/tipo/filtrar">
     <table>

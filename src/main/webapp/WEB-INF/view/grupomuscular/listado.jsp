@@ -20,6 +20,9 @@
 <h2>
     Lista de grupos musculares
 </h2>
+<div style="color: red;">
+    ${error}
+</div>
 
 <form:form method="post" modelAttribute="filtro" action="/grupomuscular/filtrar">
     <table>
