@@ -1,3 +1,4 @@
+<%-- @author: Mikolaj Zabski --%>
 <%@ page import="es.uma.taw24.entity.SesionEjercicioEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="es.uma.taw24.DTO.SesionEjercicio" %>
