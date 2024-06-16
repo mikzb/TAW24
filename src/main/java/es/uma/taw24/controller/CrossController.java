@@ -166,7 +166,7 @@ public class CrossController extends BaseController{
         Sesion sesion = rutinaForm.getSesion();
         sesion.setCrosstraining(true);
         rutinaSesion.setSesion(sesionService.buscarSesion(sesion.getId()));
-        rutinaSesion.setRutina(rutinaService.buscarRutinaPorId(rutina.getId()).toDTO());
+        rutinaSesion.setRutina(rutinaService.buscarRutina(rutina.getId()));
         SesionEjercicio sesionEjercicio = rutinaForm.getSesionEjercicio();
         sesionEjercicio.setSesion(sesionService.buscarSesion(sesion.getId()));
         Ejercicio ejercicio = rutinaForm.getEjercicio();//este ejercicio solo tiene id realmente

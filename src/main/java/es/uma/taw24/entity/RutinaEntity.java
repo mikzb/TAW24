@@ -51,7 +51,7 @@ public class RutinaEntity implements Serializable, DTO<Rutina> {
         Rutina rutina = new Rutina();
         rutina.setId(this.id);
         rutina.setFechacreacion(this.fechacreacion);
-        rutina.setIdentrenador(this.identrenador.toDTO());
+        rutina.setEntrenador(this.identrenador.toDTO());
         return rutina;
     }
 

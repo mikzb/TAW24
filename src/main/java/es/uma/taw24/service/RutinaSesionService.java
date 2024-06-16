@@ -42,7 +42,7 @@ public class RutinaSesionService extends DTOService<RutinaSesion, RutinaSesionEn
         if(rutinaSesionEntity == null){
             rutinaSesionEntity = new RutinaSesionEntity();
         }
-        RutinaEntity rutinaEntity = this.rutinaRepository.findByIdRutina(rutinaSesion.getRutina().getId());
+        RutinaEntity rutinaEntity = this.rutinaRepository.findById(rutinaSesion.getRutina().getId()).orElse(null);
         SesionEntity sesionEntity = this.sesionRepository.findByIdSesion(rutinaSesion.getSesion().getId());
 
         if(sesionEntity == null){

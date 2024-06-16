@@ -31,6 +31,9 @@ public class EntrenadorFuerzaController extends BaseController{
     private RutinaSesionService rutinaSesionService;
 
     @Autowired
+    private RutinaUsuarioService rutinaUsuarioService;
+
+    @Autowired
     private SesionEjercicioService sesionEjercicioService;
 
     @Autowired
@@ -96,6 +99,10 @@ public class EntrenadorFuerzaController extends BaseController{
         }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Rutina> rutinas = rutinaService.listarRutinas(usuarioEntrenador.getId());
+        List<Usuario> clientes = usuarioService.listarClientes(usuarioEntrenador.getId());
+
+        model.addAttribute("cliente", new Usuario());
+        model.addAttribute("clientes", clientes);
         model.addAttribute("rutinas", rutinas);
         return strTo;
     }
@@ -268,7 +275,7 @@ public class EntrenadorFuerzaController extends BaseController{
     }
     @GetMapping("/rutina/anyadir")
     public String anyadirRutina(@RequestParam("idCliente") Integer idCliente, Model model, HttpSession session) {
-        String strTo = "entrenador/datos_rutina";
+        String strTo = "redirect:/entrenador/cliente/" + idCliente + "/rutinas";
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
@@ -276,25 +283,34 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
 
-        RutinaUsuario rutinaUsuario = new RutinaUsuario();
         Usuario cliente = usuarioService.buscarUsuario(idCliente);
-        rutinaUsuario.setUsuario(cliente);
         Rutina rutina = new Rutina();
+
+        Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
+        Entrenador entrenador = entrenadorService.buscarEntrenador(usuarioEntrenador.getId());
+
+        rutina.setEntrenador(entrenador);
+
+        RutinaUsuario rutinaUsuario = new RutinaUsuario();
+
+        rutinaUsuario.setUsuario(cliente);
         rutinaUsuario.setRutina(rutina);
 
-        model.addAttribute("rutinaUsuario", rutinaUsuario);
+        rutinaUsuarioService.guardar(rutinaUsuario);
+
         return strTo;
     }
 
-    @GetMapping("/rutina/crear")
-    public String crearRutina(Model model, HttpSession session) {
-        String strTo = "entrenador/datos_rutina";
+    @PostMapping("/rutina/crear")
+    public String crearRutina(@ModelAttribute("cliente") Usuario cliente, HttpSession session) {
+        String strTo = "redirect:/entrenador/rutina/anyadir?idCliente=" + cliente.getId();;
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
         if (!esEntrenador(session)) {
             return accessDenied();
         }
+
 
         return strTo;
     }
@@ -328,7 +344,7 @@ public class EntrenadorFuerzaController extends BaseController{
     }
 
     @PostMapping("/rutina/guardar")
-    public String guardarRutina(@ModelAttribute("rutina") Rutina rutina, HttpSession session) {
+    public String guardarRutina(@ModelAttribute("rutina") RutinaUsuario rutinaUsuario, HttpSession session) {
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
@@ -336,7 +352,7 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
 
-        //rutinaService.guardar(rutina);
+        rutinaUsuarioService.guardar(rutinaUsuario);
         return "redirect:/entrenador/rutinas";
     }
 }
