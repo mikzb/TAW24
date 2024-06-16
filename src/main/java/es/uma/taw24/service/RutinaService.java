@@ -33,9 +33,6 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
     private EntrenadorRepository entrenadorRepository;
 
     @Autowired
-    private EntrenadorRepository entrenadorRepository;
-
-    @Autowired
     private RutinaSesionRepository rutinaSesionRepository;
 
     public List<Rutina> listarRutinas(Integer entrenadorId) {
@@ -72,7 +69,7 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
         else {
             rutinaEntity = this.rutinaRepository.findById(rutina.getId()).orElse(new RutinaEntity());
         }
-        rutinaEntity.setIdentrenador(this.entrenadorRepository.findById(rutina.getIdentrenador().getId()).orElseThrow(() -> new RuntimeException("Entrenador con id: " + rutina.getEntrenador().getId() + " no encontrado.")));
+        rutinaEntity.setIdentrenador(this.entrenadorRepository.findById(rutina.getEntrenador().getId()).orElseThrow(() -> new RuntimeException("Entrenador con id: " + rutina.getEntrenador().getId() + " no encontrado.")));
         this.rutinaRepository.save(rutinaEntity);
     }
 

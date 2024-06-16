@@ -1,6 +1,7 @@
 package es.uma.taw24.controller;
 
 import es.uma.taw24.DTO.*;
+import es.uma.taw24.dao.RutinaRepository;
 import es.uma.taw24.entity.*;
 import es.uma.taw24.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -45,6 +46,8 @@ public class CrossController extends BaseController{
     private SesionService sesionService;
     @Autowired
     private SesionEjercicioService sesionEjercicioService;
+    @Autowired
+    private RutinaRepository rutinaRepository;
 
     @GetMapping("/")
     public String doInicio(Model model, HttpSession session) {
@@ -90,13 +93,15 @@ public class CrossController extends BaseController{
         Entrenador entrenador = entrenadorService.buscarEntrenador(user.getId());
         model.addAttribute("entrenador", entrenador);
 
-        Usuario cliente = usuarioService.buscarUsuarioPorId(id);
+        Usuario cliente = usuarioService.buscarUsuario(id);
         model.addAttribute("cliente", cliente);
 
         List<RutinaUsuario> lista = rutinaUsuarioService.listarRutinasCliente(id);
         List<RutinaEntity> listaRutinas=new ArrayList<RutinaEntity>();
+        RutinaEntity rutinaEntity;
         for(RutinaUsuario rutina : lista){
-            listaRutinas.add(rutina.getIdrutina());
+            rutinaEntity= rutinaRepository.findById(rutina.getRutina().getId()).orElse(null);//no se si este null dara problemas
+            listaRutinas.add(rutinaEntity);
         }
         model.addAttribute("listaRutinas", rutinaService.listarRutinasEntidades(listaRutinas));
 
@@ -116,7 +121,7 @@ public class CrossController extends BaseController{
 
         Rutina rutina = new Rutina();
         rutina.setFechacreacion(Instant.now());
-        rutina.setIdentrenador(entrenador);
+        rutina.setEntrenador(entrenador);
         rutinaService.guardar(rutina);
         model.addAttribute("rutina", rutina);
         return strTo;
@@ -133,7 +138,7 @@ public class CrossController extends BaseController{
         }
         List<RutinaSesion> lista = rutinaSesionService.buscarRutinaSesion(rutina.getId());
         model.addAttribute("listaRutinas", lista);
-        Usuario cliente = usuarioService.buscarUsuarioPorId(id);
+        Usuario cliente = usuarioService.buscarUsuario(id);
         model.addAttribute("cliente", cliente);
 
         return strTo;
