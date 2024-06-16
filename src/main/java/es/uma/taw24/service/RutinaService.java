@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RutinaService extends DTOService<Rutina, RutinaEntity> {
@@ -93,6 +94,12 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
 
         rutina.setId(rutinaEntity.getId());
         rutina.setFechacreacion(rutinaEntity.getFechacreacion());
+    }
+
+    public List<RutinaEntity> findRutinasByClienteId(Integer id) {
+       List<RutinaUsuarioEntity> rutinaUsuarioEntities = rutinaUsuarioRepository.findByIdusuario(id);
+         return rutinaUsuarioEntities.stream().map(RutinaUsuarioEntity::getIdrutina).collect(Collectors.toList());
+
     }
 
     /*public void guardar(Rutina rutina) {

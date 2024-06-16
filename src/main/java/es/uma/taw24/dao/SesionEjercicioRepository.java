@@ -28,4 +28,7 @@ public interface SesionEjercicioRepository extends JpaRepository<SesionEjercicio
 
     @Query("SELECT se FROM SesionEjercicioEntity se WHERE se.idsesion.id = :idSesion AND se.series >= :series AND se.repeticiones >= :repeticiones AND se.peso >= :peso AND se.completado = :completado")
     public List<SesionEjercicioEntity> findByFiltro(@Param("idSesion") Integer idSesion, @Param("series") Integer series, @Param("repeticiones") Integer repeticiones, @Param("peso") Integer peso, @Param("completado") Boolean completado);
+
+    @Query("SELECT se FROM SesionEjercicioEntity se JOIN SesionEntity s on s.id=se.idsesion.id join RutinaSesionEntity rs on rs.idsesion.id=s.id where rs.idrutina.id= :rutinaId")
+    List<SesionEjercicioEntity> findByRutinaId(Integer rutinaId);
 }

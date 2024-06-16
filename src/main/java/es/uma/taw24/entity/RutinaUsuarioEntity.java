@@ -51,4 +51,5 @@ public class RutinaUsuarioEntity implements DTO<RutinaUsuario> {
         rutinaUsuario.setUsuario(this.idusuario.toDTO());
         return rutinaUsuario;
     }
+
 }
