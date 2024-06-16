@@ -38,7 +38,8 @@ public class UsuarioController extends BaseController{
             return accessDenied();
         }
         String strTo = "usuario/inicio";
-        model.addAttribute("usuario", session.getAttribute("usuario"));
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
         return strTo;
     }
 

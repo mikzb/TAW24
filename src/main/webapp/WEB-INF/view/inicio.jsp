@@ -7,7 +7,9 @@
     <title>Inicio</title>
 </head>
 <body>
-<% Usuario usuario = (Usuario) request.getAttribute("usuario"); %>
+<% Usuario usuario = (Usuario) request.getAttribute("usuario");
+   Boolean crosstraining = (Boolean) request.getAttribute("crosstraining");
+%>
 
 <jsp:include page="cabecera.jsp"/>
 <table>
@@ -27,15 +29,21 @@
     <% } %>
     <% if (usuario.isPermisoEntrenador()) { %>
     <tr>
-        <%--if (usuario.isCrosstraining()){--%>
+        <%
+        if (crosstraining){
+        %>
         <td>
             <a href="/entrenadorCross/">Inicio de entrenador de Cross Training</a>
         </td>
-        <%--}else{--%>
+        <%
+        }else{
+        %>
         <td>
             <a href="/entrenador/">Inicio de entrenador de fuerza</a>
         </td>
-        <%--}--%>
+        <%
+        }
+        %>
     </tr>
     <% } %>
     <% if (usuario.isPermisoDietista()) { %>
