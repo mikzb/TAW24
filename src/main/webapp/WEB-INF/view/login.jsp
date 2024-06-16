@@ -20,11 +20,11 @@
     <table>
         <tr>
             <td>Email:</td>
-            <td><form:input path="email" /></td>
+            <td><form:input required="true" path="email" /></td>
         </tr>
         <tr>
             <td>Contraseña:</td>
-            <td><form:password path="password" /></td>
+            <td><form:password required="true" path="password" /></td>
         </tr>
         <tr>
             <td colspan="2"> <form:button> Enviar </form:button></td>

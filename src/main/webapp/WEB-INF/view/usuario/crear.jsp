@@ -25,7 +25,7 @@
                 <form:label path="email">Email: </form:label>
             </td>
             <td>
-                <form:input maxlength="90" path="email" />
+                <form:input required="true" maxlength="90" path="email" />
             </td>
         </tr>
         <tr>
@@ -33,7 +33,7 @@
                 <form:label path="password">Contrasena: </form:label>
             </td>
             <td>
-                <form:password maxlength="90" path="password" />
+                <form:password required="true" maxlength="90" path="password" />
             </td>
         </tr>
         <tr>
@@ -41,7 +41,7 @@
                 <form:label path="nombre">Nombre: </form:label>
             </td>
             <td>
-                <form:input maxlength="45" path="nombre" />
+                <form:input required="true" maxlength="45" path="nombre" />
             </td>
         </tr>
         <tr>
@@ -49,7 +49,7 @@
                 <form:label path="apellidos">Appelidos: </form:label>
             </td>
             <td>
-                <form:input maxlength="90" path="apellidos" />
+                <form:input required="true" maxlength="90" path="apellidos" />
             </td>
         </tr>
         <tr>
@@ -57,7 +57,7 @@
                 <form:label path="edad">Edad: </form:label>
             </td>
             <td>
-                <form:input path="edad" />
+                <form:input required="true" path="edad" />
             </td>
         </tr>
         <tr>
@@ -65,7 +65,7 @@
                 <form:label path="sexo">Sexo: </form:label>
             </td>
             <td>
-                <form:select path="sexo">
+                <form:select required="true" path="sexo">
                     <form:option value="H">Hombre</form:option>
                     <form:option value="M">Mujer</form:option>
                 </form:select>
