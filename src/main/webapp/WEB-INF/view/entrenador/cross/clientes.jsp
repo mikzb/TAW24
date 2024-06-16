@@ -2,7 +2,14 @@
 <%@ page import="es.uma.taw24.DTO.Usuario" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+/**
+ * @author Alvaro Acedo Espejo: 100%
+ */
+--%>
+
 <%
+
     List<Usuario> list = (List<Usuario>) request.getAttribute("listClientes");
 %>
 <html>
