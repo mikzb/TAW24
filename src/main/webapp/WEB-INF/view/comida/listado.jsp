@@ -18,6 +18,9 @@
 <h2>
     Lista de comidas
 </h2>
+<div style="color: red;">
+    ${error}
+</div>
 
 <form:form method="post" modelAttribute="filtro" action="/comida/filtrar">
     <table>

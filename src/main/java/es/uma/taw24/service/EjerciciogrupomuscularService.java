@@ -5,23 +5,17 @@ package es.uma.taw24.service;
  */
 
 import es.uma.taw24.DTO.EjercicioGrupomuscular;
-import es.uma.taw24.DTO.EntrenadorUsuario;
-import es.uma.taw24.DTO.GrupoMuscular;
 import es.uma.taw24.dao.*;
 import es.uma.taw24.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Guard;
 import java.util.HashSet;
-import java.util.List;
 
 @Service
 public class EjerciciogrupomuscularService extends DTOService<EjercicioGrupomuscular, EjercicioGrupomuscularEntity>{
 
-    @Autowired
-    private EjercicioGrupomuscularRepository ejercicioGrupomuscularRepository;
 
     @Autowired
     private EjercicioRepository ejercicioRepository;

@@ -9,7 +9,11 @@
 <body>
 
 <jsp:include page="../cabecera.jsp"/>
+
 <h3>Listados</h3>
+<div style="color: red;">
+    ${error}
+</div>
 <table>
     <tr>
         <td>
