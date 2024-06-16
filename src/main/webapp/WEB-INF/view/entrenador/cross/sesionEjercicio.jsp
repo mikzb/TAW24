@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    //Alvaro Acedo Espejo 100%
     Usuario user = (Usuario) request.getAttribute("cliente");
     List<Ejercicio> listaEj = (List<Ejercicio>) request.getAttribute("ejercicioList");
 %>
@@ -19,11 +20,16 @@
 <body>
 <h1>Elije tu ejercicio</h1>
 <%--@elvariable id="sesionEjercicio" type=""--%>
-<form:form action="/entrenadorCross/guardar"  method="post" modelAttribute="sesionEjercicio">
+<form:form action="/entrenadorCross/guardarEjercicio" method="post" modelAttribute="sesionEjercicio">
+    <input type="hidden" name="dia" value="${dia}" />
+    <input type="hidden" name="rutinaId" value="${rutinaId}" />
+    <input type="hidden" name="id" value="${id}" />
+    <input type="hidden" name="sesionId" value="${sesionId}" />
     Distancia:<form:input path="distancia"></form:input></br>
     Repeticiones:<form:input path="repeticiones"></form:input></br>
     Duraci&oacuten:<form:input path="duracion"></form:input></br>
     Peso:<form:input path="peso"></form:input></br>
+    Series:<form:input path="series"></form:input></br>
     Velocidad:<form:input path="velocidad"></form:input></br>
     <%--<form:hidden path="completado"></form:hidden>
     <form:hidden path="sesionEjercicio.orden"></form:hidden>--%>
