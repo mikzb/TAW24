@@ -4,12 +4,9 @@ package es.uma.taw24.controller;
  * @author Ignacy Borzestowski: 100%
  */
 
-import es.uma.taw24.DTO.Comida;
 import es.uma.taw24.DTO.GrupoMuscular;
-import es.uma.taw24.DTO.Tipo;
+import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.service.GrupoMuscularService;
-import es.uma.taw24.service.TipoService;
-import es.uma.taw24.ui.FiltroComida;
 import es.uma.taw24.ui.FiltroGrupoMuscular;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +100,7 @@ public class GrupoMuscularController extends BaseController {
     }
 
     @GetMapping("/borrar")
-    public String borrarGrupoMuscular(int id, HttpSession session) {
+    public String borrarGrupoMuscular(int id, HttpSession session, Model model  ) {
         if (!estaAutenticado(session)) {
             return redirectToLogin();
         }
@@ -111,7 +108,12 @@ public class GrupoMuscularController extends BaseController {
         if (!esAdmin(session)) {
             return accessDenied();
         }
-        this.grupoMuscularService.borrarGrupoMuscular(id);
+        try {
+            this.grupoMuscularService.borrarGrupoMuscular(id);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/grupomuscular/listado";
+        }
         return "redirect:/grupomuscular/listado";
     }
 

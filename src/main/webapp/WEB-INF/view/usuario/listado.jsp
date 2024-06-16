@@ -1,7 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="es.uma.taw24.DTO.Usuario" %>
 <%@ page import="java.util.List" %>
-<%@ page import="es.uma.taw24.ui.FiltroUsuario" %>
 
 <%-- @author Ignacy Borzestowski: 100%--%>
 
@@ -19,6 +18,9 @@
 <h2>
     Lista de usuarios
 </h2>
+<div style="color: red;">
+    ${error}
+</div>
 
 <form:form method="post" modelAttribute="filtro" action="/usuario/filtrar">
     <table>

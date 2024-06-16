@@ -1,5 +1,11 @@
 package es.uma.taw24.ui;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author
  * Cristian Ruiz Martín: 100%
@@ -9,12 +15,13 @@ public class FiltroRutina {
 
     protected String lowerFecha;
     protected String upperFecha;
-    protected int sesiones;
+
+    protected int idCliente;
 
     public FiltroRutina() {
         this.lowerFecha = "";
         this.upperFecha = "";
-        this.sesiones = 0;
+        this.idCliente = 0;
     }
 
     public String getLowerFecha() {
@@ -33,18 +40,39 @@ public class FiltroRutina {
         this.upperFecha = upperFecha;
     }
 
-    public int getSesiones() {
-        return sesiones;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setSesiones(int sesiones) {
-        this.sesiones = sesiones;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
 
     public boolean estaVacio () {
-        return lowerFecha.isEmpty() && this.upperFecha.isEmpty() && this.sesiones == 0;
+        return lowerFecha.isEmpty() && this.upperFecha.isEmpty() && this.idCliente == 0;
+    }
 
+    public Instant getLowerFechaInstant() {
+        if (lowerFecha.isEmpty()) {
+            return Instant.ofEpochMilli(0);
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate localDate = LocalDate.parse(lowerFecha, formatter);
+            LocalDateTime localDateTime = localDate.atStartOfDay();
+            return localDateTime.toInstant(ZoneOffset.UTC);
+        }
+    }
+
+    public Instant getUpperFechaInstant() {
+        if (upperFecha.isEmpty()) {
+            return Instant.now();
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate localDate = LocalDate.parse(upperFecha, formatter);
+            LocalDateTime localDateTime = localDate.atStartOfDay();
+            return localDateTime.toInstant(ZoneOffset.UTC);
+        }
     }
 
 }

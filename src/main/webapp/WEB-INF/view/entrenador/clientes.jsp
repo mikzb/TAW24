@@ -24,7 +24,7 @@
     <tr>
         <th>Nombre</th>
         <th>Apellidos</th>
-        <th>Rutina</th>
+        <th>Rutinas</th>
     </tr>
     <% for (Usuario cliente : clientes) { %>
     <tr>
@@ -34,7 +34,8 @@
     </tr>
     <% } %>
 </table>
-
-<button onclick="window.location.href='/entrenador/'">Volver</button>
+<br>
+<br>
+<button onclick="window.location.href='/entrenador/'">Volver al inicio</button>
 </body>
 </html>

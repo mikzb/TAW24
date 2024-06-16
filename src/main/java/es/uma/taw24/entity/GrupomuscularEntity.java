@@ -38,10 +38,20 @@ public class GrupomuscularEntity implements Serializable, DTO<GrupoMuscular> {
         this.nombre = nombre;
     }
 
+    public Set<EjercicioEntity> getEjercicios() {
+        return ejercicios;
+    }
+
+    public void setEjercicios(Set<EjercicioEntity> ejercicios) {
+        this.ejercicios = ejercicios;
+    }
+
     public GrupoMuscular toDTO() {
         GrupoMuscular grupoMuscular = new GrupoMuscular();
         grupoMuscular.setId(this.id);
         grupoMuscular.setNombre(this.nombre);
+        grupoMuscular.setEjercicios(this.ejercicios.stream().map(EjercicioEntity::toDTO).toList());
         return grupoMuscular;
     }
+
 }

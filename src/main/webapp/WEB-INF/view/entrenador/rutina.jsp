@@ -11,7 +11,7 @@
 
 <html>
 <head>
-    <title>Rutina Cliente</title>
+    <title>Sesiones</title>
 </head>
 <body>
 
@@ -49,6 +49,9 @@
 </table>
 
 <a href="/entrenador/sesion/crear?idRutina=<%=idRutina%>">Crear nueva sesión.</a>
+<br>
+<br>
+<button onclick="window.location.href='/entrenador/'">Volver al inicio</button>
 
 </body>
 </html>

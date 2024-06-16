@@ -1,3 +1,9 @@
+/**
+ * @author
+ * Cristian Ruiz Martín: 80%
+ * Álvaro Acedo Espejo: 20%
+ */
+
 package es.uma.taw24.service;
 
 import es.uma.taw24.DTO.RutinaUsuario;
@@ -28,33 +34,23 @@ public class RutinaUsuarioService extends DTOService<RutinaUsuario, RutinaUsuari
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private EntrenadorRepository entrenadorRepository;
+    private RutinaService rutinaService;
 
 
-    public List<RutinaUsuario> listarRutinasCliente(@Param("id") Integer clienteId) {
+    public List<RutinaUsuario> listarRutinasCliente(Integer clienteId) {
         return this.entidadesADTO(this.rutinaUsuarioRepository.findByIdusuario(clienteId));
     }
 
-    public List<RutinaUsuario> buscarRutinaUsuarioPorRutinaId(@Param("id") Integer rutinaId) {
-        return this.entidadesADTO(this.rutinaUsuarioRepository.findByRutinaId(rutinaId));
-    }
 
     public void guardar(RutinaUsuario rutinaUsuario) {
         RutinaUsuarioEntity rutinaUsuarioEntity = this.rutinaUsuarioRepository.findByRutinaIdAndUsuarioId(rutinaUsuario.getRutina().getId(), rutinaUsuario.getUsuario().getId());
-        RutinaEntity rutinaEntity;
         if(rutinaUsuarioEntity == null){
             rutinaUsuarioEntity = new RutinaUsuarioEntity();
         }
         if(rutinaUsuario.getRutina().getId() == null){
-            rutinaEntity = new RutinaEntity();
-            rutinaEntity.setFechacreacion(Instant.now());
-            rutinaEntity.setIdentrenador(this.entrenadorRepository.findById(rutinaUsuario.getRutina().getEntrenador().getId()).orElse(null));
-            rutinaRepository.save(rutinaEntity);
-
+            rutinaService.guardar(rutinaUsuario.getRutina());
         }
-        else {
-            rutinaEntity = this.rutinaRepository.findById(rutinaUsuario.getRutina().getId()).orElse(null);
-        }
+        RutinaEntity rutinaEntity = this.rutinaRepository.findById(rutinaUsuario.getRutina().getId()).orElse(null);
         UsuarioEntity usuarioEntity = this.usuarioRepository.findById(rutinaUsuario.getUsuario().getId()).orElse(null);
         rutinaUsuarioEntity.setIdrutina(rutinaEntity);
         rutinaUsuarioEntity.setIdusuario(usuarioEntity);

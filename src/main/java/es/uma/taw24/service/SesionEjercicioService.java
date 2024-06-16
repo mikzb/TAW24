@@ -12,6 +12,7 @@ import es.uma.taw24.dao.SesionRepository;
 import es.uma.taw24.entity.EjercicioEntity;
 import es.uma.taw24.entity.SesionEjercicioEntity;
 import es.uma.taw24.entity.SesionEntity;
+import es.uma.taw24.ui.FiltroSesionEjercicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,11 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
 
     public List<SesionEjercicio> buscarSesionEjercicioPorIdSesion(Integer sesionId) {
         List<SesionEjercicioEntity> lista = this.sesionEjercicioRepository.findBySesionId(sesionId);
+        return this.entidadesADTO(lista);
+    }
+
+    public List<SesionEjercicio> buscarSesionEjercicioPorFiltro(FiltroSesionEjercicio filtro) {
+        List<SesionEjercicioEntity> lista = this.sesionEjercicioRepository.findByFiltro(filtro.getIdSesion(), filtro.getSeries(), filtro.getRepeticiones(), filtro.getPeso(), filtro.getCompletado());
         return this.entidadesADTO(lista);
     }
 

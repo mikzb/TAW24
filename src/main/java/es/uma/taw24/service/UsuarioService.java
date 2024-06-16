@@ -12,12 +12,18 @@ import es.uma.taw24.DTO.Entrenador;
 import es.uma.taw24.DTO.Usuario;
 import es.uma.taw24.DTO.UsuarioDietistaForm;
 import es.uma.taw24.dao.EntrenadorUsuarioRepository;
+import es.uma.taw24.dao.RutinaUsuarioRepository;
+import es.uma.taw24.dao.UsuarioDietaRepository;
 import es.uma.taw24.dao.UsuarioRepository;
+import es.uma.taw24.entity.EntrenadorUsuarioEntity;
+import es.uma.taw24.entity.RutinaUsuarioEntity;
+import es.uma.taw24.entity.UsuarioDietaEntity;
 import es.uma.taw24.entity.UsuarioEntity;
 import es.uma.taw24.exception.NotFoundException;
 import es.uma.taw24.ui.FiltroUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +38,12 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
 
     @Autowired
     private EntrenadorService entrenadorService;
+
+    @Autowired
+    private UsuarioDietaRepository usuarioDietaRepository;
+
+    @Autowired
+    private RutinaUsuarioRepository rutinaUsuarioRepository;
 
     public Usuario autenticar(String email, String password) {
         UsuarioEntity usuario = this.usuarioRepository.findByEmail(email)
@@ -135,8 +147,27 @@ public class UsuarioService extends DTOService<Usuario, UsuarioEntity>{
         return this.entidadesADTO(usuarios);
     }
 
+    @Transactional
     public void borrarUsuario(int id) {
-        this.entrenadorService.borrarEntrenador(id);
+        UsuarioEntity usuario = usuarioRepository.findById(id).orElseThrow(() -> new NotFoundException("Usuario not found with id: " + id));
+        List<UsuarioDietaEntity> usuarioDietas = usuarioDietaRepository.findByUsuarioId(usuario.getId());
+        if (!usuarioDietas.isEmpty()) {
+            usuarioDietaRepository.deleteAll(usuarioDietas);
+        }
+        List<EntrenadorUsuarioEntity> entrenadorUsuarios = entrenadorUsuarioRepository.findRelationshipsByUsuarioId(usuario.getId());
+        if (!entrenadorUsuarios.isEmpty()) {
+            entrenadorUsuarioRepository.deleteAll(entrenadorUsuarios);
+        }
+
+        List<RutinaUsuarioEntity> rutinas = rutinaUsuarioRepository.findByIdusuario(usuario.getId());
+        if (!rutinas.isEmpty()) {
+            rutinaUsuarioRepository.deleteAll(rutinas);
+        }
+
+        Entrenador entrenador = this.entrenadorService.buscarEntrenador(id);
+        if (entrenador != null) {
+            this.entrenadorService.borrarEntrenador(id);
+        }
         this.usuarioRepository.deleteById(id);
     }
 }

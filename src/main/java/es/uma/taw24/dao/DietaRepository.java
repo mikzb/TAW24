@@ -21,14 +21,14 @@ public interface DietaRepository extends JpaRepository<DietaEntity, Integer> {
     @Query("SELECT d FROM DietaEntity d WHERE d.iddietista.id = :dietistaId")
     List<DietaEntity> findByDietistaId(@RequestParam("dietistaId") Integer dietistaId);
 
-    @Query("SELECT d FROM DietaEntity d WHERE d.iddietista.id = :dietistaId AND d.descripcion = :descripcion")
+    @Query("SELECT d FROM DietaEntity d WHERE d.iddietista.id = :dietistaId AND d.descripcion LIKE %:descripcion%")
     List<DietaEntity> findByDietistaIdAndDescripcion(Integer dietistaId, String descripcion);
 
     @Modifying
     @Query("DELETE FROM DietaEntity d WHERE d.id = :dietaId")
     void deleteById(@RequestParam("dietaId") Integer dietaId);
 
-    @Query("SELECT d FROM DietaEntity d WHERE d.descripcion LIKE %:descripcion%")
+    @Query("SELECT d FROM DietaEntity d WHERE d.descripcion = :descripcion")
     Optional<DietaEntity> findByDescripcion(@RequestParam("descripcion") String descripcion);
 
     @Modifying

@@ -6,12 +6,15 @@ package es.uma.taw24.controller;
 
 import es.uma.taw24.DTO.*;
 import es.uma.taw24.service.*;
+import es.uma.taw24.ui.FiltroRutina;
+import es.uma.taw24.ui.FiltroSesionEjercicio;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @Controller
@@ -83,6 +86,7 @@ public class EntrenadorFuerzaController extends BaseController{
         }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Rutina> rutinas = rutinaService.listarRutinas(id, usuarioEntrenador.getId());
+        model.addAttribute("filtro", new FiltroRutina());
         model.addAttribute("rutinas", rutinas);
         model.addAttribute("idCliente", id);
         return strTo;
@@ -102,6 +106,41 @@ public class EntrenadorFuerzaController extends BaseController{
         List<Usuario> clientes = usuarioService.listarClientes(usuarioEntrenador.getId());
 
         model.addAttribute("cliente", new Usuario());
+        model.addAttribute("filtro", new FiltroRutina());
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("rutinas", rutinas);
+        return strTo;
+    }
+
+    @PostMapping("/rutinas/filtrar")
+    public String filtrarRutinas(@ModelAttribute("filtro") FiltroRutina filtro, Model model, HttpSession session) {
+        String strTo = "entrenador/rutinas";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        if(filtro.estaVacio()){
+            return "redirect:/entrenador/rutinas";
+        }
+
+
+        Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
+        List<Rutina> rutinas;
+        if(filtro.getIdCliente() == 0){
+            rutinas = rutinaService.listarRutinasPorFiltroSinCliente(usuarioEntrenador.getId(), filtro);
+        }
+        else {
+             rutinas = rutinaService.listarRutinasPorFiltro(usuarioEntrenador.getId(), filtro);
+        }
+        List<Usuario> clientes = usuarioService.listarClientes(usuarioEntrenador.getId());
+
+
+
+        model.addAttribute("cliente", new Usuario());
+        model.addAttribute("filtro", filtro);
         model.addAttribute("clientes", clientes);
         model.addAttribute("rutinas", rutinas);
         return strTo;
@@ -133,7 +172,32 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
         List<SesionEjercicio> sesionEjercicios = sesionEjercicioService.buscarSesionEjercicioPorIdSesion(id);
-        model.addAttribute("idSesion", id);
+
+        FiltroSesionEjercicio filtro = new FiltroSesionEjercicio();
+        filtro.setIdSesion(id);
+
+        model.addAttribute("filtro", filtro);
+        model.addAttribute("sesionEjercicios", sesionEjercicios);
+        return strTo;
+    }
+
+    @PostMapping("/sesion/filtrar")
+    public String filtrarSesiones(@ModelAttribute("filtro") FiltroSesionEjercicio filtro, Model model, HttpSession session) {
+        String strTo = "entrenador/sesion";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        if(filtro.estaVacio()){
+            return "redirect:/entrenador/sesion?id=" + filtro.getIdSesion();
+        }
+
+        List<SesionEjercicio> sesionEjercicios = sesionEjercicioService.buscarSesionEjercicioPorFiltro(filtro);
+
+        model.addAttribute("filtro", filtro);
         model.addAttribute("sesionEjercicios", sesionEjercicios);
         return strTo;
     }
@@ -213,7 +277,6 @@ public class EntrenadorFuerzaController extends BaseController{
         }
 
         RutinaSesion rutinaSesion = rutinaSesionService.buscarRutinaSesion(idRutina, idSesion);
-
         model.addAttribute("rutinaSesion", rutinaSesion);
         return strTo;
     }
@@ -341,6 +404,19 @@ public class EntrenadorFuerzaController extends BaseController{
 
         rutinaService.borrarRutina(id);
         return "redirect:/entrenador/rutinas";
+    }
+
+    @GetMapping("/cliente/rutina/borrar")
+    public String borrarRutina(@RequestParam("idRutina") Integer idRutina, @RequestParam("idCliente") Integer idCliente, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        rutinaService.borrarRutina(idRutina);
+        return "redirect:/entrenador/cliente/"+idCliente+"/rutinas";
     }
 
     @PostMapping("/rutina/guardar")

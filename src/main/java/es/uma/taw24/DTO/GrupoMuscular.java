@@ -12,4 +12,5 @@ import java.util.List;
 public class GrupoMuscular {
     private Integer id;
     private String nombre;
+    private List<Ejercicio> ejercicios;
 }

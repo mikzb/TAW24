@@ -15,4 +15,5 @@ public class Ejercicio {
     private Tipo tipo;
     private String nombre;
     private String url;
+    private List<GrupoMuscular> gruposMusculares;
 }
