@@ -68,4 +68,10 @@ public class SesionEjercicioService extends DTOService<SesionEjercicio, SesionEj
         SesionEjercicioEntity sesionEjercicioEntity = this.sesionEjercicioRepository.findBySesionIdAndEjercicioId(idSesion, idEjercicio);
         this.sesionEjercicioRepository.delete(sesionEjercicioEntity);
     }
+
+    public List<SesionEjercicio> findSesionEjerciciosByRutinaId(Integer rutinaId) {
+        return this.entidadesADTO(this.sesionEjercicioRepository.findByRutinaId(rutinaId));
+    }
+
+
 }

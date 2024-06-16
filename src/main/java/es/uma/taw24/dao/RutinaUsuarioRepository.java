@@ -31,4 +31,6 @@ public interface RutinaUsuarioRepository extends JpaRepository<RutinaUsuarioEnti
 
     @Query("SELECT ru.idrutina FROM RutinaUsuarioEntity ru WHERE ru.idusuario.id = :clienteId AND ru.idrutina.identrenador.id = :entrenadorId AND ru.idrutina.fechacreacion >= :lowerFecha AND ru.idrutina.fechacreacion <= :upperFecha")
     public List<RutinaEntity> findByClienteIdAndFecha(@Param("entrenadorId") Integer entrenadorId , @Param("clienteId") Integer clienteId, @Param("lowerFecha") Instant lowerFecha, @Param("upperFecha") Instant upperFecha);
+
+
 }
