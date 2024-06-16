@@ -2,7 +2,11 @@ package es.uma.taw24.entity;
 
 import es.uma.taw24.DTO.DTO;
 import es.uma.taw24.DTO.Usuario;
+import es.uma.taw24.service.UsuarioService;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -49,6 +53,19 @@ public class UsuarioEntity implements Serializable, DTO<Usuario> {
 
     @OneToMany(mappedBy = "usuario")
     private Set<UsuarioDietaEntity> dietausuarios;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "ID_DIETISTA")
+    private UsuarioEntity idDietista;
+
+    public UsuarioEntity getIdDietista() {
+        return idDietista;
+    }
+
+    public void setIdDietista(UsuarioEntity idDietista) {
+        this.idDietista = idDietista;
+    }
 
     public Boolean getPermisoCliente() {
         return permisoCliente;
@@ -165,6 +182,11 @@ public class UsuarioEntity implements Serializable, DTO<Usuario> {
         usuario.setPermisoEntrenador(this.permisoEntrenador);
         usuario.setPermisoDietista(this.permisoDietista);
         usuario.setPermisoCliente(this.permisoCliente);
+        if (this.idDietista != null) {
+            usuario.setDietista(this.idDietista.toDTO());
+        } else {
+            usuario.setDietista(null);
+        }
         return usuario;
     }
 

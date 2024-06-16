@@ -11,14 +11,19 @@ public class Usuario {
     private String email;
     private String password;
 
-    private int id;
+    private Integer id;
     private String nombre;
     private String apellidos;
     private String sexo;
-    private short edad;
+    private Short edad;
     private boolean permisoAdmin;
     private boolean permisoEntrenador;
     private boolean permisoDietista;
     private boolean permisoCliente;
     private boolean crosstraining;
+    private Usuario dietista;
+
+    public String getNombreCompleto() {
+        return this.getNombre() + " " + this.getApellidos();
+    }
 }

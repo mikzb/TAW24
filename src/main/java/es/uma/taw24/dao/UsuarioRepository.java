@@ -8,6 +8,7 @@ package es.uma.taw24.dao;
 
 import es.uma.taw24.entity.DietaEntity;
 import es.uma.taw24.entity.UsuarioEntity;
+import es.uma.taw24.ui.FiltroUsuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +16,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer>, UsuarioRepositoryCustom {
     @Query("select a from UsuarioEntity a where a.email = :email and a.passwordhash = :pwd")
     public UsuarioEntity autentica (@Param("email") String email, @Param("pwd")String pwd);
 
@@ -32,4 +33,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer>
             "JOIN UsuarioEntity u ON ud.id.idusuario = u.id " +
             "WHERE u.id = :usuarioId")
     DietaEntity findDietaByUsuarioId(@Param("usuarioId") Integer usuarioId);
+
+    @Query("SELECT u FROM UsuarioEntity u WHERE u.permisoDietista = true")
+    List<UsuarioEntity> findDietistas();
 }

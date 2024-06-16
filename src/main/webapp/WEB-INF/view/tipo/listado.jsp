@@ -32,13 +32,13 @@
     %>
     <tr>
         <td><%= tipo.getNombre() %></td>
-        <td><a href="/grupomuscular/editar?id=<%= tipo.getId() %>">Editar</a></td>
-        <td><a href="/grupomuscular/borrar?id=<%= tipo.getId() %>">Borrar</a></td>
+        <td><a href="/tipo/editar?id=<%= tipo.getId() %>">Editar</a></td>
+        <td><a href="/tipo/borrar?id=<%= tipo.getId() %>">Borrar</a></td>
     </tr>
     <%
         }
     %>
 </table>
-<a href="/grupomuscular/crear">Nuevo grupo muscular... </a>
+<a href="/tipo/crear">Nuevo tipo de ejercicio... </a>
 </body>
 </html>

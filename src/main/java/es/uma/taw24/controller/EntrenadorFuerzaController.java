@@ -31,6 +31,9 @@ public class EntrenadorFuerzaController extends BaseController{
     private RutinaSesionService rutinaSesionService;
 
     @Autowired
+    private RutinaUsuarioService rutinaUsuarioService;
+
+    @Autowired
     private SesionEjercicioService sesionEjercicioService;
 
     @Autowired
@@ -81,6 +84,7 @@ public class EntrenadorFuerzaController extends BaseController{
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Rutina> rutinas = rutinaService.listarRutinas(id, usuarioEntrenador.getId());
         model.addAttribute("rutinas", rutinas);
+        model.addAttribute("idCliente", id);
         return strTo;
     }
 
@@ -95,6 +99,10 @@ public class EntrenadorFuerzaController extends BaseController{
         }
         Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
         List<Rutina> rutinas = rutinaService.listarRutinas(usuarioEntrenador.getId());
+        List<Usuario> clientes = usuarioService.listarClientes(usuarioEntrenador.getId());
+
+        model.addAttribute("cliente", new Usuario());
+        model.addAttribute("clientes", clientes);
         model.addAttribute("rutinas", rutinas);
         return strTo;
     }
@@ -249,7 +257,7 @@ public class EntrenadorFuerzaController extends BaseController{
             return accessDenied();
         }
 
-        rutinaSesionService.borrarRutinaSesion(idRutina, idSesion);
+        sesionService.borrarSesion(idSesion);
         return "redirect:/entrenador/rutina?id=" + idRutina;
     }
 
@@ -264,5 +272,87 @@ public class EntrenadorFuerzaController extends BaseController{
 
         sesionEjercicioService.borrarSesionEjercicio(idSesion, idEjercicio);
         return "redirect:/entrenador/sesion?id=" + idSesion;
+    }
+    @GetMapping("/rutina/anyadir")
+    public String anyadirRutina(@RequestParam("idCliente") Integer idCliente, Model model, HttpSession session) {
+        String strTo = "redirect:/entrenador/cliente/" + idCliente + "/rutinas";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        Usuario cliente = usuarioService.buscarUsuario(idCliente);
+        Rutina rutina = new Rutina();
+
+        Usuario usuarioEntrenador = (Usuario) session.getAttribute("usuario");
+        Entrenador entrenador = entrenadorService.buscarEntrenador(usuarioEntrenador.getId());
+
+        rutina.setEntrenador(entrenador);
+
+        RutinaUsuario rutinaUsuario = new RutinaUsuario();
+
+        rutinaUsuario.setUsuario(cliente);
+        rutinaUsuario.setRutina(rutina);
+
+        rutinaUsuarioService.guardar(rutinaUsuario);
+
+        return strTo;
+    }
+
+    @PostMapping("/rutina/crear")
+    public String crearRutina(@ModelAttribute("cliente") Usuario cliente, HttpSession session) {
+        String strTo = "redirect:/entrenador/rutina/anyadir?idCliente=" + cliente.getId();;
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+
+        return strTo;
+    }
+
+//    @GetMapping("/rutina/editar")
+//    public String editarRutina(@RequestParam("id") Integer id, Model model, HttpSession session) {
+//        String strTo = "entrenador/datos_rutina";
+//        if(!estaAutenticado(session)){
+//            return redirectToLogin();
+//        }
+//        if (!esEntrenador(session)) {
+//            return accessDenied();
+//        }
+//
+//        Rutina rutina = rutinaService.buscarRutina(id);
+//        model.addAttribute("rutina", rutina);
+//        return strTo;
+//    }
+
+    @GetMapping("/rutina/borrar")
+    public String borrarRutina(@RequestParam("id") Integer id, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        rutinaService.borrarRutina(id);
+        return "redirect:/entrenador/rutinas";
+    }
+
+    @PostMapping("/rutina/guardar")
+    public String guardarRutina(@ModelAttribute("rutina") RutinaUsuario rutinaUsuario, HttpSession session) {
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+
+        rutinaUsuarioService.guardar(rutinaUsuario);
+        return "redirect:/entrenador/rutinas";
     }
 }

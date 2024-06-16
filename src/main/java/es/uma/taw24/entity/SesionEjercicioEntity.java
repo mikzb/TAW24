@@ -34,8 +34,8 @@ public class SesionEjercicioEntity implements DTO<SesionEjercicio> {
 
     @Column(name = "COMPLETADO", nullable = false)
     private Boolean completado = false;
-    
-    @Column(name = "ORDEN", nullable = false)
+
+    @Column(name = "ORDEN", nullable = false, insertable = false, updatable = false)
     private Integer orden;
 
     @Column(name = "VELOCIDAD")

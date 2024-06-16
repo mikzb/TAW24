@@ -1,12 +1,14 @@
 package es.uma.taw24.entity;
 
+import es.uma.taw24.DTO.DTO;
+import es.uma.taw24.DTO.RutinaUsuario;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "RUTINA_USUARIO")
-public class RutinaUsuarioEntity {
+public class RutinaUsuarioEntity implements DTO<RutinaUsuario> {
     @EmbeddedId
-    private RutinaUsuarioIdEntity id;
+    private RutinaUsuarioIdEntity id = new RutinaUsuarioIdEntity();
 
     @MapsId("idrutina")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -42,4 +44,11 @@ public class RutinaUsuarioEntity {
         this.idusuario = idusuario;
     }
 
+    @Override
+    public RutinaUsuario toDTO() {
+        RutinaUsuario rutinaUsuario = new RutinaUsuario();
+        rutinaUsuario.setRutina(this.idrutina.toDTO());
+        rutinaUsuario.setUsuario(this.idusuario.toDTO());
+        return rutinaUsuario;
+    }
 }

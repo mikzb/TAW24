@@ -9,6 +9,6 @@ import lombok.Data;
 
 @Data
 public class Tipo {
-    private int id;
+    private Integer id;
     private String nombre;
 }
