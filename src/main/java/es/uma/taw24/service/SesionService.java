@@ -12,12 +12,14 @@ import es.uma.taw24.DTO.SesionEjercicio;
 import es.uma.taw24.dao.RutinaSesionRepository;
 import es.uma.taw24.dao.SesionEjercicioRepository;
 import es.uma.taw24.dao.SesionRepository;
+import es.uma.taw24.entity.RutinaEntity;
 import es.uma.taw24.entity.RutinaSesionEntity;
 import es.uma.taw24.entity.SesionEjercicioEntity;
 import es.uma.taw24.entity.SesionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -37,9 +39,17 @@ public class SesionService extends DTOService<Sesion, SesionEntity>{
     }
 
     public void guardar(Sesion sesion){
-        SesionEntity sesionEntity = this.sesionRepository.findById(sesion.getId()).orElse(new SesionEntity());
+        SesionEntity sesionEntity;
+        if(sesion.getId() == null){
+            sesionEntity = new SesionEntity();
+        }
+        else {
+            sesionEntity = this.sesionRepository.findById(sesion.getId()).orElse(new SesionEntity());
+        }
+        //sesionEntity = this.sesionRepository.findById(sesion.getId()).orElse(new SesionEntity());
         sesionEntity.setCrosstraining(sesion.getCrosstraining());
         sesionRepository.save(sesionEntity);
+        sesion.setId(sesionEntity.getId());
     }
 
     public Sesion buscarSesion(Integer id) {

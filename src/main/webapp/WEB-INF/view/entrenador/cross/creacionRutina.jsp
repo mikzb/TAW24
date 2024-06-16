@@ -8,6 +8,7 @@
 <%
     List<RutinaSesion> list = (List<RutinaSesion>) request.getAttribute("lista");
     Usuario client = (Usuario) request.getAttribute("cliente");
+    Integer idRutina = (Integer) request.getAttribute("rutinaId");
 %>
 <html>
 <head>
@@ -38,11 +39,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana() == 1){
             %>
-                        <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+                        <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
                     }else{
             %>
-                        <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=1%>">A&ntildeadir Sesi&oacuten</a>
+                        <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=1%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -53,11 +54,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana() == 2){
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
             }else{
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=2%>">A&ntildeadir Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=2%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -68,11 +69,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana() == 3){
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
             }else{
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=3%>">A&ntildeadir Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=3%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -83,11 +84,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana()==4){
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
             }else{
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=4%>">A&ntildeadir Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=4%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -98,11 +99,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana() == 5){
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
             }else{
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=5%>">A&ntildeadir Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=5%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -113,11 +114,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana()==6){
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
             }else{
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=6%>">A&ntildeadir Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=6%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -128,11 +129,11 @@
                 for(RutinaSesion rs: list){
                     if(rs.getDiadesemana()==7){
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>">Editar Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/editarSesion/<%=rs.getSesion()%>?rutinaId=<%=idRutina%>">Editar Sesi&oacuten</a>
             <%
             }else{
             %>
-            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=7%>">A&ntildeadir Sesi&oacuten</a>
+            <a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=7%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a>
             <%
                     }
                 }
@@ -143,13 +144,13 @@
         }else{
     %>
             <tr>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=1%>">A&ntildeadir Sesi&oacuten</a></th>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=2%>">A&ntildeadir Sesi&oacuten</a></th>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=3%>">A&ntildeadir Sesi&oacuten</a></th>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=4%>">A&ntildeadir Sesi&oacuten</a></th>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=5%>">A&ntildeadir Sesi&oacuten</a></th>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=6%>">A&ntildeadir Sesi&oacuten</a></th>
-                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=7%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=1%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=2%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=3%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=4%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=5%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=6%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
+                <th><a href="/entrenadorCross/<%=client.getId()%>/crearRutinaSesion/<%=7%>?rutinaId=<%=idRutina%>">A&ntildeadir Sesi&oacuten</a></th>
             </tr>
     <%
         }

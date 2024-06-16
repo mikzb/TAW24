@@ -71,6 +71,7 @@ public class RutinaService extends DTOService<Rutina, RutinaEntity> {
         }
         rutinaEntity.setIdentrenador(this.entrenadorRepository.findById(rutina.getEntrenador().getId()).orElseThrow(() -> new RuntimeException("Entrenador con id: " + rutina.getEntrenador().getId() + " no encontrado.")));
         this.rutinaRepository.save(rutinaEntity);
+        rutina.setId(rutinaEntity.getId());//no se si esto se cargaria algo de cristian
     }
 
     /*public void guardar(Rutina rutina) {

@@ -6,6 +6,7 @@
 <%
     Usuario cliente = (Usuario) request.getAttribute("cliente");
     List<Rutina> lista = (List<Rutina>) request.getAttribute("listaRutinas");
+    Rutina rutina = (Rutina) request.getAttribute("rutina");
 %>
 <html>
 <head>
@@ -25,19 +26,19 @@
     </tr>
     <%
         if(!lista.isEmpty()){
-        for(Rutina rutina: lista){
+        for(Rutina rutinal: lista){
     %>
             <tr>
-                <th><%=rutina.getId()%></th>
-                <th><%=rutina.getIdentrenador().getUsuario().getNombre()%></th>
-                <th><%=rutina.getFechacreacion()%></th>
+                <th><%=rutinal.getId()%></th>
+                <th><%=rutinal.getEntrenador().getUsuario().getNombre()%></th>
+                <th><%=rutinal.getFechacreacion()%></th>
             </tr>
     <%
         }
         }
     %>
 </table>
-<button onclick="window.location.href='/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/crear'"
+<button onclick="window.location.href='/entrenadorCross/clientes/<%=cliente.getId()%>/rutinas/crear?rutinaId=<%=rutina.getId()%>' "
     >A&ntildeadir Rutina</button>
 <button onclick="window.location.href='/entrenadorCross/'">Volver</button>
 </body>

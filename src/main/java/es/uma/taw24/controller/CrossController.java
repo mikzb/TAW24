@@ -81,7 +81,8 @@ public class CrossController extends BaseController{
 
     @GetMapping("/clientes/{id}/rutinas")
     public String doRutinas(Model model, HttpSession session, @PathVariable Integer id) {
-        String strTo = "redirect:/entrenadorCross/clientes/"+id+"/rutinas/crearRutina";
+        //String strTo = "redirect:/entrenadorCross/clientes/"+id+"/rutinas/crearRutina";
+        String strTo = "entrenador/cross/rutinasCliente";
         if(!estaAutenticado(session)){
             return redirectToLogin();
         }
@@ -105,12 +106,18 @@ public class CrossController extends BaseController{
         }
         model.addAttribute("listaRutinas", rutinaService.listarRutinasEntidades(listaRutinas));
 
+        Rutina rutina = new Rutina();
+        rutina.setFechacreacion(Instant.now());
+        rutina.setEntrenador(entrenador);
+        rutinaService.guardar(rutina);
 
+        model.addAttribute("rutina", rutina);
+        model.addAttribute("rutinaId", rutina.getId());
         return strTo;
     }
 
-    @GetMapping("/clientes/{id}/rutinas/crearRutina")
-    public String doCrearRutina(Model model, HttpSession session, @PathVariable Integer id, @ModelAttribute Entrenador entrenador){
+    /*@GetMapping("/clientes/{id}/rutinas/crearRutina")
+    public String doCrearRutina(Model model, HttpSession session, @PathVariable Integer id){
         String strTo = "entrenador/cross/rutinasCliente";
         if(!estaAutenticado(session)){
             return redirectToLogin();
@@ -118,17 +125,23 @@ public class CrossController extends BaseController{
         if (!esEntrenador(session)) {
             return accessDenied();
         }
+        Usuario cliente = usuarioService.buscarUsuario(id);
+        model.addAttribute("cliente", cliente);
 
+        Usuario user = (Usuario) session.getAttribute("usuario");
+
+        Entrenador entrenador = entrenadorService.buscarEntrenador(user.getId());
+        model.addAttribute("entrenador", entrenador);
         Rutina rutina = new Rutina();
         rutina.setFechacreacion(Instant.now());
         rutina.setEntrenador(entrenador);
         rutinaService.guardar(rutina);
         model.addAttribute("rutina", rutina);
         return strTo;
-    }
+    }*/
 
     @GetMapping("/clientes/{id}/rutinas/crear")
-    public String doCrearRutinas(Model model, HttpSession session, @PathVariable Integer id, @ModelAttribute Rutina rutina) {
+    public String doCrearRutinas(Model model, HttpSession session, @PathVariable Integer id, @RequestParam Integer rutinaId) {
         String strTo = "entrenador/cross/creacionRutina";
         if(!estaAutenticado(session)){
             return redirectToLogin();
@@ -136,7 +149,8 @@ public class CrossController extends BaseController{
         if (!esEntrenador(session)) {
             return accessDenied();
         }
-        List<RutinaSesion> lista = rutinaSesionService.buscarRutinaSesion(rutina.getId());
+        model.addAttribute("rutinaId", rutinaId);
+        List<RutinaSesion> lista = rutinaSesionService.buscarRutinaSesion(rutinaId);
         model.addAttribute("listaRutinas", lista);
         Usuario cliente = usuarioService.buscarUsuario(id);
         model.addAttribute("cliente", cliente);
@@ -146,7 +160,7 @@ public class CrossController extends BaseController{
 
     @GetMapping("{id}/crearRutinaSesion/{dia}")
     public String doCrearRutinaSesion(Model model, HttpSession session, @PathVariable Integer id, @PathVariable short dia,
-                                      @ModelAttribute Rutina rutina) {
+                                      @RequestParam Integer rutinaId) {
         String strTo = "entrenador/cross/sesion";
         if(!estaAutenticado(session)){
             return redirectToLogin();
@@ -155,23 +169,46 @@ public class CrossController extends BaseController{
             return accessDenied();
         }
 
+        Usuario cliente = usuarioService.buscarUsuario(id);
+        model.addAttribute("cliente", cliente);
+
+        model.addAttribute("rutina", rutinaId);
+
         Sesion sesion = new Sesion();
         sesion.setCrosstraining(true);
+        sesionService.guardar(sesion);
 
         RutinaSesion rutinaSesion = new RutinaSesion();
-        rutinaSesion.setRutina(rutinaService.buscarRutina(rutina.getId()));
+        rutinaSesion.setRutina(rutinaService.buscarRutina(rutinaId));
         rutinaSesion.setDiadesemana(dia);
         rutinaSesion.setSesion(sesion);
+        rutinaSesionService.guardar(rutinaSesion);
 
-        SesionEjercicio sesionEjercicio = new SesionEjercicio();
-        sesionEjercicio.setSesion(sesion);
-
-        model.addAttribute("sesionEjercicio", sesionEjercicio);
+        /*SesionEjercicio sesionEjercicio = new SesionEjercicio();
+        sesionEjercicio.setSesion(sesion);*/
+        List<SesionEjercicio> listSesionEjs = sesionEjercicioService.buscarSesionEjercicioPorIdSesion(sesion.getId());
+        model.addAttribute("listSesionEjs", listSesionEjs);
         return strTo;
     }
 
 
-
+    @GetMapping("/{id}/crearRutinaSesion/{dia}/crearEjercicio")
+    public String crearSesionEjercicio(Model model, HttpSession session, @PathVariable Integer id, @PathVariable short dia,
+                                       @RequestParam Integer rutinaId){
+        String strTo = "entrenador/cross/sesionEjercicio";
+        if(!estaAutenticado(session)){
+            return redirectToLogin();
+        }
+        if (!esEntrenador(session)) {
+            return accessDenied();
+        }
+        Usuario cliente = usuarioService.buscarUsuario(id);
+        SesionEjercicio sesionEjercicio= new SesionEjercicio();
+        model.addAttribute("sesionEjercicio", sesionEjercicio);
+        List<Ejercicio> ejercicioList = this.ejercicioService.listarEjercicios();
+        model.addAttribute("ejercicioList", ejercicioList);
+        return strTo;
+    }
 
 
     @GetMapping("/rutinas")
